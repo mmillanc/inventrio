@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { getActivePlan, getSettings } from "@/lib/settings";
-import { getModulesForPlan, toMetadata } from "@/modules/_core/utils/moduleRegistry";
+import { getModulesForPlan, toMetadata } from "@/modules/_core/utils/moduleCatalog";
 import Sidebar from "./Sidebar";
 
 export const dynamic = "force-dynamic";

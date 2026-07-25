@@ -3,7 +3,7 @@ import StatCard from "@/modules/_core/components/StatCard";
 import ModuleIcon from "@/modules/_core/components/ModuleIcon";
 import { listRows } from "@/lib/db/local";
 import { getActivePlan, getSettings } from "@/lib/settings";
-import { getModulesForPlan } from "@/modules/_core/utils/moduleRegistry";
+import { getModulesForPlan } from "@/modules/_core/utils/moduleCatalog";
 import { formatCurrency, formatDate, daysUntil } from "@/lib/utils";
 import type { Item, StockMovement } from "@/modules/inventory/types";
 import type { Lot } from "@/modules/lots/types";

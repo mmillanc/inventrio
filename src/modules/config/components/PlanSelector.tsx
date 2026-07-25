@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import { useSettings } from "@/modules/_core/hooks/useSettings";
 import { PLAN_LIST } from "@/modules/_core/utils/planResolver";
-import { getModuleConfig } from "@/modules/_core/utils/moduleRegistry";
+import { getModuleConfig } from "@/modules/_core/utils/moduleCatalog";
 import { cn } from "@/lib/utils";
 import type { PlanId } from "@/modules/_core/types";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { getModuleConfig, listModuleConfigs } from "@/modules/_core/utils/moduleRegistry";
+import { getModuleConfig, listModuleConfigs } from "@/modules/_core/utils/moduleCatalog";
 import type { ModuleConfig } from "@/modules/_core/types";
 
 /** Resolves the module matching a slug, or the one in the current URL. */
