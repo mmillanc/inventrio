@@ -1,0 +1,13 @@
+{
+  "id": "pyme",
+  "name": "Pyme",
+  "description": "Inventario, ventas y clientes para pequeños comercios.",
+  "modules": [
+    "inventory",
+    "suppliers",
+    "sales",
+    "customers",
+    "reports",
+    "config"
+  ]
+}
