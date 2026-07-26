@@ -68,10 +68,10 @@ export function ItemList() {
             className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-teal-500"
           >
             <option value="">Todas las categorías</option>
-            {(inventoryConfig.fields.find((field) => field.name === "category")?.options ?? []).map(
-              (option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
+            {Array.from(new Set(rows.map((item) => item.category).filter(Boolean))).sort().map(
+              (value) => (
+                <option key={value} value={value}>
+                  {value}
                 </option>
               ),
             )}

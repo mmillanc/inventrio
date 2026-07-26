@@ -12,10 +12,14 @@ import { logout } from "@/app/(auth)/actions";
 interface SidebarProps {
   modules: ModuleMetadata[];
   plan: PlanId;
-  storeName: string;
 }
 
-export function Sidebar({ modules, plan, storeName }: SidebarProps) {
+const planLabel: Record<PlanId, string> = {
+  laboratorio: "InventaLab",
+  pyme: "InventaShop",
+};
+
+export function Sidebar({ modules, plan }: SidebarProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -44,8 +48,8 @@ export function Sidebar({ modules, plan, storeName }: SidebarProps) {
         <div className="flex items-center gap-2 border-b border-slate-100 px-5 py-4">
           <Boxes className="size-6 text-teal-600" />
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-slate-900">{storeName}</p>
-            <p className="text-xs capitalize text-slate-500">Plan {plan}</p>
+            <p className="truncate text-sm font-semibold text-slate-900">Inventrio</p>
+            <p className="text-xs text-slate-500">{planLabel[plan]}</p>
           </div>
         </div>
 

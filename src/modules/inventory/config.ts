@@ -15,16 +15,9 @@ export const inventoryConfig: ModuleConfig = {
     {
       name: "category",
       label: "Categoría",
-      type: "select",
+      type: "text",
       required: true,
-      options: [
-        { value: "reactivos", label: "Reactivos" },
-        { value: "consumibles", label: "Consumibles" },
-        { value: "vidrieria", label: "Vidriería" },
-        { value: "equipos", label: "Equipos" },
-        { value: "medicamentos", label: "Medicamentos" },
-        { value: "otros", label: "Otros" },
-      ],
+      placeholder: "Ej. Reactivo líquido, Columna HPLC, Guantes, Viales...",
     },
     {
       name: "unit",
