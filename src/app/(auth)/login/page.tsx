@@ -51,11 +51,6 @@ export default function LoginPage() {
           {pending ? "Entrando..." : "Entrar"}
         </button>
       </form>
-
-      <p className="mt-4 text-center text-xs text-slate-400">
-        Modo local: usuario <code>admin</code> y contraseña <code>inventrio</code> por defecto
-        (configurable con APP_USER y APP_PASSWORD).
-      </p>
     </div>
   );
 }
