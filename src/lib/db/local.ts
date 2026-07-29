@@ -13,17 +13,23 @@ const DATA_DIR = process.env.INVENTRIO_DATA_DIR
 const DATA_FILE = path.join(DATA_DIR, "db.json");
 
 function read(): Database {
-  if (!fs.existsSync(DATA_FILE)) {
-    const seeded = seedDatabase();
-    write(seeded);
-    return seeded;
+  try {
+    if (!fs.existsSync(DATA_FILE)) {
+      const seeded = seedDatabase();
+      try { write(seeded); } catch { /* read-only fs (e.g. Vercel) */ }
+      return seeded;
+    }
+    return JSON.parse(fs.readFileSync(DATA_FILE, "utf8")) as Database;
+  } catch {
+    return seedDatabase();
   }
-  return JSON.parse(fs.readFileSync(DATA_FILE, "utf8")) as Database;
 }
 
 function write(db: Database): void {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-  fs.writeFileSync(DATA_FILE, JSON.stringify(db, null, 2), "utf8");
+  try {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    fs.writeFileSync(DATA_FILE, JSON.stringify(db, null, 2), "utf8");
+  } catch { /* read-only filesystem – noop */ }
 }
 
 export function listRows(table: TableName): Row[] {
