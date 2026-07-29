@@ -12,9 +12,13 @@ export function credentials(): { user: string; password: string } {
 }
 
 export async function isValidLogin(user: string, password: string): Promise<boolean> {
-  const settings = await getSettings();
-  if (settings?.admin_user && settings?.admin_password) {
-    return user === settings.admin_user && password === settings.admin_password;
+  try {
+    const settings = await getSettings();
+    if (settings?.admin_user && settings?.admin_password) {
+      return user === settings.admin_user && password === settings.admin_password;
+    }
+  } catch {
+    /* fall back to env credentials */
   }
   const expected = credentials();
   return user === expected.user && password === expected.password;

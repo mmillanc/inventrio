@@ -40,20 +40,25 @@ export async function register(_state: string | null, formData: FormData): Promi
   if (password !== confirm) return "Las contraseñas no coinciden.";
   if (plan !== "laboratorio" && plan !== "pyme") return "Selecciona un plan válido.";
 
-  const values = { admin_user: user, admin_password: password, plan };
-  const settings = await getSettings();
-  if (settings) {
-    await updateRow("settings", settings.id, values);
-  } else {
-    await insertRow("settings", values);
-  }
+  try {
+    const values = { admin_user: user, admin_password: password, plan };
+    const settings = await getSettings();
+    if (settings) {
+      await updateRow("settings", settings.id, values);
+    } else {
+      await insertRow("settings", values);
+    }
 
-  const store = await cookies();
-  store.set(SESSION_COOKIE, user, {
-    httpOnly: true,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-  });
-  redirect("/");
+    const store = await cookies();
+    store.set(SESSION_COOKIE, user, {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+    redirect("/");
+  } catch (error) {
+    console.error("register error:", error);
+    return "No se pudo guardar la cuenta. Verifica que las migraciones de Supabase estén aplicadas.";
+  }
 }
