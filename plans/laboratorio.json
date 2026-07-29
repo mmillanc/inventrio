@@ -1,0 +1,13 @@
+{
+  "id": "laboratorio",
+  "name": "Laboratorio",
+  "description": "Control de insumos, lotes y vencimientos para laboratorios.",
+  "modules": [
+    "inventory",
+    "suppliers",
+    "lots",
+    "expirations",
+    "reports",
+    "config"
+  ]
+}
