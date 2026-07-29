@@ -64,7 +64,9 @@ export async function updateRow(
   const client = createServerClient();
   if (!client) return local.updateRow(table, id, values);
 
-  const { id: _, created_at: __, ...rest } = values;
+  const rest = Object.fromEntries(
+    Object.entries(values).filter(([key]) => key !== "id" && key !== "created_at"),
+  );
   const { data, error } = await client
     .from(table)
     .update(rest)
