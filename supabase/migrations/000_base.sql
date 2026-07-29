@@ -11,5 +11,7 @@ create table if not exists settings (
   currency text not null default 'USD',
   tax_rate numeric not null default 0,
   expiration_alert_days integer not null default 30,
+  admin_user text not null default 'admin',
+  admin_password text not null default 'inventrio',
   created_at timestamptz not null default now()
 );

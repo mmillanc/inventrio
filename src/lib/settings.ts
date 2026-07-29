@@ -1,15 +1,16 @@
 import "server-only";
-import { listRows } from "@/lib/db/local";
+import { listRows } from "@/lib/db";
 import { isPlanId } from "@/modules/_core/utils/planResolver";
 import type { PlanId, Settings } from "@/modules/_core/types";
 
 /** Server-side read of the workspace settings row. */
-export function getSettings(): Settings | null {
-  const [row] = listRows("settings");
+export async function getSettings(): Promise<Settings | null> {
+  const [row] = await listRows("settings");
   return (row as unknown as Settings) ?? null;
 }
 
-export function getActivePlan(): PlanId {
-  const plan = getSettings()?.plan;
+export async function getActivePlan(): Promise<PlanId> {
+  const settings = await getSettings();
+  const plan = settings?.plan;
   return isPlanId(plan) ? plan : "laboratorio";
 }

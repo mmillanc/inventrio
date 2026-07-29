@@ -17,5 +17,7 @@ export interface Settings {
   currency: string;
   tax_rate: number;
   expiration_alert_days: number;
+  admin_user?: string;
+  admin_password?: string;
   created_at: string;
 }

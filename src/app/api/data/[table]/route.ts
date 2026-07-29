@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { applyMovementToStock, insertRow, listRows } from "@/lib/db/local";
+import { applyMovementToStock, insertRow, listRows } from "@/lib/db";
 import { isTable } from "@/lib/db/schema";
 
 export const dynamic = "force-dynamic";
@@ -12,7 +12,7 @@ export async function GET(
   if (!isTable(table)) {
     return NextResponse.json({ error: `Tabla desconocida: ${table}` }, { status: 404 });
   }
-  return NextResponse.json({ data: listRows(table) });
+  return NextResponse.json({ data: await listRows(table) });
 }
 
 export async function POST(
@@ -24,7 +24,7 @@ export async function POST(
     return NextResponse.json({ error: `Tabla desconocida: ${table}` }, { status: 404 });
   }
   const body = (await request.json()) as Record<string, unknown>;
-  const row = insertRow(table, body);
-  if (table === "stock_movements") applyMovementToStock(row);
+  const row = await insertRow(table, body);
+  if (table === "stock_movements") await applyMovementToStock(row);
   return NextResponse.json({ data: row }, { status: 201 });
 }

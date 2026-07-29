@@ -1,25 +1,32 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import StatCard from "@/modules/_core/components/StatCard";
 import ModuleIcon from "@/modules/_core/components/ModuleIcon";
-import { listRows } from "@/lib/db/local";
+import { listRows } from "@/lib/db";
 import { getActivePlan, getSettings } from "@/lib/settings";
 import { getModulesForPlan } from "@/modules/_core/utils/moduleCatalog";
 import { formatCurrency, formatDate, daysUntil } from "@/lib/utils";
+import { SESSION_COOKIE } from "@/lib/auth";
+import LandingPage from "@/components/LandingPage";
 import type { Item, StockMovement } from "@/modules/inventory/types";
 import type { Lot } from "@/modules/lots/types";
 
 export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
-  const plan = getActivePlan();
-  const settings = getSettings();
+export default async function DashboardPage() {
+  const store = await cookies();
+  const session = store.get(SESSION_COOKIE)?.value;
+  if (!session) return <LandingPage />;
+
+  const plan = await getActivePlan();
+  const settings = await getSettings();
   const currency = settings?.currency ?? "USD";
   const alertDays = settings?.expiration_alert_days ?? 30;
   const modules = getModulesForPlan(plan);
 
-  const items = listRows("items") as unknown as Item[];
-  const lots = listRows("lots") as unknown as Lot[];
-  const movements = (listRows("stock_movements") as unknown as StockMovement[])
+  const items = (await listRows("items")) as unknown as Item[];
+  const lots = (await listRows("lots")) as unknown as Lot[];
+  const movements = ((await listRows("stock_movements")) as unknown as StockMovement[])
     .slice()
     .sort((a, b) => String(b.moved_at).localeCompare(String(a.moved_at)))
     .slice(0, 5);

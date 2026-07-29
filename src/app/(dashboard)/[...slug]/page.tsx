@@ -16,7 +16,7 @@ export default async function ModulePage({ params }: PageProps) {
   const definition = getModule(slug[0]);
   if (!definition) notFound();
 
-  const plan = getActivePlan();
+  const plan = await getActivePlan();
   const { config } = definition;
   const allowed = planAllows(plan, config.slug) && config.plans.includes(plan);
 

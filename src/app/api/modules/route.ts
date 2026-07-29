@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 /** Metadata of the modules unlocked by the active plan. */
 export async function GET() {
-  const plan = getActivePlan();
+  const plan = await getActivePlan();
   return NextResponse.json({
     plan,
     modules: getModulesForPlan(plan).map(toMetadata),
