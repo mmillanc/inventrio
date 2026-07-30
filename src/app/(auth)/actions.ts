@@ -41,6 +41,7 @@ export async function register(_state: string | null, formData: FormData): Promi
   if (plan !== "laboratorio" && plan !== "pyme") return "Selecciona un plan válido.";
 
   let dbError = false;
+  let errorMsg = "";
   try {
     const values = { admin_user: user, admin_password: password, plan };
     const settings = await getSettings();
@@ -49,13 +50,20 @@ export async function register(_state: string | null, formData: FormData): Promi
     } else {
       await insertRow("settings", values);
     }
+
+    const verify = await getSettings();
+    if (!verify?.admin_user || verify.admin_user !== user) {
+      dbError = true;
+      errorMsg = "Los datos no se persistieron. Si estás en Vercel sin Supabase, el registro no funcionará.";
+    }
   } catch (error) {
     console.error("register error:", error);
     dbError = true;
+    errorMsg = error instanceof Error ? error.message : "Error desconocido";
   }
 
   if (dbError) {
-    return "No se pudo guardar la cuenta en la base de datos. Verifica que las migraciones de Supabase estén aplicadas.";
+    return `No se pudo guardar la cuenta: ${errorMsg}. Verifica la configuración de Supabase en Vercel.`;
   }
 
   const store = await cookies();
