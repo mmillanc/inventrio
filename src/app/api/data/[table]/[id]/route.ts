@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { deleteRow, updateRow } from "@/lib/db";
 import { isTable } from "@/lib/db/schema";
+import { hashPassword } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +14,11 @@ export async function PATCH(
     return NextResponse.json({ error: `Tabla desconocida: ${table}` }, { status: 404 });
   }
   const body = (await request.json()) as Record<string, unknown>;
+
+  if (table === "settings" && body.admin_password) {
+    body.admin_password = await hashPassword(String(body.admin_password));
+  }
+
   const row = await updateRow(table, id, body);
   if (!row) {
     return NextResponse.json({ error: "Registro no encontrado" }, { status: 404 });

@@ -9,6 +9,9 @@ export interface Item extends BaseRecord {
   min_stock: number;
   unit_cost: number;
   location: string;
+  cas_number: string | null;
+  chemical_formula: string | null;
+  storage_condition: string | null;
   supplier_id: string | null;
   notes: string;
 }
