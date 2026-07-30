@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
-import { Boxes, FlaskConical, ShoppingBag } from "lucide-react";
+import { ArrowLeft, Boxes, FlaskConical, ShoppingBag } from "lucide-react";
 import { register } from "../actions";
 
 export default function RegisterPage() {
@@ -10,8 +10,18 @@ export default function RegisterPage() {
 
   return (
     <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+      <Link
+        href="/"
+        className="mb-6 inline-flex items-center gap-1.5 text-sm text-slate-500 transition hover:text-slate-900"
+      >
+        <ArrowLeft className="size-4" />
+        Volver al inicio
+      </Link>
+
       <div className="mb-6 flex items-center gap-2">
-        <Boxes className="size-7 text-teal-600" />
+        <div className="flex size-9 items-center justify-center rounded-lg bg-teal-600">
+          <Boxes className="size-5 text-white" />
+        </div>
         <div>
           <h1 className="text-xl font-semibold text-slate-900">Crear cuenta</h1>
           <p className="text-sm text-slate-500">Elige tu plan y accede a Inventrio</p>

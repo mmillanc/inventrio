@@ -1,16 +1,31 @@
 import Link from "next/link";
-import { Boxes, Check, FlaskConical, ShoppingBag } from "lucide-react";
+import {
+  Boxes,
+  Check,
+  FlaskConical,
+  ShoppingBag,
+  BarChart3,
+  Package,
+  TrendingUp,
+  ShieldCheck,
+  ArrowRight,
+  Layers,
+  Clock,
+} from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <nav className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-2">
-            <Boxes className="size-7 text-teal-600" />
-            <span className="text-lg font-semibold text-slate-900">Inventrio</span>
-          </div>
-          <div className="flex items-center gap-3">
+    <div className="min-h-screen bg-white">
+      {/* Nav */}
+      <nav className="sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="flex size-8 items-center justify-center rounded-lg bg-teal-600">
+              <Boxes className="size-5 text-white" />
+            </div>
+            <span className="text-lg font-bold tracking-tight text-slate-900">Inventrio</span>
+          </Link>
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link
               href="/login"
               className="text-sm font-medium text-slate-600 transition hover:text-slate-900"
@@ -19,7 +34,7 @@ export default function LandingPage() {
             </Link>
             <Link
               href="/register"
-              className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-700"
+              className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 hover:shadow-md"
             >
               Crear cuenta
             </Link>
@@ -27,73 +42,230 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 text-center">
-        <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
-          Inventario profesional para tu negocio
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-500">
-          Inventrio se adapta a laboratorios y pymes con módulos específicos: trazabilidad, lotes, vencimientos, ventas y reportes.
-        </p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link
-            href="/register"
-            className="inline-flex items-center justify-center rounded-lg bg-teal-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-teal-700"
-          >
-            Empezar ahora
-          </Link>
-          <Link
-            href="/login"
-            className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-          >
-            Iniciar sesión
-          </Link>
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-teal-50/60 via-white to-white" />
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2">
+          <div className="size-[600px] rounded-full bg-teal-100/30 blur-3xl" />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-4 py-1.5 text-xs font-medium text-teal-700">
+              <Layers className="size-3.5" />
+              Sistema modular de inventario
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
+              Inventario inteligente para
+              <span className="block bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
+                laboratorios y pymes
+              </span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600">
+              Controla artículos, lotes, vencimientos, ventas y reportes en un solo lugar.
+              Inventrio se adapta a tu operación con planes específicos.
+            </p>
+            <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link
+                href="/register"
+                className="group inline-flex items-center justify-center gap-2 rounded-lg bg-teal-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 hover:shadow-lg"
+              >
+                Empezar gratis
+                <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:shadow-sm"
+              >
+                Iniciar sesión
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-center text-2xl font-semibold text-slate-900">
-          Elige tu versión
-        </h2>
-        <p className="mt-2 text-center text-slate-500">
-          Selecciona el plan que mejor se adapte a tu operación durante el registro.
-        </p>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-teal-300">
-            <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
-              <FlaskConical className="size-6" />
+      {/* Stats bar */}
+      <section className="border-y border-slate-100 bg-slate-50/50">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px px-4 sm:grid-cols-4">
+          {[
+            { label: "Artículos ilimitados", value: "∞" },
+            { label: "Planes disponibles", value: "2" },
+            { label: "Módulos activos", value: "6+" },
+            { label: "Tiempo de setup", value: "< 5 min" },
+          ].map((stat) => (
+            <div key={stat.label} className="py-6 text-center">
+              <div className="text-2xl font-bold text-slate-900">{stat.value}</div>
+              <div className="mt-1 text-xs font-medium text-slate-500">{stat.label}</div>
             </div>
-            <h3 className="text-xl font-semibold text-slate-900">InventaLab</h3>
-            <p className="mt-1 text-sm text-slate-500">Diseñado para laboratorios.</p>
-            <ul className="mt-4 space-y-2 text-sm text-slate-600">
-              {["Reactivos y lotes", "Trazabilidad por vencimientos", "Reportes de stock"].map(
-                (item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <Check className="size-4 text-teal-600" /> {item}
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="mx-auto max-w-6xl px-4 py-20">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+            Todo lo que necesitas para gestionar tu inventario
+          </h2>
+          <p className="mt-3 text-slate-600">
+            Funciones diseñadas para mantener tu stock bajo control y tu operación eficiente.
+          </p>
+        </div>
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { icon: Package, title: "Gestión de artículos", desc: "Registra productos con categorías, precios, stock mínimo y unidades de medida." },
+            { icon: Clock, title: "Control de lotes y vencimientos", desc: "Trazabilidad completa de lotes con alertas de vencimiento configurables." },
+            { icon: TrendingUp, title: "Movimientos de stock", desc: "Entradas, salidas y ajustes con historial detallado de cada operación." },
+            { icon: ShoppingBag, title: "Ventas y clientes", desc: "Registra ventas, gestiona clientes y mantén el stock actualizado automáticamente." },
+            { icon: BarChart3, title: "Reportes y análisis", desc: "Genera reportes por categoría, valor de inventario y movimientos en fechas." },
+            { icon: ShieldCheck, title: "Seguro y confiable", desc: "Datos protegidos con Supabase y autenticación por sesión con cookies httpOnly." },
+          ].map((feature) => (
+            <div
+              key={feature.title}
+              className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-teal-300 hover:shadow-lg"
+            >
+              <div className="mb-4 flex size-11 items-center justify-center rounded-xl bg-teal-50 text-teal-600 transition group-hover:bg-teal-600 group-hover:text-white">
+                <feature.icon className="size-5" />
+              </div>
+              <h3 className="text-base font-semibold text-slate-900">{feature.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{feature.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Plans */}
+      <section className="bg-slate-50/50 py-20">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+              Elige tu versión
+            </h2>
+            <p className="mt-3 text-slate-600">
+              Selecciona el plan que mejor se adapte a tu operación durante el registro.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-6 lg:grid-cols-2">
+            {/* InventaLab */}
+            <div className="relative rounded-2xl border-2 border-teal-200 bg-white p-8 shadow-sm">
+              <div className="absolute -top-3 left-8 rounded-full bg-teal-600 px-3 py-1 text-xs font-semibold text-white">
+                Para laboratorios
+              </div>
+              <div className="mb-5 flex size-14 items-center justify-center rounded-2xl bg-teal-50 text-teal-600">
+                <FlaskConical className="size-7" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900">InventaLab</h3>
+              <p className="mt-2 text-sm text-slate-500">
+                Diseñado para laboratorios que necesitan trazabilidad y control de reactivos.
+              </p>
+              <ul className="mt-6 space-y-3 text-sm text-slate-700">
+                {[
+                  "Reactivos y materiales de laboratorio",
+                  "Trazabilidad por lotes y vencimientos",
+                  "Alertas de stock mínimo y caducidad",
+                  "Reportes de stock y valor de inventario",
+                  "Movimientos de entrada y salida",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-teal-100">
+                      <Check className="size-3 text-teal-700" />
+                    </span>
+                    {item}
                   </li>
-                ),
-              )}
-            </ul>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-teal-300">
-            <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
-              <ShoppingBag className="size-6" />
+                ))}
+              </ul>
+              <Link
+                href="/register"
+                className="mt-8 block rounded-lg bg-teal-600 px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-teal-700"
+              >
+                Crear cuenta InventaLab
+              </Link>
             </div>
-            <h3 className="text-xl font-semibold text-slate-900">InventaShop</h3>
-            <p className="mt-1 text-sm text-slate-500">Ideal para pymes y comercios.</p>
-            <ul className="mt-4 space-y-2 text-sm text-slate-600">
-              {["Ventas y clientes", "Control de stock", "Reportes de ventas"].map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <Check className="size-4 text-teal-600" /> {item}
-                </li>
-              ))}
-            </ul>
+
+            {/* InventaShop */}
+            <div className="relative rounded-2xl border-2 border-slate-200 bg-white p-8 shadow-sm transition hover:border-teal-300">
+              <div className="absolute -top-3 left-8 rounded-full bg-slate-700 px-3 py-1 text-xs font-semibold text-white">
+                Para pymes
+              </div>
+              <div className="mb-5 flex size-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-700">
+                <ShoppingBag className="size-7" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900">InventaShop</h3>
+              <p className="mt-2 text-sm text-slate-500">
+                Ideal para pymes y comercios que necesitan ventas y control de stock.
+              </p>
+              <ul className="mt-6 space-y-3 text-sm text-slate-700">
+                {[
+                  "Productos y categorías personalizables",
+                  "Registro de ventas y clientes",
+                  "Control de stock en tiempo real",
+                  "Reportes de ventas y rentabilidad",
+                  "Movimientos de entrada y salida",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-teal-100">
+                      <Check className="size-3 text-teal-700" />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/register"
+                className="mt-8 block rounded-lg border border-slate-300 bg-white px-5 py-3 text-center text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+              >
+                Crear cuenta InventaShop
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-slate-200 py-6 text-center text-sm text-slate-400">
-        © {new Date().getFullYear()} Inventrio. Todos los derechos reservados.
+      {/* CTA */}
+      <section className="mx-auto max-w-6xl px-4 py-20">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-600 to-cyan-700 px-8 py-16 text-center shadow-lg">
+          <div className="absolute -right-20 -top-20 size-64 rounded-full bg-white/10 blur-2xl" />
+          <div className="absolute -bottom-20 -left-20 size-64 rounded-full bg-white/10 blur-2xl" />
+          <div className="relative">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Empieza a gestionar tu inventario hoy
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-teal-50">
+              Sin complicaciones. Crea tu cuenta en menos de 5 minutos y empieza a controlar tu stock.
+            </p>
+            <Link
+              href="/register"
+              className="mt-8 inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-teal-700 shadow-sm transition hover:bg-teal-50"
+            >
+              Crear cuenta gratis
+              <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-slate-100 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-10">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="flex items-center gap-2">
+              <div className="flex size-7 items-center justify-center rounded-lg bg-teal-600">
+                <Boxes className="size-4 text-white" />
+              </div>
+              <span className="font-bold text-slate-900">Inventrio</span>
+            </div>
+            <div className="flex items-center gap-6 text-sm text-slate-500">
+              <Link href="/login" className="transition hover:text-slate-900">
+                Iniciar sesión
+              </Link>
+              <Link href="/register" className="transition hover:text-slate-900">
+                Crear cuenta
+              </Link>
+            </div>
+          </div>
+          <div className="mt-6 border-t border-slate-100 pt-6 text-center text-xs text-slate-400">
+            © {new Date().getFullYear()} Inventrio. Todos los derechos reservados.
+          </div>
+        </div>
       </footer>
     </div>
   );

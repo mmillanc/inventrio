@@ -1,7 +1,8 @@
 "use client";
 
 import { useActionState } from "react";
-import { Boxes } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, Boxes } from "lucide-react";
 import { login } from "../actions";
 
 export default function LoginPage() {
@@ -9,8 +10,18 @@ export default function LoginPage() {
 
   return (
     <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+      <Link
+        href="/"
+        className="mb-6 inline-flex items-center gap-1.5 text-sm text-slate-500 transition hover:text-slate-900"
+      >
+        <ArrowLeft className="size-4" />
+        Volver al inicio
+      </Link>
+
       <div className="mb-6 flex items-center gap-2">
-        <Boxes className="size-7 text-teal-600" />
+        <div className="flex size-9 items-center justify-center rounded-lg bg-teal-600">
+          <Boxes className="size-5 text-white" />
+        </div>
         <div>
           <h1 className="text-xl font-semibold text-slate-900">Inventrio</h1>
           <p className="text-sm text-slate-500">Inventario para laboratorios y pymes</p>
@@ -46,11 +57,18 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={pending}
-          className="w-full rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-700 disabled:opacity-60"
+          className="w-full rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-700 disabled:opacity-60"
         >
           {pending ? "Entrando..." : "Entrar"}
         </button>
       </form>
+
+      <p className="mt-4 text-center text-xs text-slate-400">
+        ¿No tienes cuenta?{" "}
+        <Link href="/register" className="font-medium text-teal-600 hover:underline">
+          Crear cuenta
+        </Link>
+      </p>
     </div>
   );
 }
