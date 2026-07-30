@@ -107,7 +107,11 @@ export function DataTable<T extends Record<string, unknown>>({
                         <button
                           type="button"
                           aria-label="Eliminar"
-                          onClick={() => onDelete(row)}
+                          onClick={() => {
+                            if (window.confirm("¿Eliminar este registro? Esta acción no se puede deshacer.")) {
+                              onDelete(row);
+                            }
+                          }}
                           className="rounded-md p-2 text-slate-500 transition hover:bg-red-50 hover:text-red-600"
                         >
                           <Trash2 className="size-4" />

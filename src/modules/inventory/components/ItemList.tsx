@@ -109,7 +109,7 @@ export function ItemList() {
           setFormOpen(true);
         }}
         onDelete={async (item) => {
-          if (window.confirm(`¿Eliminar "${item.name}"?`)) await remove(item.id);
+          await remove(item.id);
         }}
       />
 

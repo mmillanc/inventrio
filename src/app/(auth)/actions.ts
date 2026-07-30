@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { SESSION_COOKIE, isValidLogin } from "@/lib/auth";
+import { SESSION_COOKIE, isValidLogin, hashPassword } from "@/lib/auth";
 import { getSettings } from "@/lib/settings";
 import { insertRow, updateRow } from "@/lib/db";
 
@@ -43,7 +43,8 @@ export async function register(_state: string | null, formData: FormData): Promi
   let dbError = false;
   let errorMsg = "";
   try {
-    const values = { admin_user: user, admin_password: password, plan };
+    const hashed = await hashPassword(password);
+    const values = { admin_user: user, admin_password: hashed, plan };
     const settings = await getSettings();
     if (settings) {
       await updateRow("settings", settings.id, values);

@@ -72,7 +72,7 @@ export function CrudView<T extends BaseRecord>({
   };
 
   const handleDelete = async (row: T) => {
-    if (window.confirm("¿Eliminar este registro?")) await remove(row.id);
+    await remove(row.id);
   };
 
   return (
