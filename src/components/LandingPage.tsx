@@ -11,6 +11,13 @@ import {
   ArrowRight,
   Layers,
   Clock,
+  Users,
+  FileText,
+  Search,
+  Upload,
+  Bell,
+  Lock,
+  ClipboardList,
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -61,8 +68,8 @@ export default function LandingPage() {
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600">
-              Controla artículos, lotes, vencimientos, ventas y reportes en un solo lugar.
-              Inventrio se adapta a tu operación con planes específicos.
+              Controla artículos, lotes, vencimientos, operadores, auditoría y reportes en un solo lugar.
+              Inventrio se adapta a tu operación con planes específicos y funciones avanzadas de trazabilidad.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
@@ -89,7 +96,7 @@ export default function LandingPage() {
           {[
             { label: "Artículos ilimitados", value: "∞" },
             { label: "Planes disponibles", value: "2" },
-            { label: "Módulos activos", value: "6+" },
+            { label: "Módulos activos", value: "8+" },
             { label: "Tiempo de setup", value: "< 5 min" },
           ].map((stat) => (
             <div key={stat.label} className="py-6 text-center">
@@ -112,12 +119,18 @@ export default function LandingPage() {
         </div>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { icon: Package, title: "Gestión de artículos", desc: "Registra productos con categorías, precios, stock mínimo y unidades de medida." },
-            { icon: Clock, title: "Control de lotes y vencimientos", desc: "Trazabilidad completa de lotes con alertas de vencimiento configurables." },
-            { icon: TrendingUp, title: "Movimientos de stock", desc: "Entradas, salidas y ajustes con historial detallado de cada operación." },
-            { icon: ShoppingBag, title: "Ventas y clientes", desc: "Registra ventas, gestiona clientes y mantén el stock actualizado automáticamente." },
-            { icon: BarChart3, title: "Reportes y análisis", desc: "Genera reportes por categoría, valor de inventario y movimientos en fechas." },
-            { icon: ShieldCheck, title: "Seguro y confiable", desc: "Datos protegidos con Supabase y autenticación por sesión con cookies httpOnly." },
+            { icon: Package, title: "Gestión de artículos", desc: "Registra productos con SKU, categorías, precios, stock mínimo, unidades y campos químicos (CAS, fórmula, almacenamiento)." },
+            { icon: Clock, title: "Control de lotes y vencimientos", desc: "Trazabilidad completa de lotes con alertas de vencimiento configurables y calendario visual." },
+            { icon: TrendingUp, title: "Movimientos de stock", desc: "Entradas, salidas y ajustes con historial detallado, asociación obligatoria a lote y operador." },
+            { icon: Users, title: "Gestión de operadores", desc: "Registra el personal del laboratorio que retira insumos, con departamento, contacto y estado activo." },
+            { icon: ClipboardList, title: "Auditoría y trazabilidad", desc: "Trigger automático que registra cada creación, modificación y eliminación con usuario y datos completos." },
+            { icon: BarChart3, title: "Reportes y gráficos", desc: "Gráficos interactivos con recharts, exportación CSV, JSON y PDF. Reportes por categoría, valor y movimientos." },
+            { icon: Bell, title: "Alertas proactivas", desc: "Banners automáticos en el dashboard para stock bajo, lotes vencidos y vencimientos próximos." },
+            { icon: Search, title: "Búsqueda global", desc: "Busca artículos por SKU, nombre o categoría directamente desde el sidebar en cualquier momento." },
+            { icon: Upload, title: "Importación masiva", desc: "Importa artículos desde archivos CSV para cargar tu inventario en segundos." },
+            { icon: ShieldCheck, title: "Seguro y confiable", desc: "Contraseñas con hash bcrypt, Row Level Security en Supabase y autenticación por cookies httpOnly." },
+            { icon: FileText, title: "Exportación múltiple", desc: "Exporta cualquier tabla a CSV, JSON o PDF con un solo clic, formateado y listo para imprimir." },
+            { icon: Lock, title: "Credenciales gestionables", desc: "Cambia usuario y contraseña del administrador desde la interfaz de configuración con validación." },
           ].map((feature) => (
             <div
               key={feature.title}
@@ -159,11 +172,15 @@ export default function LandingPage() {
               </p>
               <ul className="mt-6 space-y-3 text-sm text-slate-700">
                 {[
-                  "Reactivos y materiales de laboratorio",
-                  "Trazabilidad por lotes y vencimientos",
-                  "Alertas de stock mínimo y caducidad",
-                  "Reportes de stock y valor de inventario",
-                  "Movimientos de entrada y salida",
+                  "Reactivos con campos CAS, fórmula química y condición de almacenamiento",
+                  "Trazabilidad por lotes con vencimientos y calendario",
+                  "Gestión de operadores del laboratorio",
+                  "Auditoría automática con trigger en cada operación",
+                  "Alertas proactivas de stock bajo y vencimientos",
+                  "Movimientos con lote y operador obligatorios",
+                  "Gráficos interactivos y exportación CSV/JSON/PDF",
+                  "Importación masiva de artículos por CSV",
+                  "Búsqueda global desde el sidebar",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-teal-100">
@@ -200,6 +217,10 @@ export default function LandingPage() {
                   "Control de stock en tiempo real",
                   "Reportes de ventas y rentabilidad",
                   "Movimientos de entrada y salida",
+                  "Alertas proactivas de stock bajo",
+                  "Gráficos interactivos y exportación CSV/JSON/PDF",
+                  "Importación masiva de productos por CSV",
+                  "Búsqueda global desde el sidebar",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-teal-100">
