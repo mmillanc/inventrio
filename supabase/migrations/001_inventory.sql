@@ -9,9 +9,6 @@ create table if not exists items (
   min_stock numeric not null default 0,
   unit_cost numeric not null default 0,
   location text default '',
-  cas_number text default '',
-  chemical_formula text default '',
-  storage_condition text default '',
   supplier_id uuid, -- FK added in 002_suppliers.sql
   notes text default '',
   created_at timestamptz not null default now()

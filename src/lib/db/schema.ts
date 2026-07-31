@@ -3,6 +3,8 @@ export const TABLES = [
   "stock_movements",
   "suppliers",
   "lots",
+  "operators",
+  "audit_log",
   "customers",
   "sales",
   "settings",

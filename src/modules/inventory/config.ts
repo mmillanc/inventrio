@@ -112,6 +112,14 @@ export const movementFields: FieldConfig[] = [
     referenceLabel: "code",
   },
   {
+    name: "operator_id",
+    label: "Operador",
+    type: "reference",
+    required: true,
+    referenceTable: "operators",
+    referenceLabel: "name",
+  },
+  {
     name: "type",
     label: "Tipo de movimiento",
     type: "select",
@@ -131,6 +139,7 @@ export const movementColumns: ColumnConfig[] = [
   { key: "moved_at", label: "Fecha", format: "date" },
   { key: "item_id", label: "Artículo", referenceTable: "items", referenceLabel: "name" },
   { key: "lot_id", label: "Lote", referenceTable: "lots", referenceLabel: "code" },
+  { key: "operator_id", label: "Operador", referenceTable: "operators", referenceLabel: "name" },
   { key: "type", label: "Tipo", format: "badge" },
   { key: "quantity", label: "Cantidad", format: "number" },
   { key: "reason", label: "Motivo" },

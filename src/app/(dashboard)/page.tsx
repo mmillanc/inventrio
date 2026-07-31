@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { AlertTriangle, Package, Clock, XCircle } from "lucide-react";
 import { cookies } from "next/headers";
 import StatCard from "@/modules/_core/components/StatCard";
 import ModuleIcon from "@/modules/_core/components/ModuleIcon";
+import DashboardCharts from "./DashboardCharts";
 import { listRows } from "@/lib/db";
 import { getActivePlan, getSettings } from "@/lib/settings";
 import { getModulesForPlan } from "@/modules/_core/utils/moduleCatalog";
@@ -44,6 +46,29 @@ export default async function DashboardPage() {
 
   const itemName = (id: string) => items.find((item) => item.id === id)?.name ?? "-";
 
+  // Chart data: value by category and stock comparison
+  const categoryMap = new Map<string, { value: number; count: number }>();
+  for (const item of items) {
+    const cat = item.category || "sin categoría";
+    const existing = categoryMap.get(cat) ?? { value: 0, count: 0 };
+    existing.value += Number(item.quantity ?? 0) * Number(item.unit_cost ?? 0);
+    existing.count += 1;
+    categoryMap.set(cat, existing);
+  }
+  const categoryData = Array.from(categoryMap.entries())
+    .map(([name, data]) => ({ name, value: Math.round(data.value), count: data.count }))
+    .sort((a, b) => b.value - a.value);
+
+  const stockData = items
+    .slice()
+    .sort((a, b) => Number(b.quantity) - Number(a.quantity))
+    .slice(0, 10)
+    .map((item) => ({
+      name: item.name.length > 15 ? item.name.slice(0, 13) + "..." : item.name,
+      stock: Number(item.quantity ?? 0),
+      min: Number(item.min_stock ?? 0),
+    }));
+
   return (
     <div className="space-y-6">
       <header>
@@ -54,6 +79,44 @@ export default async function DashboardPage() {
           Resumen del plan <span className="capitalize">{plan}</span>.
         </p>
       </header>
+
+      {(lowStock.length > 0 || expired.length > 0 || expiringSoon.length > 0) && (
+        <div className="space-y-2">
+          {lowStock.length > 0 && (
+            <Link
+              href="/inventory"
+              className="flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 transition hover:bg-amber-100"
+            >
+              <AlertTriangle className="size-5 shrink-0 text-amber-600" />
+              <span className="text-sm text-amber-900">
+                <strong>{lowStock.length}</strong> artículo(s) bajo el stock mínimo. Revisa y realiza pedidos.
+              </span>
+            </Link>
+          )}
+          {expired.length > 0 && (
+            <Link
+              href="/expirations"
+              className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 transition hover:bg-red-100"
+            >
+              <XCircle className="size-5 shrink-0 text-red-600" />
+              <span className="text-sm text-red-900">
+                <strong>{expired.length}</strong> lote(s) vencido(s). Requiere acción inmediata.
+              </span>
+            </Link>
+          )}
+          {expiringSoon.length > 0 && (
+            <Link
+              href="/expirations"
+              className="flex items-center gap-3 rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 transition hover:bg-orange-100"
+            >
+              <Clock className="size-5 shrink-0 text-orange-600" />
+              <span className="text-sm text-orange-900">
+                <strong>{expiringSoon.length}</strong> lote(s) vencen en los próximos {alertDays} días.
+              </span>
+            </Link>
+          )}
+        </div>
+      )}
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Artículos" value={items.length} hint="Referencias activas" />
@@ -79,6 +142,8 @@ export default async function DashboardPage() {
           <StatCard label="Lotes" value={lots.length} hint="Registrados" />
         )}
       </div>
+
+      <DashboardCharts categoryData={categoryData} stockData={stockData} currency={currency} />
 
       <section className="grid gap-4 lg:grid-cols-2">
         <div className="rounded-xl border border-slate-200 bg-white p-5">

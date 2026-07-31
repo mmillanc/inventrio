@@ -21,6 +21,7 @@ export type MovementType = "in" | "out" | "adjust";
 export interface StockMovement extends BaseRecord {
   item_id: string;
   lot_id: string | null;
+  operator_id: string | null;
   type: MovementType;
   quantity: number;
   reason: string;

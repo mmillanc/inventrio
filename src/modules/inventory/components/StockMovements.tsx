@@ -14,7 +14,7 @@ import type { StockMovement } from "../types";
 
 export function StockMovements() {
   const { rows, loading, error, create } = useCrud<StockMovement>("stock_movements");
-  const references = useReferences(["items", "lots"]);
+  const references = useReferences(["items", "lots", "operators"]);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
 

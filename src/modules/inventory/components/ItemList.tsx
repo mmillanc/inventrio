@@ -4,8 +4,10 @@ import { useMemo, useState } from "react";
 import { Plus } from "lucide-react";
 import DataTable from "@/modules/_core/components/DataTable";
 import ExportTools from "@/modules/_core/components/ExportTools";
+import ImportCsv from "@/modules/_core/components/ImportCsv";
 import SearchBar from "@/modules/_core/components/SearchBar";
 import StatCard from "@/modules/_core/components/StatCard";
+import { useToast } from "@/modules/_core/components/Toast";
 import { useReferences } from "@/modules/_core/hooks/useReferences";
 import { useSettings } from "@/modules/_core/hooks/useSettings";
 import { formatCurrency, formatNumber } from "@/lib/utils";
@@ -15,7 +17,8 @@ import type { Item } from "../types";
 import ItemForm from "./ItemForm";
 
 export function ItemList() {
-  const { rows, loading, error, create, update, remove, lowStock, totalValue } = useItems();
+  const { rows, loading, error, create, update, remove, refresh, lowStock, totalValue } = useItems();
+  const { toast } = useToast();
   const references = useReferences(["suppliers"]);
   const { currency } = useSettings();
   const [search, setSearch] = useState("");
@@ -37,8 +40,27 @@ export function ItemList() {
   }, [rows, search, category]);
 
   const handleSubmit = async (values: Record<string, unknown>) => {
-    if (editing) await update(editing.id, values);
-    else await create(values);
+    const sku = String(values.sku ?? "").trim();
+    if (sku) {
+      const duplicate = rows.find(
+        (item) => item.sku.toLowerCase() === sku.toLowerCase() && item.id !== editing?.id,
+      );
+      if (duplicate) {
+        toast(`Ya existe un artículo con el SKU "${sku}": ${duplicate.name}`, "error");
+        return;
+      }
+    }
+    try {
+      if (editing) {
+        await update(editing.id, values);
+        toast("Artículo actualizado correctamente", "success");
+      } else {
+        await create(values);
+        toast("Artículo creado correctamente", "success");
+      }
+    } catch (err) {
+      toast(err instanceof Error ? err.message : "Error al guardar", "error");
+    }
   };
 
   return (
@@ -78,6 +100,11 @@ export function ItemList() {
           </select>
         </div>
         <div className="flex gap-2">
+          <ImportCsv
+            table="items"
+            columns={["sku", "name", "category", "unit", "quantity", "min_stock", "unit_cost", "location", "supplier_id", "cas_number", "chemical_formula", "storage_condition"]}
+            onImported={refresh}
+          />
           <ExportTools filename="inventario" columns={inventoryConfig.columns} rows={visibleRows} />
           <button
             type="button"
@@ -109,7 +136,12 @@ export function ItemList() {
           setFormOpen(true);
         }}
         onDelete={async (item) => {
-          await remove(item.id);
+          try {
+            await remove(item.id);
+            toast("Artículo eliminado correctamente", "success");
+          } catch (err) {
+            toast(err instanceof Error ? err.message : "Error al eliminar", "error");
+          }
         }}
       />
 

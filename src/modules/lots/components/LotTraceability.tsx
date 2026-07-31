@@ -13,7 +13,7 @@ import { useLots } from "../hooks/useLots";
 export function LotTraceability() {
   const { rows: lots, loading } = useLots();
   const { rows: movements } = useCrud<StockMovement>("stock_movements");
-  const references = useReferences(["items", "suppliers", "lots"]);
+  const references = useReferences(["items", "suppliers", "lots", "operators"]);
   const [lotId, setLotId] = useState("");
 
   const lot = lots.find((entry) => entry.id === lotId) ?? null;

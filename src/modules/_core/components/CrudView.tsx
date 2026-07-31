@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import type { BaseRecord, ModuleConfig } from "@/modules/_core/types";
 import { useCrud } from "@/modules/_core/hooks/useCrud";
 import { useReferences } from "@/modules/_core/hooks/useReferences";
+import { useToast } from "./Toast";
 import DataTable from "./DataTable";
 import CrudDialog from "./CrudDialog";
 import ExportTools from "./ExportTools";
@@ -36,6 +37,7 @@ export function CrudView<T extends BaseRecord>({
 }: CrudViewProps<T>) {
   const table = config.table ?? "";
   const { rows, loading, error, create, update, remove } = useCrud<T>(table);
+  const { toast } = useToast();
   const referenceTables = useMemo(
     () =>
       Array.from(
@@ -67,12 +69,26 @@ export function CrudView<T extends BaseRecord>({
   }, [rows, filter, search, config.searchFields]);
 
   const handleSubmit = async (values: Record<string, unknown>) => {
-    if (editing) await update(editing.id, values);
-    else await create(values);
+    try {
+      if (editing) {
+        await update(editing.id, values);
+        toast(`${config.title} actualizado correctamente`, "success");
+      } else {
+        await create(values);
+        toast(`${config.title} creado correctamente`, "success");
+      }
+    } catch (err) {
+      toast(err instanceof Error ? err.message : "Error al guardar", "error");
+    }
   };
 
   const handleDelete = async (row: T) => {
-    await remove(row.id);
+    try {
+      await remove(row.id);
+      toast(`${config.title} eliminado correctamente`, "success");
+    } catch (err) {
+      toast(err instanceof Error ? err.message : "Error al eliminar", "error");
+    }
   };
 
   return (
