@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { Award, FileCheck2, Download, Upload, AlertTriangle, CheckCircle2, XCircle, Clock } from "lucide-react";
 import CrudView from "@/modules/_core/components/CrudView";
-import ExportTools from "@/modules/_core/components/ExportTools";
 import ModuleLayout from "@/modules/_core/components/ModuleLayout";
 import StatCard from "@/modules/_core/components/StatCard";
 import Tabs from "@/modules/_core/components/Tabs";
@@ -146,7 +145,7 @@ function CertificatesTab() {
       <div className="rounded-xl border border-slate-200 bg-white p-8 text-center dark:border-slate-700 dark:bg-slate-800">
         <Award className="mx-auto mb-3 size-10 text-slate-300 dark:text-slate-600" />
         <p className="text-sm text-slate-500 dark:text-slate-400">
-          No hay estándares registrados. Crea un estándar en la pestaña "Estándares" para subir su certificado.
+          No hay estándares registrados. Crea un estándar en la pestaña &ldquo;Estándares&rdquo; para subir su certificado.
         </p>
       </div>
     );
