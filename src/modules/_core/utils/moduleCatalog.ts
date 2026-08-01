@@ -7,6 +7,7 @@ import salesConfig from "@/modules/sales/config";
 import customersConfig from "@/modules/customers/config";
 import reportsConfig from "@/modules/reports/config";
 import operatorsConfig from "@/modules/operators/config";
+import standardsConfig from "@/modules/standards/config";
 import configModuleConfig from "@/modules/config/config";
 import { resolvePlanModules } from "./planResolver";
 
@@ -23,6 +24,7 @@ export const MODULE_CONFIGS: Record<string, ModuleConfig> = {
   [customersConfig.slug]: customersConfig,
   [reportsConfig.slug]: reportsConfig,
   [operatorsConfig.slug]: operatorsConfig,
+  [standardsConfig.slug]: standardsConfig,
   [configModuleConfig.slug]: configModuleConfig,
 };
 

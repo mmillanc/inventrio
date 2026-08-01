@@ -81,7 +81,7 @@ export function ExportTools({ filename, columns, rows }: ExportToolsProps) {
         onClick={() =>
           download(toCsv(columns, rows), `${filename}-${stamp}.csv`, "text/csv;charset=utf-8")
         }
-        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
       >
         <Download className="size-4" /> CSV
       </button>
@@ -94,14 +94,14 @@ export function ExportTools({ filename, columns, rows }: ExportToolsProps) {
             "application/json",
           )
         }
-        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
       >
         <Download className="size-4" /> JSON
       </button>
       <button
         type="button"
         onClick={() => exportPdf(`${filename}-${stamp}`, columns, rows)}
-        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
       >
         <FileText className="size-4" /> PDF
       </button>

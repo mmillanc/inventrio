@@ -54,7 +54,7 @@ export function DataTable<T extends Record<string, unknown>>({
         return formatDate(value);
       case "badge":
         return (
-          <span className="inline-flex rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium capitalize text-slate-700">
+          <span className="inline-flex rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium capitalize text-slate-700 dark:bg-slate-700 dark:text-slate-300">
             {String(value ?? "-")}
           </span>
         );
@@ -65,9 +65,9 @@ export function DataTable<T extends Record<string, unknown>>({
 
   return (
     <div className="space-y-3">
-      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
         <table className="w-full min-w-[640px] text-left text-sm">
-          <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+          <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500 dark:bg-slate-900 dark:text-slate-400">
             <tr>
               {columns.map((column) => (
                 <th key={column.key} className="px-4 py-3 font-semibold">
@@ -77,17 +77,17 @@ export function DataTable<T extends Record<string, unknown>>({
               {(onEdit || onDelete) && <th className="px-4 py-3 text-right">Acciones</th>}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
             {loading && (
               <tr>
-                <td colSpan={columns.length + 1} className="px-4 py-8 text-center text-slate-400">
+                <td colSpan={columns.length + 1} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
                   Cargando...
                 </td>
               </tr>
             )}
             {!loading && rows.length === 0 && (
               <tr>
-                <td colSpan={columns.length + 1} className="px-4 py-8 text-center text-slate-400">
+                <td colSpan={columns.length + 1} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
                   {emptyMessage}
                 </td>
               </tr>
@@ -96,10 +96,10 @@ export function DataTable<T extends Record<string, unknown>>({
               pageRows.map((row) => (
                 <tr
                   key={String(row.id)}
-                  className={cn("transition hover:bg-slate-50", rowClassName?.(row))}
+                  className={cn("transition hover:bg-slate-50 dark:hover:bg-slate-700/50", rowClassName?.(row))}
                 >
                   {columns.map((column) => (
-                    <td key={column.key} className="px-4 py-3 text-slate-700">
+                    <td key={column.key} className="px-4 py-3 text-slate-700 dark:text-slate-300">
                       {renderCell(row, column)}
                     </td>
                   ))}
@@ -111,7 +111,7 @@ export function DataTable<T extends Record<string, unknown>>({
                             type="button"
                             aria-label="Editar"
                             onClick={() => onEdit(row)}
-                            className="rounded-md p-2 text-slate-500 transition hover:bg-teal-50 hover:text-teal-700"
+                            className="rounded-md p-2 text-slate-500 transition hover:bg-teal-50 hover:text-teal-700 dark:text-slate-400 dark:hover:bg-teal-950 dark:hover:text-teal-300"
                           >
                             <Pencil className="size-4" />
                           </button>
@@ -125,7 +125,7 @@ export function DataTable<T extends Record<string, unknown>>({
                                 onDelete(row);
                               }
                             }}
-                            className="rounded-md p-2 text-slate-500 transition hover:bg-red-50 hover:text-red-600"
+                            className="rounded-md p-2 text-slate-500 transition hover:bg-red-50 hover:text-red-600 dark:text-slate-400 dark:hover:bg-red-950 dark:hover:text-red-400"
                           >
                             <Trash2 className="size-4" />
                           </button>
@@ -140,7 +140,7 @@ export function DataTable<T extends Record<string, unknown>>({
       </div>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-between text-sm text-slate-600">
+        <div className="flex items-center justify-between text-sm text-slate-600 dark:text-slate-400">
           <span>
             Página {currentPage + 1} de {totalPages} · {rows.length} registro(s)
           </span>
@@ -149,7 +149,7 @@ export function DataTable<T extends Record<string, unknown>>({
               type="button"
               disabled={currentPage === 0}
               onClick={() => setPage(currentPage - 1)}
-              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 transition hover:bg-slate-50 disabled:opacity-40"
+              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 transition hover:bg-slate-50 disabled:opacity-40 dark:border-slate-700 dark:hover:bg-slate-800"
             >
               <ChevronLeft className="size-4" /> Anterior
             </button>
@@ -157,7 +157,7 @@ export function DataTable<T extends Record<string, unknown>>({
               type="button"
               disabled={currentPage >= totalPages - 1}
               onClick={() => setPage(currentPage + 1)}
-              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 transition hover:bg-slate-50 disabled:opacity-40"
+              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 transition hover:bg-slate-50 disabled:opacity-40 dark:border-slate-700 dark:hover:bg-slate-800"
             >
               Siguiente <ChevronRight className="size-4" />
             </button>

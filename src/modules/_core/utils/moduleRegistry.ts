@@ -7,6 +7,7 @@ import salesModule from "@/modules/sales";
 import customersModule from "@/modules/customers";
 import reportsModule from "@/modules/reports";
 import operatorsModule from "@/modules/operators";
+import standardsModule from "@/modules/standards";
 import configModule from "@/modules/config";
 
 /** Every module known to the app (metadata + screen), keyed by slug. */
@@ -19,6 +20,7 @@ export const MODULE_REGISTRY: Record<string, ModuleDefinition> = {
   [customersModule.config.slug]: customersModule,
   [reportsModule.config.slug]: reportsModule,
   [operatorsModule.config.slug]: operatorsModule,
+  [standardsModule.config.slug]: standardsModule,
   [configModule.config.slug]: configModule,
 };
 

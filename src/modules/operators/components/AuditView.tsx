@@ -104,7 +104,7 @@ export function AuditView() {
             value={tableFilter}
             aria-label="Filtrar por tabla"
             onChange={(event) => setTableFilter(event.target.value)}
-            className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-teal-500"
+            className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-teal-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
           >
             <option value="">Todas las tablas</option>
             {tableOptions.map((table) => (
@@ -117,11 +117,11 @@ export function AuditView() {
         <ExportTools filename="auditoria" columns={auditColumns} rows={visibleRows} />
       </div>
 
-      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950 dark:text-red-300">{error}</p>}
 
-      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
         <table className="w-full min-w-[640px] text-left text-sm">
-          <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+          <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500 dark:bg-slate-900 dark:text-slate-400">
             <tr>
               <th className="px-4 py-3 font-semibold">Fecha</th>
               <th className="px-4 py-3 font-semibold">Tabla</th>
@@ -130,25 +130,25 @@ export function AuditView() {
               <th className="px-4 py-3 font-semibold">Usuario</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
             {loading && (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-slate-400">Cargando...</td>
+                <td colSpan={5} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">Cargando...</td>
               </tr>
             )}
             {!loading && visibleRows.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-slate-400">
+                <td colSpan={5} className="px-4 py-8 text-center text-slate-400 dark:text-slate-500">
                   Sin registros de auditoría.
                 </td>
               </tr>
             )}
             {!loading &&
               visibleRows.slice(0, 50).map((entry) => (
-                <tr key={entry.id} className="transition hover:bg-slate-50">
-                  <td className="px-4 py-3 text-slate-700">{formatDate(entry.created_at)}</td>
+                <tr key={entry.id} className="transition hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                  <td className="px-4 py-3 text-slate-700 dark:text-slate-300">{formatDate(entry.created_at)}</td>
                   <td className="px-4 py-3">
-                    <span className="inline-flex rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
+                    <span className="inline-flex rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-300">
                       {TABLE_LABELS[entry.table_name] ?? entry.table_name}
                     </span>
                   </td>
@@ -156,23 +156,23 @@ export function AuditView() {
                     <span
                       className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
                         entry.action === "INSERT"
-                          ? "bg-emerald-100 text-emerald-700"
+                          ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
                           : entry.action === "UPDATE"
-                            ? "bg-blue-100 text-blue-700"
-                            : "bg-red-100 text-red-700"
+                            ? "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300"
+                            : "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300"
                       }`}
                     >
                       {ACTION_LABELS[entry.action] ?? entry.action}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-slate-700">{renderSummary(entry)}</td>
-                  <td className="px-4 py-3 text-slate-500">{entry.changed_by || "system"}</td>
+                  <td className="px-4 py-3 text-slate-700 dark:text-slate-300">{renderSummary(entry)}</td>
+                  <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{entry.changed_by || "system"}</td>
                 </tr>
               ))}
           </tbody>
         </table>
         {visibleRows.length > 50 && (
-          <p className="px-4 py-2 text-xs text-slate-400">
+          <p className="px-4 py-2 text-xs text-slate-400 dark:text-slate-500">
             Mostrando 50 de {visibleRows.length} registros. Usa la búsqueda para filtrar.
           </p>
         )}

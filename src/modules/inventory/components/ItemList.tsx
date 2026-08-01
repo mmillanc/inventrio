@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import DataTable from "@/modules/_core/components/DataTable";
 import ExportTools from "@/modules/_core/components/ExportTools";
 import ImportCsv from "@/modules/_core/components/ImportCsv";
+import LabelPrint from "@/modules/_core/components/LabelPrint";
 import SearchBar from "@/modules/_core/components/SearchBar";
 import StatCard from "@/modules/_core/components/StatCard";
 import { useToast } from "@/modules/_core/components/Toast";
@@ -87,7 +88,7 @@ export function ItemList() {
             value={category}
             aria-label="Filtrar por categoría"
             onChange={(event) => setCategory(event.target.value)}
-            className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-teal-500"
+            className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-teal-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
           >
             <option value="">Todas las categorías</option>
             {Array.from(new Set(rows.map((item) => item.category).filter(Boolean))).sort().map(
@@ -105,6 +106,7 @@ export function ItemList() {
             columns={["sku", "name", "category", "unit", "quantity", "min_stock", "unit_cost", "location", "supplier_id", "cas_number", "chemical_formula", "storage_condition"]}
             onImported={refresh}
           />
+          <LabelPrint items={visibleRows} />
           <ExportTools filename="inventario" columns={inventoryConfig.columns} rows={visibleRows} />
           <button
             type="button"
@@ -119,7 +121,7 @@ export function ItemList() {
         </div>
       </div>
 
-      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950 dark:text-red-300">{error}</p>}
 
       <DataTable<Item>
         columns={inventoryConfig.columns}
@@ -129,7 +131,7 @@ export function ItemList() {
         loading={loading}
         emptyMessage="Aún no hay artículos en el inventario"
         rowClassName={(item) =>
-          Number(item.quantity) <= Number(item.min_stock) ? "bg-amber-50/70" : ""
+          Number(item.quantity) <= Number(item.min_stock) ? "bg-amber-50/70 dark:bg-amber-950/30" : ""
         }
         onEdit={(item) => {
           setEditing(item);

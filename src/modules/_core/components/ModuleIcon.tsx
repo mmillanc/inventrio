@@ -8,6 +8,7 @@ import {
   Tags,
   Truck,
   Users,
+  BadgeCheck,
   type LucideIcon,
 } from "lucide-react";
 
@@ -21,6 +22,7 @@ const ICONS: Record<string, LucideIcon> = {
   users: Users,
   "shopping-cart": ShoppingCart,
   dashboard: LayoutDashboard,
+  "badge-check": BadgeCheck,
 };
 
 export function ModuleIcon({ name, className }: { name: string; className?: string }) {

@@ -17,7 +17,7 @@ export function SearchBar({ value, onChange, placeholder }: SearchBarProps) {
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder ?? "Buscar..."}
-        className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 text-sm text-slate-800 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+        className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 text-sm text-slate-800 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
       />
     </div>
   );

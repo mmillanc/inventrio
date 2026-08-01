@@ -5,6 +5,7 @@ export const TABLES = [
   "lots",
   "operators",
   "audit_log",
+  "standards",
   "customers",
   "sales",
   "settings",

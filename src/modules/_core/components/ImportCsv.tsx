@@ -115,13 +115,13 @@ export function ImportCsv({ table, columns, onImported, label = "Importar CSV" }
         type="button"
         disabled={importing}
         onClick={() => inputRef.current?.click()}
-        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
+        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
       >
         <Upload className="size-4" /> {importing ? "Importando..." : label}
       </button>
 
       {result && (
-        <div className="absolute right-0 top-full z-50 mt-1 w-72 rounded-lg border border-slate-200 bg-white p-3 shadow-lg">
+        <div className="absolute right-0 top-full z-50 mt-1 w-72 rounded-lg border border-slate-200 bg-white p-3 shadow-lg dark:border-slate-700 dark:bg-slate-800">
           {result.imported > 0 && (
             <p className="flex items-center gap-2 text-sm text-emerald-700">
               <CheckCircle className="size-4" /> {result.imported} registro(s) importado(s).

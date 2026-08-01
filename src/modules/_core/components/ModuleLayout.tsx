@@ -22,8 +22,8 @@ export function ModuleLayout({
     <section className="space-y-5">
       <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">{title}</h1>
-          {description && <p className="text-sm text-slate-500">{description}</p>}
+          <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">{title}</h1>
+          {description && <p className="text-sm text-slate-500 dark:text-slate-400">{description}</p>}
         </div>
         {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
       </header>

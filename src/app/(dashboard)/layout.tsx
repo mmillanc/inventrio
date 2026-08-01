@@ -12,7 +12,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
   const store = await cookies();
   const session = store.get(SESSION_COOKIE)?.value;
   if (!session) {
-    return <div className="min-h-screen bg-slate-50">{children}</div>;
+    return <div className="min-h-screen bg-slate-50 dark:bg-slate-950">{children}</div>;
   }
 
   const plan = await getActivePlan();
@@ -20,7 +20,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
 
   return (
     <ClientProviders>
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
         <Sidebar modules={modules} plan={plan} />
         <main className="px-4 py-8 lg:pl-72 lg:pr-8">
           <div className="mx-auto max-w-6xl">{children}</div>

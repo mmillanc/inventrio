@@ -9,7 +9,7 @@ export default function LoginPage() {
   const [error, formAction, pending] = useActionState(login, null);
 
   return (
-    <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+    <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-900">
       <Link
         href="/"
         className="mb-6 inline-flex items-center gap-1.5 text-sm text-slate-500 transition hover:text-slate-900"
@@ -23,36 +23,36 @@ export default function LoginPage() {
           <Boxes className="size-5 text-white" />
         </div>
         <div>
-          <h1 className="text-xl font-semibold text-slate-900">Inventrio</h1>
-          <p className="text-sm text-slate-500">Inventario para laboratorios y pymes</p>
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Inventrio</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400">Inventario para laboratorios y pymes</p>
         </div>
       </div>
 
       <form action={formAction} className="space-y-4">
         <div>
-          <label htmlFor="user" className="mb-1 block text-sm font-medium text-slate-700">
+          <label htmlFor="user" className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
             Usuario
           </label>
           <input
             id="user"
             name="user"
             defaultValue="admin"
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
           />
         </div>
         <div>
-          <label htmlFor="password" className="mb-1 block text-sm font-medium text-slate-700">
+          <label htmlFor="password" className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
             Contraseña
           </label>
           <input
             id="password"
             name="password"
             type="password"
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
           />
         </div>
 
-        {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+        {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950 dark:text-red-300">{error}</p>}
 
         <button
           type="submit"
@@ -63,7 +63,7 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <p className="mt-4 text-center text-xs text-slate-400">
+      <p className="mt-4 text-center text-xs text-slate-400 dark:text-slate-500">
         ¿No tienes cuenta?{" "}
         <Link href="/register" className="font-medium text-teal-600 hover:underline">
           Crear cuenta
