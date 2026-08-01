@@ -8,6 +8,11 @@ import customersConfig from "@/modules/customers/config";
 import reportsConfig from "@/modules/reports/config";
 import operatorsConfig from "@/modules/operators/config";
 import standardsConfig from "@/modules/standards/config";
+import stockLocationsConfig from "@/modules/stock_locations/config";
+import receivingsConfig from "@/modules/receivings/config";
+import itemKitsConfig from "@/modules/item_kits/config";
+import giftcardsConfig from "@/modules/giftcards/config";
+import expensesConfig from "@/modules/expenses/config";
 import configModuleConfig from "@/modules/config/config";
 import { resolvePlanModules } from "./planResolver";
 
@@ -25,6 +30,11 @@ export const MODULE_CONFIGS: Record<string, ModuleConfig> = {
   [reportsConfig.slug]: reportsConfig,
   [operatorsConfig.slug]: operatorsConfig,
   [standardsConfig.slug]: standardsConfig,
+  [stockLocationsConfig.slug]: stockLocationsConfig,
+  [receivingsConfig.slug]: receivingsConfig,
+  [itemKitsConfig.slug]: itemKitsConfig,
+  [giftcardsConfig.slug]: giftcardsConfig,
+  [expensesConfig.slug]: expensesConfig,
   [configModuleConfig.slug]: configModuleConfig,
 };
 

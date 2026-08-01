@@ -1,0 +1,3150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<base href="https://liquiofertas.cl/demo/public/" />
+	<title>BITPOS | Potenciado por BITPOS 3.3.8</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="dist/bootswatch/cyborg/bootstrap.min.css"/>
+
+			<!--[if lte IE 8]>
+		<link rel="stylesheet" media="print" href="dist/print.css" type="text/css" />
+		<![endif]-->
+		<!-- start mincss template tags -->
+		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=88e63d8098"/>
+		<!-- end mincss template tags -->
+
+		<!-- Tweaks to the UI for a particular theme should drop here  -->
+	
+		<!-- start minjs template tags -->
+		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=09f395beea"></script>
+		<!-- end minjs template tags -->
+	
+	<script type="text/javascript">
+	// live clock
+	var clock_tick = function clock_tick() {
+		setInterval('update_clock();', 1000);
+	}
+
+	// start the clock immediatly
+	clock_tick();
+
+	var update_clock = function update_clock() {
+		document.getElementById('liveclock').innerHTML = moment().format("DD/MM/YYYY HH:mm:ss");
+	}
+
+	$.notifyDefaults({ placement: {
+		align: "center",
+		from: "bottom"
+	}});
+
+	var cookie_name = "csrf_cookie_ospos_v3";
+
+	var csrf_token = function() {
+		return Cookies.get(cookie_name);
+	};
+
+	var csrf_form_base = function() {
+		return { csrf_ospos_v3 : function () { return csrf_token();  } };
+	};
+
+	var setup_csrf_token = function() {
+		$('input[name="csrf_ospos_v3"]').val(csrf_token());
+	};
+
+	var ajax = $.ajax;
+
+	$.ajax = function() {
+		var args = arguments[0];
+		if (args['type'] && args['type'].toLowerCase() == 'post' && csrf_token()) {
+			if (typeof args['data'] === 'string')
+			{
+				args['data'] += '&' + $.param(csrf_form_base());
+			}
+			else
+			{
+				args['data'] = $.extend(args['data'], csrf_form_base());
+			}
+		}
+
+		return ajax.apply(this, arguments);
+	};
+
+	$(document).ajaxComplete(setup_csrf_token);
+
+	var submit = $.fn.submit;
+
+	$.fn.submit = function() {
+		setup_csrf_token();
+		submit.apply(this, arguments);
+	};
+</script>
+	<script type="text/javascript">
+(function(lang, $) {
+
+    var lines = {
+        'common_submit' : "Enviar",
+        'common_close' : "Cerrar"
+    };
+
+    $.extend(lang, {
+        line: function(key) {
+            return lines[key];
+        }
+    });
+
+
+})(window.lang = window.lang || {}, jQuery);
+</script>
+	<style type="text/css">
+		html {
+			overflow: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="topbar">
+			<div class="container">
+				<div class="navbar-left">
+					<div id="liveclock">26/12/2023 21:25:12</div>
+				</div>
+
+				<div class="navbar-right" style="margin:0">
+					<a href="https://liquiofertas.cl/demo/public/home/change_password/1" class="modal-dlg" data-btn-submit="Enviar" title="Cambiar Contraseña">Francisco  Quinteros</a>					  |  					<a href="#" onclick="$.post('https://liquiofertas.cl/demo/public/home/logout');">Cerrar sesión</a>
+				</div>
+
+				<div class="navbar-center" style="text-align:center">
+					<strong>BITPOS</strong>
+				</div>
+			</div>
+		</div>
+
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+
+					<a class="navbar-brand hidden-sm" href="https://liquiofertas.cl/demo/public/">BITPOS</a>
+				</div>
+
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/home" title="Inicio" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/home.png" border="0" alt="Module Icon"/><br/>
+									Inicio								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/employees" title="Empleados" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/employees.png" border="0" alt="Module Icon"/><br/>
+									Empleados								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/giftcards" title="Tarjetas de Regalo" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/giftcards.png" border="0" alt="Module Icon"/><br/>
+									Tarjetas de Regalo								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/expenses" title="Gastos" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/expenses.png" border="0" alt="Module Icon"/><br/>
+									Gastos								</a>
+							</li>
+													<li class="active">
+								<a href="https://liquiofertas.cl/demo/public/config" title="Configuración de la Tienda" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/config.png" border="0" alt="Module Icon"/><br/>
+									Configuración de la Tienda								</a>
+							</li>
+											</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+
+<script type="text/javascript">
+	dialog_support.init("a.modal-dlg");
+</script>
+
+<ul class="nav nav-tabs" data-tabs="tabs">
+	<li class="active" role="presentation">
+		<a data-toggle="tab" href="#info_tab" title="Información del Comercio">Información</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#general_tab" title="Configuración General">General</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#tax_tab" title="Configuracion Impuesto">Impuestos</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#locale_tab" title="Configuración de la zona local">Localización</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#barcode_tab" title="Configuración de Código de Barras">Código Barras</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#stock_tab" title="Ubicación de Inventario">Inventario</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#receipt_tab" title="Parámetros de Impresión">Recibo</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#invoice_tab" title="Parámetros de Impresión">Factura</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#reward_tab" title="Configuración de Recompenzas">Recompenzas</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#table_tab" title="Configuración de Mesa">Mesa</a>
+	</li>
+	<li role="presentation">
+		<a data-toggle="tab" href="#system_tab" title="Sistema OSPOS">Sistema OSPOS</a>
+	</li>
+</ul>
+
+<div class="tab-content">
+	<div class="tab-pane fade in active" id="info_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_info/" id="info_config_form" enctype="multipart/form-data" class="form-horizontal" method="post" accept-charset="utf-8">
+<input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />                                                    
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<ul id="info_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">	
+				<label for="company" class="control-label col-xs-2 required">Nombre del Comercio</label>				<div class="col-xs-6">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-home"></span></span>
+						<input type="text" name="company" value="BITPOS" id="company" class="form-control input-sm required"  />
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="company_logo" class="control-label col-xs-2">Logotipo del Comercio</label>				<div class='col-xs-6'>
+					<div class="fileinput fileinput-exists" data-provides="fileinput">
+						<div class="fileinput-new thumbnail" style="width: 200px; height: 200px;"></div>
+						<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;">
+							<img data-src="holder.js/100%x100%" alt="Logotipo del Comercio"
+								 src="https://liquiofertas.cl/demo/public/uploads/company_logo.jpg"
+								 style="max-height: 100%; max-width: 100%;">
+						</div>
+						<div>
+							<span class="btn btn-default btn-sm btn-file">
+								<span class="fileinput-new">Seleccionar Imagen</span>
+								<span class="fileinput-exists">Cambiar Imagen</span>
+								<input type="file" name="company_logo">
+							</span>
+							<a href="#" class="btn btn-default btn-sm fileinput-exists" data-dismiss="fileinput">Quitar Imagen</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="address" class="control-label col-xs-2 required">Dirección del Comercio</label>				<div class='col-xs-6'>
+					<textarea name="address" cols="40" rows="10" id="address" class="form-control input-sm required" >Av 3 Poniente 714, Maipu</textarea>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="website" class="control-label col-xs-2">Sitio Web</label>				<div class="col-xs-6">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-globe"></span></span>
+						<input type="text" name="website" value="www.bitsolutions.cl" id="website" class="form-control input-sm"  />
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="email" class="control-label col-xs-2">Email</label>				<div class="col-xs-6">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-envelope"></span></span>
+						<input type="email" name="email" value="ventas@bitsolutions.cl" id="email" class="form-control input-sm"  />
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="phone" class="control-label col-xs-2 required">Teléfono comercial</label>				<div class="col-xs-6">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-phone-alt"></span></span>
+						<input type="text" name="phone" value="+56 9 3054 6547" id="phone" class="form-control input-sm required"  />
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="fax" class="control-label col-xs-2">Fax</label>				<div class="col-xs-6">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-phone-alt"></span></span>
+						<input type="text" name="fax" value="" id="fax" class="form-control input-sm"  />
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="return_policy" class="control-label col-xs-2 required">Política de Devolución</label>				<div class='col-xs-6'>
+					<textarea name="return_policy" cols="40" rows="10" id="return_policy" class="form-control input-sm required" >Gracias por su compra. 
+</textarea>
+				</div>
+			</div>
+
+			<input type="submit" name="submit_info" value="Enviar" id="submit_info" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	$("a.fileinput-exists").click(function() {
+		$.ajax({
+			type: 'POST',
+			url: 'https://liquiofertas.cl/demo/public/config/remove_logo',
+			dataType: 'json'
+		})
+	});
+
+	$('#info_config_form').validate($.extend(form_support.handler, {
+
+		errorLabelContainer: "#info_error_message_box",
+
+		rules:
+		{
+			company: "required",
+			address: "required",
+			phone: "required",
+    		email: "email",
+    		return_policy: "required" 		
+   		},
+
+		messages: 
+		{
+			company: "Nombre del Comercio es requerido",
+			address: "Dirección del Comercio es requerida.",
+			phone: "Teléfono del Comercio es requerido.",
+			email: "El correo-e no está en el formato requerido.",
+			return_policy: "Política de Devolución requerida."
+		}
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="general_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_general/" id="general_config_form" enctype="multipart/form-data" class="form-horizontal" method="post" accept-charset="utf-8">
+   <input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<ul id="general_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">
+				<label for="theme" class="control-label col-xs-2">Tema</label>				<div class='col-sm-10'>
+					<div class="form-group form-group-sm row">
+						<div class='col-sm-3'>
+							<select name="theme" class="form-control input-sm" id="theme-change">
+<option value="cerulean">Cerulean</option>
+<option value="cosmo">Cosmo</option>
+<option value="cyborg" selected="selected">Cyborg</option>
+<option value="darkly">Darkly</option>
+<option value="flatly">Flatly</option>
+<option value="journal">Journal</option>
+<option value="lumen">Lumen</option>
+<option value="paper">Paper</option>
+<option value="readable">Readable</option>
+<option value="sandstone">Sandstone</option>
+<option value="simplex">Simplex</option>
+<option value="slate">Slate</option>
+<option value="spacelab">Spacelab</option>
+<option value="superhero">Superhero</option>
+<option value="united">United</option>
+<option value="yeti">Yeti</option>
+</select>
+						</div>
+						<div class="col-sm-7">
+							<a href="https://bootswatch.com/3/cyborg" target="_blank" rel=”noopener”>
+								<span>Vista Previa del Tema: Cyborg </span><span class="glyphicon glyphicon-new-window"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="login_form" class="control-label col-xs-2">Estilo del formulario de inicio de sesión</label>				<div class='col-xs-2'>
+					<select name="login_form" class="form-control input-sm">
+<option value="floating_labels" selected="selected">Etiquetas flotantes</option>
+<option value="input_groups">Introducir Grupos</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="default_sales_discount" class="control-label col-xs-2 required">Descuento Predeterminado para Ventas</label>				<div class='col-xs-2'>
+					<div class="input-group">
+						<input type="number" name="default_sales_discount" value="0" id="default_sales_discount" class="form-control input-sm required" min="0" max="100"  />
+						<span class="input-group-btn">
+							<input type="checkbox" name="default_sales_discount_type" value="1" id="default_sales_discount_type" data-toggle="toggle" data-size="normal" data-onstyle="success" data-on="<b>$</b>" data-off="<b>%</b>"  />
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="default_receivings_discount" class="control-label col-xs-2 required">Descuento por Defecto para Recibos</label>				<div class='col-xs-2'>
+					<div class="input-group">
+						<input type="number" name="default_receivings_discount" value="0" id="default_receivings_discount" class="form-control input-sm required" min="0" max="100"  />
+						<span class="input-group-btn">
+							<input type="checkbox" name="default_receivings_discount_type" value="1" id="default_receivings_discount_type" data-toggle="toggle" data-size="normal" data-onstyle="success" data-on="<b>$</b>" data-off="<b>%</b>"  />
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="enforce_privacy" class="control-label col-xs-2">Forzar privacidad</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="enforce_privacy" value="enforce_privacy" id="enforce_privacy"  />
+					&nbsp
+					<label class="control-label">
+						<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Proteja la privacidad de los clientes aplicando codificación de datos en caso de que se eliminen"></span>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="receiving_calculate_average_price" class="control-label col-xs-2">Calcular Promedio de Precio. (Recepción)</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="receiving_calculate_average_price" value="receiving_calculate_average_price" id="receiving_calculate_average_price"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="lines_per_page" class="control-label col-xs-2 required">Líneas por página</label>				<div class='col-xs-2'>
+					<input type="number" name="lines_per_page" value="25" id="lines_per_page" class="form-control input-sm required" min="10" max="1000"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="notify_horizontal_position" class="control-label col-xs-2">Posición de notificacion</label>				<div class="col-sm-10">
+					<div class="form-group form-group-sm row">
+						<div class='col-sm-2'>
+							<select name="notify_vertical_position" class="form-control input-sm">
+<option value="top">Arriba</option>
+<option value="bottom" selected="selected">Abajo</option>
+</select>
+						</div>
+						<div class='col-sm-2'>
+							<select name="notify_horizontal_position" class="form-control input-sm">
+<option value="left">Izquierda</option>
+<option value="center" selected="selected">Centro</option>
+<option value="right">Derecha</option>
+</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="image_restrictions" class="control-label col-xs-2">Restricciones de carga de imágenes</label>				<div class="col-sm-10">
+					<div class="form-group form-group-sm row">
+						<div class='col-sm-2'>
+							<div class='input-group'>
+								<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-resize-horizontal"></span></span>
+								<input type="number" name="image_max_width" value="640" id="image_max_width" class="form-control input-sm required" min="128" max="3840" data-toggle="tooltip" data-placement="top" title="Ancho máximo permitido de las cargas de imágenes en píxeles (px)."  />
+							</div>
+						</div>
+						<div class='col-sm-2'>
+							<div class='input-group'>
+								<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-resize-vertical"></span></span>
+								<input type="number" name="image_max_height" value="480" id="image_max_height" class="form-control input-sm required" min="128" max="3840" data-toggle="tooltip" data-placement="top" title="Altura máxima permitida de las cargas de imágenes en píxeles (px)."  />
+							</div>
+						</div>
+						<div class='col-sm-2'>
+							<div class='input-group'>
+								<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-hdd"></span></span>
+								<input type="number" name="image_max_size" value="128" id="image_max_size" class="form-control input-sm required" min="128" max="2048" data-toggle="tooltip" data-placement="top" title="Tamaño máximo de archivo permitido de cargas de imágenes en kilobytes (kb)."  />
+							</div>
+						</div>
+						<div class='col-sm-4'>
+							<div class='input-group'>
+								<span class="input-group-addon input-sm">Tipos de archivos permitidos</span>
+								<select name="image_allowed_types[]"  id="image_allowed_types" class="selectpicker show-menu-arrow" data-none-selected-text="Seleccionar" data-selected-text-format="count > 1" data-style="btn-default btn-sm" data-width="100%" multiple="multiple">
+<option value="jpg" selected="selected">jpg</option>
+<option value="jpeg">jpeg</option>
+<option value="gif" selected="selected">gif</option>
+<option value="svg">svg</option>
+<option value="webp">webp</option>
+<option value="bmp">bmp</option>
+<option value="png" selected="selected">png</option>
+<option value="tif">tif</option>
+<option value="tiff">tiff</option>
+</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="gcaptcha_enable" class="control-label col-xs-2">Inicio de sesión con reCAPTCHA</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="gcaptcha_enable" value="gcaptcha_enable" id="gcaptcha_enable"  />
+					&nbsp;
+					<label class="control-label">
+						<a href="https://www.google.com/recaptcha/admin" target="_blank">
+							<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Proteja la página de inicio de sesión con Google reCAPTCHA, haga clic en el icono de un par de claves de API."></span>
+						</a>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="config_gcaptcha_site_key" class="required control-label col-xs-2" id="config_gcaptcha_site_key">Llave del sitio reCAPTCHA</label>				<div class='col-xs-4'>
+					<input type="text" name="gcaptcha_site_key" value="" id="gcaptcha_site_key" class="form-control input-sm required"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="config_gcaptcha_secret_key" class="required control-label col-xs-2" id="config_gcaptcha_secret_key">Llave secreta reCAPTCHA</label>				<div class='col-xs-4'>
+					<input type="text" name="gcaptcha_secret_key" value="" id="gcaptcha_secret_key" class="form-control input-sm required"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="suggestions_layout" class="control-label col-xs-2">Sugerencias de búsqueda</label>				<div class="col-sm-10">
+					<div class="form-group form-group-sm row">
+						<div class='col-sm-3'>
+							<div class='input-group'>
+								<span class="input-group-addon input-sm">Columna 1</span>
+								<select name="suggestions_first_column" class="form-control input-sm">
+<option value="name" selected="selected">Nombre Artículo</option>
+<option value="item_number">Número del Artículo</option>
+<option value="unit_price">Precio de Venta</option>
+<option value="cost_price">Precio de Costo neto</option>
+</select>
+							</div>
+						</div>
+						<div class='col-sm-3'>
+							<div class='input-group'>
+								<span class="input-group-addon input-sm">Columna 2</span>
+								<select name="suggestions_second_column" class="form-control input-sm">
+<option value="" selected="selected">ninguno</option>
+<option value="name">Nombre Artículo</option>
+<option value="item_number">Número del Artículo</option>
+<option value="unit_price">Precio de Venta</option>
+<option value="cost_price">Precio de Costo neto</option>
+</select>
+							</div>
+						</div>
+						<div class='col-sm-3'>
+							<div class='input-group'>
+								<span class="input-group-addon input-sm">Columna 3</span>
+								<select name="suggestions_third_column" class="form-control input-sm">
+<option value="" selected="selected">ninguno</option>
+<option value="name">Nombre Artículo</option>
+<option value="item_number">Número del Artículo</option>
+<option value="unit_price">Precio de Venta</option>
+<option value="cost_price">Precio de Costo neto</option>
+</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="giftcard_number" class="control-label col-xs-2">Número de tarjeta de regalo</label>				<div class='col-xs-8'>
+					<label class="radio-inline">
+						<input type="radio" name="giftcard_number" value="series" checked="checked"  />
+						Generar en serie					</label>
+					<label class="radio-inline">
+						<input type="radio" name="giftcard_number" value="random"  />
+						Generar aleatoriamente					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="derive_sale_quantity" class="control-label col-xs-2">Permitir cantidad de venta derivada</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="derive_sale_quantity" value="derive_sale_quantity" id="derive_sale_quantity"  />
+					&nbsp
+					<label class="control-label">
+						<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Si se marca, se proporcionará un nuevo tipo para los artículos ordenados por cantidad extendida"></span>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="show_office_group" class="control-label col-xs-2">Mostrar icono oficina</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="show_office_group" value="show_office_group" checked="checked" id="show_office_group"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="multi_pack_enabled" class="control-label col-xs-2">Empaquetado Múltiple por Producto</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="multi_pack_enabled" value="multi_pack_enabled" id="multi_pack_enabled"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="include_hsn" class="control-label col-xs-2">Incluir Soporte para Códigos HSN</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="include_hsn" value="include_hsn" id="include_hsn"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="category_dropdown" class="control-label col-xs-2">Mostrar Categoria como desplegable</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="category_dropdown" value="category_dropdown" id="category_dropdown"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="config_backup_database" class="control-label col-xs-2">Respaldo de Base de Datos</label>				<div class='col-xs-2'>
+					<div id="backup_db" class="btn btn-default btn-sm">
+						<span style="top:22%;">Respaldo</span>
+					</div>
+				</div>
+			</div>
+
+			<input type="submit" name="submit_general" value="Enviar" id="submit_general" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	var enable_disable_gcaptcha_enable = (function() {
+		var gcaptcha_enable = $("#gcaptcha_enable").is(":checked");
+		if(gcaptcha_enable)
+		{
+			$("#gcaptcha_site_key, #gcaptcha_secret_key").prop("disabled", !gcaptcha_enable).addClass("required");
+			$("#config_gcaptcha_site_key, #config_gcaptcha_secret_key").addClass("required");
+		}
+		else
+		{
+			$("#gcaptcha_site_key, #gcaptcha_secret_key").prop("disabled", gcaptcha_enable).removeClass("required");
+			$("#config_gcaptcha_site_key, #config_gcaptcha_secret_key").removeClass("required");
+		}
+
+		return arguments.callee;
+	})();
+
+	$("#gcaptcha_enable").change(enable_disable_gcaptcha_enable);
+
+	$("#backup_db").click(function() {
+		window.location='https://liquiofertas.cl/demo/public/config/backup_db';
+	});
+
+	$('#general_config_form').validate($.extend(form_support.handler, {
+
+		errorLabelContainer: "#general_error_message_box",
+
+		rules:
+		{
+			lines_per_page:
+			{
+				required: true,
+				remote: "https://liquiofertas.cl/demo/public/config/check_numeric"
+			},
+			default_sales_discount:
+			{
+				required: true,
+				remote: "https://liquiofertas.cl/demo/public/config/check_numeric"
+			},
+			gcaptcha_site_key:
+			{
+				required: "#gcaptcha_enable:checked"
+			},
+			gcaptcha_secret_key:
+			{
+				required: "#gcaptcha_enable:checked"
+			}
+		},
+
+		messages:
+		{
+			default_sales_discount:
+			{
+				required: "Descuento en ventas predeterminado es requerido.",
+				number: "Descuento en ventas predeterminado debe ser un número."
+			},
+			lines_per_page:
+			{
+				required: "Líneas por página es requerido.",
+				number: "Líneas por página debe ser un número."
+			},
+			gcaptcha_site_key:
+			{
+				required: "reCAPTCHA Site Key es requerida si se usa"
+			},
+			gcaptcha_secret_key:
+			{
+				required: "reCAPTCHA Secret Key es requerida si se usa"
+			}
+		},
+
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				beforeSerialize: function(arr, $form, options) {
+					$("#gcaptcha_site_key, #gcaptcha_secret_key").prop("disabled", false);
+					return true;
+				},
+				success: function(response) {
+					$.notify( { message: response.message }, { type: response.success ? 'success' : 'danger'} )
+					// set back disabled state
+					enable_disable_gcaptcha_enable();
+				},
+				dataType: 'json'
+			});
+		}
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="tax_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_tax/" id="tax_config_form" class="form-horizontal" method="post" accept-charset="utf-8">
+<input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />                                                                        
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<ul id="tax_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">
+				<label for="tax_id" class="control-label col-xs-2">Identificador del Impuesto</label>				<div class='col-xs-2'>
+					<input type="text" name="tax_id" value="IVA" id="tax_id" class="form-control input-sm"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="tax_included" class="control-label col-xs-2">Impuestos incluidos</label>				<div class='col-xs-2'>
+					<input type="checkbox" name="tax_included" value="tax_included" checked="checked" id="tax_included"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="default_tax_1_rate" class="control-label col-xs-2">Impuesto 1</label>				<div class='col-xs-2'>
+					<input type="text" name="default_tax_1_name" value="IVA" id="default_tax_1_name" class="form-control input-sm"  />
+				</div>
+				<div class="col-xs-1 input-group">
+					<input type="text" name="default_tax_1_rate" value="19" id="default_tax_1_rate" class="form-control input-sm"  />
+					<span class="input-group-addon input-sm">%</span>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="default_tax_2_rate" class="control-label col-xs-2">Impuesto 2</label>				<div class='col-xs-2'>
+					<input type="text" name="default_tax_2_name" value="" id="default_tax_2_name" class="form-control input-sm"  />
+				</div>
+				<div class="col-xs-1 input-group">
+					<input type="text" name="default_tax_2_rate" value="" id="default_tax_2_rate" class="form-control input-sm"  />
+					<span class="input-group-addon input-sm">%</span>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="use_destination_based_tax" class="control-label col-xs-2">Usar Impuesto Basado en Destino</label>				<div class='col-xs-2'>
+					<input type="checkbox" name="use_destination_based_tax" value="use_destination_based_tax" id="use_destination_based_tax"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="default_tax_code" class="control-label col-xs-2">Código de Impuesto Predeterminado</label>				<div class='col-xs-2'>
+					<select name="default_tax_code" class="form-control input-sm">
+<option value="" selected="selected"></option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="default_tax_category" class="control-label col-xs-2">Categoría de Tasa predeterminada</label>				<div class='col-xs-2'>
+					<select name="default_tax_category" class="form-control input-sm">
+<option value="0"></option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="default_tax_jurisdiction" class="control-label col-xs-2">Jurisdicción de Impuesto Predeterminado</label>				<div class='col-xs-2'>
+					<select name="default_tax_jurisdiction" class="form-control input-sm">
+<option value="0"></option>
+</select>
+				</div>
+			</div>
+
+			<input type="submit" name="submit_tax" value="Enviar" id="submit_tax" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	var enable_disable_use_destination_based_tax = (function() {
+	   var use_destination_based_tax = $("#use_destination_based_tax").is(":checked");
+	   $("select[name='default_tax_code']").prop("disabled", !use_destination_based_tax);
+		$("select[name='default_tax_category']").prop("disabled", !use_destination_based_tax);
+		$("select[name='default_tax_jurisdiction']").prop("disabled", !use_destination_based_tax);
+		$("input[name='tax_included']").prop("disabled", use_destination_based_tax);
+		$("input[name='default_tax_1_rate']").prop("disabled", use_destination_based_tax);
+		$("input[name='default_tax_1_name']").prop("disabled", use_destination_based_tax);
+		$("input[name='default_tax_2_rate']").prop("disabled", use_destination_based_tax);
+		$("input[name='default_tax_2_name']").prop("disabled", use_destination_based_tax);
+
+		return arguments.callee;
+	})();
+
+	$("#use_destination_based_tax").change(enable_disable_use_destination_based_tax);
+
+
+	$('#tax_config_form').validate($.extend(form_support.handler, {
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				beforeSerialize: function(arr, $form, options) {
+					return true;
+				},
+				success: function(response)	{
+					$.notify({ message: response.message }, { type: response.success ? 'success' : 'danger'});
+				},
+				dataType: 'json'
+			});
+		},
+
+		rules:
+		{
+			default_tax_1_rate:
+			{
+				remote: "https://liquiofertas.cl/demo/public/config/check_numeric"
+			},
+			default_tax2_rate:
+			{
+				remote: "https://liquiofertas.cl/demo/public/config/check_numeric"
+			},
+		},
+
+		messages:
+		{
+			default_tax_1_rate:
+			{
+				number: "El Impuesto Predeterminado debe ser un número."
+			},
+		}
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="locale_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_locale/" id="locale_config_form" class="form-horizontal" method="post" accept-charset="utf-8">
+                                                              <input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<ul id="locale_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">
+				<label for="number_locale" class="control-label col-xs-2">Localización</label>				<div class='row'>
+					<div class='col-xs-1'>
+						<input type="text" name="number_locale" value="es_CL"  class="form-control input-sm" id="number_locale" />
+						
+<input type="hidden" name="save_number_locale" value="es_CL" />
+					</div>
+					<div class="col-xs-2">
+						<label class="control-label">
+							<a href="https://github.com/opensourcepos/opensourcepos/wiki/Localisation-support" target="_blank">
+								<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Encontrar una zonificacion adecuada en este enlace."></span>
+							</a>
+							<span id="number_locale_example">
+								&nbsp&nbsp$1.234.567.890							</span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="thousands_separator" class="control-label col-xs-2">Separador de miles</label>				<div class='col-xs-2'>
+					<input type="checkbox" name="thousands_separator" value="thousands_separator" checked="checked" id="thousands_separator"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="currency_symbol" class="control-label col-xs-2">Símbolo de la moneda</label>				<div class='col-xs-1'>
+					<input type="text" name="currency_symbol" value="$" id="currency_symbol" class="form-control input-sm number_locale"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="currency_code" class="control-label col-xs-2">Código de Moneda</label>				<div class='col-xs-1'>
+					<input type="text" name="currency_code" value="CLP" id="currency_code" class="form-control input-sm number_locale"  />
+				</div>
+			</div>
+			
+			<div class="form-group form-group-sm">
+				<label for="currency_decimals" class="control-label col-xs-2">Decimales del tipo de moneda</label>				<div class='col-xs-2'>
+					<select name="currency_decimals" class="form-control input-sm">
+<option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="tax_decimals" class="control-label col-xs-2">Decimales de impuestos</label>				<div class='col-xs-2'>
+					<select name="tax_decimals" class="form-control input-sm">
+<option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="quantity_decimals" class="control-label col-xs-2">Decimales de Cantidades</label>				<div class='col-xs-2'>
+					<select name="quantity_decimals" class="form-control input-sm">
+<option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="cash_decimals" class="control-label col-xs-2">Decimales del Efectivo</label>				<div class='col-xs-2'>
+					<select name="cash_decimals" class="form-control input-sm">
+<option value="-1">-1</option>
+<option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+</select>
+				</div>
+				<div class='col-xs-1'>
+					<label class="control-label">
+						<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Si los decimales del efectivo y del tipo de moneda son los mismos no habrá redondeo de los pagos en efectivo."></span>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="cash_rounding_code" class="control-label col-xs-2">Redondeo del Efectivo</label>				<div class='col-xs-2'>
+					<select name="cash_rounding_code" class="form-control input-sm">
+<option value="1" selected="selected">Mitad arriba</option>
+<option value="2">Mitad abajo</option>
+<option value="3">Mitad par</option>
+<option value="4">Mitad impar</option>
+<option value="5">Redondeo arriba</option>
+<option value="6">Redondeo abajo</option>
+<option value="7">Mitad y cinco</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="payment_options_order" class="control-label col-xs-2">Orden de opciones de pago</label>				<div class='col-xs-4'>
+					<select name="payment_options_order" class="form-control input-sm">
+<option value="cashdebitcredit" selected="selected">Efectivo / Tarjeta de Débito / Tarjeta de Crédito</option>
+<option value="debitcreditcash">Tarjeta de Débito / Tarjeta de Crédito / Efectivo</option>
+<option value="debitcashcredit">Tarjeta de Débito / Efectivo / Tarjeta de Crédito</option>
+<option value="creditdebitcash">Tarjeta de Crédito / Tarjeta de Débito / Efectivo</option>
+<option value="creditcashdebit">Tarjeta de Crédito / Efectivo / Tarjeta de Débito</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="country_codes" class="control-label col-xs-2">Código de País</label>				<div class='col-xs-1'>
+					<input type="text" name="country_codes" value="es"  class="form-control input-sm" />
+				</div>
+				<div class="col-xs-1">
+					<label class="control-label">
+						<a href="http://wiki.openstreetmap.org/wiki/Nominatim/Country_Codes" target="_blank"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Lista de codigo de paises separado por coma para busqueda de direcciones."></span></a>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="language" class="control-label col-xs-2">Idioma</label>				<div class='col-xs-4'>
+					<select name="language" class="form-control input-sm">
+<option value="ar-EG:arabic">Arabic (Egypt)</option>
+<option value="ar-LB:arabic">Arabic (Lebanon)</option>
+<option value="az-AZ:azerbaijani">Azerbaijani (Azerbaijan)</option>
+<option value="bg:bulgarian">Bulgarian</option>
+<option value="bs-BA:bosnian">Bosnian</option>
+<option value="cs:czech">Czech</option>
+<option value="da:danish">Danish</option>
+<option value="de:german">German (Germany)</option>
+<option value="de-CH:german">German (Swiss)</option>
+<option value="el:greek">Greek</option>
+<option value="en-GB:english">English (Great Britain)</option>
+<option value="en-US:english">English (United States)</option>
+<option value="es:spanish" selected="selected">Spanish</option>
+<option value="es-MX:spanish">Spanish (Mexico)</option>
+<option value="fr:french">French</option>
+<option value="fa-IR:persian">Farsi (Iran)</option>
+<option value="he:english">Hebrew</option>
+<option value="hr-HR:croatian">Croatian (Croatia)</option>
+<option value="hu-HU:hungarian">Hungarian (Hungary)</option>
+<option value="hy:armenian">Armenian</option>
+<option value="id:indonesian">Indonesian</option>
+<option value="it:italian">Italian</option>
+<option value="km:khmer">Central Khmer (Cambodia)</option>
+<option value="lo:lao">Lao (Laos)</option>
+<option value="ml:malay">Malay</option>
+<option value="nb:norwegian">Norwegian</option>
+<option value="nl:dutch">Dutch</option>
+<option value="nl-BE:dutch">Dutch (Belgium)</option>
+<option value="pl:polish">Polish</option>
+<option value="pt-BR:portuguese">Portuguese (Brazil)</option>
+<option value="ro:romanian">Romanian</option>
+<option value="ru:russian">Russian</option>
+<option value="sv:swedish">Swedish</option>
+<option value="ta:tamil">Tamil</option>
+<option value="th:thai">Thai</option>
+<option value="tl-PH:talong">Tagalog (Philippines)</option>
+<option value="tr:turkish">Turkish</option>
+<option value="uk-UA:ukrainian">Ukrainian</option>
+<option value="ur-PK:urdu">Urdu (Islamic Republic of Pakistan)</option>
+<option value="vi:vietnamese">Vietnamese</option>
+<option value="zh-Hans:simplified-chinese">Chinese Simplified Script</option>
+<option value="zh-Hant:traditional-chinese">Chinese Traditional Script</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+			<label for="timezone" class="control-label col-xs-2">Zona Horaria</label>				<div class='col-xs-4'>
+				<select name="timezone" class="form-control input-sm">
+<option value="Pacific/Midway">(GMT-11:00) Midway Island, Samoa</option>
+<option value="America/Adak">(GMT-10:00) Hawaii-Aleutian</option>
+<option value="Etc/GMT+10">(GMT-10:00) Hawaii</option>
+<option value="Pacific/Marquesas">(GMT-09:30) Marquesas Islands</option>
+<option value="Pacific/Gambier">(GMT-09:00) Gambier Islands</option>
+<option value="America/Anchorage">(GMT-09:00) Alaska</option>
+<option value="America/Ensenada">(GMT-08:00) Tijuana, Baja California</option>
+<option value="Etc/GMT+8">(GMT-08:00) Pitcairn Islands</option>
+<option value="America/Los_Angeles">(GMT-08:00) Pacific Time (US & Canada)</option>
+<option value="America/Denver">(GMT-07:00) Mountain Time (US & Canada)</option>
+<option value="America/Chihuahua">(GMT-07:00) Chihuahua, La Paz, Mazatlan</option>
+<option value="America/Dawson_Creek">(GMT-07:00) Arizona</option>
+<option value="America/Belize">(GMT-06:00) Saskatchewan, Central America</option>
+<option value="America/Mexico_City">(GMT-06:00) Guadalajara, Mexico City, Monterrey</option>
+<option value="Chile/EasterIsland">(GMT-06:00) Easter Island</option>
+<option value="America/Chicago">(GMT-06:00) Central Time (US & Canada)</option>
+<option value="America/New_York">(GMT-05:00) Eastern Time (US & Canada)</option>
+<option value="America/Cancun">(GMT-05:00) Cancun</option>
+<option value="America/Havana">(GMT-05:00) Cuba</option>
+<option value="America/Bogota">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</option>
+<option value="America/Caracas">(GMT-04:30) Caracas</option>
+<option value="America/Santiago" selected="selected">(GMT-04:00) Santiago</option>
+<option value="America/La_Paz">(GMT-04:00) La Paz</option>
+<option value="Atlantic/Stanley">(GMT-04:00) Falkland Islands</option>
+<option value="America/Campo_Grande">(GMT-04:00) Brazil</option>
+<option value="America/Goose_Bay">(GMT-04:00) Atlantic Time (Goose Bay)</option>
+<option value="America/Glace_Bay">(GMT-04:00) Atlantic Time (Canada)</option>
+<option value="America/St_Johns">(GMT-03:30) Newfoundland</option>
+<option value="America/Araguaina">(GMT-03:00) UTC-3</option>
+<option value="America/Montevideo">(GMT-03:00) Montevideo</option>
+<option value="America/Miquelon">(GMT-03:00) Miquelon, St. Pierre</option>
+<option value="America/Godthab">(GMT-03:00) Greenland</option>
+<option value="America/Argentina/Buenos_Aires">(GMT-03:00) Buenos Aires</option>
+<option value="America/Sao_Paulo">(GMT-03:00) Brasilia</option>
+<option value="America/Noronha">(GMT-02:00) Mid-Atlantic</option>
+<option value="Atlantic/Cape_Verde">(GMT-01:00) Cape Verde Is.</option>
+<option value="Atlantic/Azores">(GMT-01:00) Azores</option>
+<option value="Europe/Belfast">(GMT) Greenwich Mean Time : Belfast</option>
+<option value="Europe/Dublin">(GMT) Greenwich Mean Time : Dublin</option>
+<option value="Europe/Lisbon">(GMT) Greenwich Mean Time : Lisbon</option>
+<option value="Europe/London">(GMT) Greenwich Mean Time : London</option>
+<option value="Africa/Abidjan">(GMT) Monrovia, Reykjavik</option>
+<option value="Europe/Amsterdam">(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
+<option value="Europe/Belgrade">(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
+<option value="Europe/Brussels">(GMT+01:00) Brussels, Copenhagen, Madrid, Paris</option>
+<option value="Africa/Algiers">(GMT+01:00) West Central Africa</option>
+<option value="Africa/Windhoek">(GMT+01:00) Windhoek</option>
+<option value="Asia/Beirut">(GMT+02:00) Beirut</option>
+<option value="Africa/Cairo">(GMT+02:00) Cairo</option>
+<option value="Asia/Gaza">(GMT+02:00) Gaza</option>
+<option value="Africa/Blantyre">(GMT+02:00) Harare, Pretoria</option>
+<option value="Asia/Jerusalem">(GMT+02:00) Jerusalem</option>
+<option value="Europe/Minsk">(GMT+02:00) Minsk</option>
+<option value="Asia/Damascus">(GMT+02:00) Syria</option>
+<option value="Europe/Moscow">(GMT+03:00) Moscow, St. Petersburg, Volgograd</option>
+<option value="Africa/Addis_Ababa">(GMT+03:00) Nairobi</option>
+<option value="Asia/Tehran">(GMT+03:30) Tehran</option>
+<option value="Asia/Dubai">(GMT+04:00) Abu Dhabi, Muscat</option>
+<option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
+<option value="Asia/Kabul">(GMT+04:30) Kabul</option>
+<option value="Asia/Baku">(GMT+04:00) Baku</option>
+<option value="Asia/Yekaterinburg">(GMT+05:00) Ekaterinburg</option>
+<option value="Asia/Tashkent">(GMT+05:00) Tashkent</option>
+<option value="Asia/Kolkata">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+<option value="Asia/Katmandu">(GMT+05:45) Kathmandu</option>
+<option value="Asia/Dhaka">(GMT+06:00) Astana, Dhaka</option>
+<option value="Asia/Novosibirsk">(GMT+06:00) Novosibirsk</option>
+<option value="Asia/Rangoon">(GMT+06:30) Yangon (Rangoon)</option>
+<option value="Asia/Bangkok">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
+<option value="Asia/Krasnoyarsk">(GMT+07:00) Krasnoyarsk</option>
+<option value="Asia/Hong_Kong">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</option>
+<option value="Asia/Irkutsk">(GMT+08:00) Irkutsk, Ulaan Bataar</option>
+<option value="Australia/Perth">(GMT+08:00) Perth</option>
+<option value="Australia/Eucla">(GMT+08:45) Eucla</option>
+<option value="Asia/Tokyo">(GMT+09:00) Osaka, Sapporo, Tokyo</option>
+<option value="Asia/Seoul">(GMT+09:00) Seoul</option>
+<option value="Asia/Yakutsk">(GMT+09:00) Yakutsk</option>
+<option value="Australia/Adelaide">(GMT+09:30) Adelaide</option>
+<option value="Australia/Darwin">(GMT+09:30) Darwin</option>
+<option value="Australia/Brisbane">(GMT+10:00) Brisbane</option>
+<option value="Australia/Hobart">(GMT+10:00) Hobart</option>
+<option value="Asia/Vladivostok">(GMT+10:00) Vladivostok</option>
+<option value="Australia/Lord_Howe">(GMT+10:30) Lord Howe Island</option>
+<option value="Etc/GMT-11">(GMT+11:00) Solomon Is., New Caledonia</option>
+<option value="Asia/Magadan">(GMT+11:00) Magadan</option>
+<option value="Pacific/Norfolk">(GMT+11:30) Norfolk Island</option>
+<option value="Asia/Anadyr">(GMT+12:00) Anadyr, Kamchatka</option>
+<option value="Pacific/Auckland">(GMT+12:00) Auckland, Wellington</option>
+<option value="Etc/GMT-12">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
+<option value="Pacific/Chatham">(GMT+12:45) Chatham Islands</option>
+<option value="Pacific/Tongatapu">(GMT+13:00) Nuku'alofa</option>
+<option value="Pacific/Kiritimati">(GMT+14:00) Kiritimati</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+			<label for="datetimeformat" class="control-label col-xs-2">Formato de fecha y hora</label>				<div class='col-sm-2'>
+				<select name="dateformat" class="form-control input-sm">
+<option value="d/m/Y" selected="selected">dd/mm/yyyy</option>
+<option value="d.m.Y">dd.mm.yyyy</option>
+<option value="m/d/Y">mm/dd/yyyy</option>
+<option value="Y/m/d">yyyy/mm/dd</option>
+<option value="d/m/y">dd/mm/yy</option>
+<option value="m/d/y">mm/dd/yy</option>
+<option value="y/m/d">yy/mm/dd</option>
+</select>
+				</div>
+				<div class='col-sm-2'>
+				<select name="timeformat" class="form-control input-sm">
+<option value="H:i:s" selected="selected">hh:mm:ss (24h)</option>
+<option value="h:i:s a">hh:mm:ss am/pm</option>
+<option value="h:i:s A">hh:mm:ss AM/PM</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="date_or_time_format" class="control-label col-xs-2">Filtro de fecha y hora</label>				<div class='col-xs-2'>
+					<input type="checkbox" name="date_or_time_format" value="date_or_time_format" id="date_or_time_format"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="financial_year" class="control-label col-xs-2">Inicio del año fiscal</label>				<div class='col-xs-2'>
+					<select name="financial_year" class="form-control input-sm">
+<option value="1" selected="selected">1º de Enero</option>
+<option value="2">1º de Febrero</option>
+<option value="3">1º de Marzo</option>
+<option value="4">1º de Abril</option>
+<option value="5">1º de Mayo</option>
+<option value="6">1º de Junio</option>
+<option value="7">1º de Julio</option>
+<option value="8">1º de Agosto</option>
+<option value="9">1º de Septiembre</option>
+<option value="10">1º de Octubre</option>
+<option value="11">1º de Noviembre</option>
+<option value="12">1º de Diciembre</option>
+</select>
+				</div>
+			</div>
+
+			<input type="submit" name="submit_locale" value="Enviar" id="submit_locale" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	$('span').tooltip();
+
+	$('#currency_symbol, #thousands_separator, #currency_code').change(function() {
+		var data = { number_locale: $('#number_locale').val() };
+		data['save_number_locale'] = $("input[name='save_number_locale']").val();
+		data['currency_symbol'] = $('#currency_symbol').val();
+		data['currency_code'] = $('#currency_code').val();
+		data['thousands_separator'] = $('#thousands_separator').is(":checked")
+		$.post("https://liquiofertas.cl/demo/public/config/ajax_check_number_locale",
+			data,
+			function(response) {
+				$("input[name='save_number_locale']").val(response.save_number_locale);
+				$('#number_locale_example').text(response.number_locale_example);
+				$('#currency_symbol').val(response.currency_symbol);
+				$('#currency_code').val(response.currency_code);
+			},
+			'json'
+		);
+	});
+
+	$('#locale_config_form').validate($.extend(form_support.handler, {
+		rules:
+		{
+			number_locale:
+			{
+				required: true,
+				remote:
+				{
+					url: "https://liquiofertas.cl/demo/public/config/ajax_check_number_locale",
+					type: 'POST',
+					data: {
+						'number_locale': function() { return $('#number_locale').val(); },
+						'save_number_locale': function() { return $("input[name='save_number_locale']").val(); },
+						'currency_symbol': function() { return $('#currency_symbol').val(); },
+						'thousands_separator': function() { return $('#thousands_separator').is(':checked'); },
+						'currency_code': function() { return $('#currency_code').val(); }
+					},
+					dataFilter: function(data) {
+						var response = JSON.parse(data);
+						$("input[name='save_number_locale']").val(response.save_number_locale);
+						$('#number_locale_example').text(response.number_locale_example);
+						$('#currency_symbol').val(response.currency_symbol);
+						$('#currency_code').val(response.currency_code);
+						return response.success;
+					}
+				}
+			}
+		},
+
+		messages:
+		{
+			number_locale: {
+				required: "Numero localizacion es un campo requerido.",
+				number_locale: "Localización ingresada invalida. Revisa el link en el tooltip para encontrar informacion."
+			}
+		},
+
+		errorLabelContainer: '#locale_error_message_box'
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="barcode_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_barcode/" id="barcode_config_form" class="form-horizontal" method="post" accept-charset="utf-8">
+<input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />                                                                     
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<ul id="barcode_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">
+				<label for="barcode_type" class="control-label col-xs-2">Tipo de Código de Barra</label>				<div class='col-xs-2'>
+					<select name="barcode_type" class="form-control input-sm">
+<option value="Code39">Code 39</option>
+<option value="Code128">Code 128</option>
+<option value="Ean8">EAN 8</option>
+<option value="Ean13" selected="selected">EAN 13</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="barcode_width" class="control-label col-xs-2 required">Ancho (px)</label>				<div class='col-xs-2'>
+					<input type="number" name="barcode_width" value="250" step="5" max="350" min="60" id="barcode_width" class="form-control input-sm required"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="barcode_height" class="control-label col-xs-2 required">Alto (px)</label>				<div class='col-xs-2'>
+					<input type="number" name="barcode_height" value="50" min="10" max="120" id="barcode_height" class="form-control input-sm required"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="barcode_font" class="control-label col-xs-2 required">Fuente</label>				<div class='col-sm-2'>
+					<select name="barcode_font" class="form-control input-sm required">
+<option value="0">ninguno</option>
+<option value="fontawesome-webfont.ttf">fontawesome-webfont.ttf</option>
+<option value="b-de-bonita-shadow.ttf">b-de-bonita-shadow.ttf</option>
+<option value="SansationLight.ttf">SansationLight.ttf</option>
+<option value="Arial.ttf" selected="selected">Arial.ttf</option>
+</select>
+				</div>
+				<div class="col-sm-2">
+					<input type="number" name="barcode_font_size" value="30" min="1" max="30" id="barcode_font_size" class="form-control input-sm required"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="allow_duplicate_barcodes" class="control-label col-xs-2">Permitir código barras duplicados</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="allow_duplicate_barcodes" value="allow_duplicate_barcodes" id="allow_duplicate_barcodes"  />
+					&nbsp
+					<label class="control-label">
+						<span class="glyphicon glyphicon-warning-sign" data-toggle="tooltip" data-placement="right" title="Cuidado: esta característica puede causar duplicados ser importados o creados, No lo use si no quiere códigos de barras duplicadas."></span>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="barcode_content" class="control-label col-xs-2">Contenido de Código de Barras</label>				<div class='col-xs-8'>
+					<label class="radio-inline">
+						<input type="radio" name="barcode_content" value="id"  />
+						Id/Artículo					</label>
+					<label class="radio-inline">
+						<input type="radio" name="barcode_content" value="number" checked="checked"  />
+						UPC/EAN/ISBN					</label>
+					&nbsp
+					&nbsp
+					<label class="checkbox-inline">
+						<input type="checkbox" name="barcode_generate_if_empty" value="barcode_generate_if_empty" checked="checked"  />
+						Generar si esta vacio.					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="barcode_formats" class="control-label col-xs-2">Formato entrada</label>				<div class='col-xs-4'>
+					<select name="barcode_formats[]" id="barcode_formats" multiple="multiple" data-role="tagsinput">
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="barcode_layout" class="control-label col-xs-2">Diseño Código de Barras</label>				<div class="col-sm-10">
+					<div class="form-group form-group-sm row">
+						<label class="control-label col-sm-1">Fila 1 </label>
+						<div class='col-sm-2'>
+							<select name="barcode_first_row" class="form-control input-sm">
+<option value="not_show">ninguno</option>
+<option value="name" selected="selected">Nombre Artículo</option>
+<option value="category">Categoría</option>
+<option value="cost_price">Precio de Costo neto</option>
+<option value="unit_price">Precio de Venta</option>
+<option value="company_name">Nombre de la Compañía</option>
+</select>
+						</div>
+						<label class="control-label col-sm-1">Fila 2 </label>
+						<div class='col-sm-2'>
+							<select name="barcode_second_row" class="form-control input-sm">
+<option value="not_show">ninguno</option>
+<option value="name">Nombre Artículo</option>
+<option value="category">Categoría</option>
+<option value="cost_price">Precio de Costo neto</option>
+<option value="unit_price">Precio de Venta</option>
+<option value="item_code" selected="selected">UPC/EAN/ISBN</option>
+<option value="company_name">Nombre de la Compañía</option>
+</select>
+						</div>
+						<label class="control-label col-sm-1">Fila 3 </label>
+						<div class='col-sm-2'>
+							<select name="barcode_third_row" class="form-control input-sm">
+<option value="not_show">ninguno</option>
+<option value="name">Nombre Artículo</option>
+<option value="category">Categoría</option>
+<option value="cost_price">Precio de Costo neto</option>
+<option value="unit_price" selected="selected">Precio de Venta</option>
+<option value="item_code">UPC/EAN/ISBN</option>
+<option value="company_name">Nombre de la Compañía</option>
+</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="barcode_num_in_row" class="control-label col-xs-2 required">Número en la línea</label>				<div class='col-xs-2'>
+					<input type="text" name="barcode_num_in_row" value="2" id="barcode_num_in_row" class="form-control input-sm required"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+			<label for="barcode_page_width" class="control-label col-xs-2 required">Mostrar ancho de página</label>				<div class="col-sm-2">
+					<div class='input-group'>
+						<input type="text" name="barcode_page_width" value="100" id="barcode_page_width" class="form-control input-sm required"  />
+						<span class="input-group-addon input-sm">%</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+			<label for="barcode_page_cellspacing" class="control-label col-xs-2 required">Mostrar espacios de celdas de página.</label>				<div class='col-sm-2'>
+					<div class="input-group">
+						<input type="text" name="barcode_page_cellspacing" value="20" id="barcode_page_cellspacing" class="form-control input-sm required"  />
+						<span class="input-group-addon input-sm">px</span>
+					</div>
+				</div>
+			</div>
+
+			<input type="submit" name="submit_barcode" value="Enviar" id="submit_barcode" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+</form><script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	$('#barcode_config_form').validate($.extend(form_support.handler, {
+
+		errorLabelContainer: "#barcode_error_message_box",
+
+		rules:
+		{
+			barcode_width:
+			{
+				required:true,
+				number:true
+			},
+			barcode_height:
+			{
+				required:true,
+				number:true
+			},
+			barcode_font_size:
+			{
+				required:true,
+				number:true
+			},
+			barcode_num_in_row:
+			{
+				required:true,
+				number:true
+			},
+			barcode_page_width:
+			{
+				required:true,
+				number:true
+			},
+			barcode_page_cellspacing:
+			{
+				required:true,
+				number:true
+			}
+		},
+
+		messages:
+		{
+			barcode_width:
+			{
+				required:"Ancho del código de barras es requerido.",
+				number:"Ancho del código de barras debe ser número."
+			},
+			barcode_height:
+			{
+				required:"Altura del código de barras es requerido.",
+				number:"Alto del código de barras debe ser un número."
+			},
+			barcode_font_size:
+			{
+				required:"Tamaño de fuente de código de barras es requerido.",
+				number:"Tamaño de fuente de código de barras debe ser número."
+			},
+			barcode_num_in_row:
+			{
+				required:"Número de código de barras predeterminado en fila es un campo obligatorio.",
+				number:"Número por fila del código de barras debe ser un número."
+			},
+			barcode_page_width:
+			{
+				required:"Ancho de página del código de barras es requerido.",
+				number:"Ancho de página del código de barras debe ser un número."
+			},
+			barcode_page_cellspacing:
+			{
+				required:"Espacios de celdas por página del código de barras es requerido.",
+				number:"Espacios de celdas por página del código de barras debe ser un número."
+			}
+		}
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="stock_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_locations/" id="location_config_form" class="form-horizontal" method="post" accept-charset="utf-8">
+                                                                                        <input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />
+    <div id="config_wrapper">
+        <fieldset id="config_info">
+            <div id="required_fields_message">Los campos en rojo son requeridos</div>
+            <ul id="stock_error_message_box" class="error_message_box"></ul>
+
+            <div id="stock_locations">
+					<div class="form-group form-group-sm" style="display:block;">
+		<label for="stock_location_1" class="required control-label col-xs-2">Ubicación de Inventario 1</label>		<div class='col-xs-2'>
+			<input type="text" name="stock_location[1]" value="Bodega General" id="stock_location[1]" class="stock_location valid_chars form-control input-sm required"  />
+		</div>
+		<span class="add_stock_location glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+		<span>&nbsp;&nbsp;</span>
+		<span class="remove_stock_location glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+	</div>
+	<div class="form-group form-group-sm" style="display:block;">
+		<label for="stock_location_2" class="required control-label col-xs-2">Ubicación de Inventario 2</label>		<div class='col-xs-2'>
+			<input type="text" name="stock_location[2]" value="Olivar" id="stock_location[2]" class="stock_location valid_chars form-control input-sm required"  />
+		</div>
+		<span class="add_stock_location glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+		<span>&nbsp;&nbsp;</span>
+		<span class="remove_stock_location glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+	</div>
+			</div>
+            
+            <input type="submit" name="submit_stock" value="Enviar" id="submit_stock" class="btn btn-primary btn-sm pull-right"  />
+        </fieldset>
+    </div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	var location_count = 2;
+
+	var hide_show_remove = function() {
+		if ($("input[name*='stock_location']:enabled").length > 1)
+		{
+			$(".remove_stock_location").show();
+		} 
+		else
+		{
+			$(".remove_stock_location").hide();
+		}
+	};
+
+	var add_stock_location = function() {
+		var block = $(this).parent().clone(true);
+		var new_block = block.insertAfter($(this).parent());
+		var new_block_id = 'stock_location[]';
+		$(new_block).find('label').html("Ubicación de Inventario " + ++location_count).attr('for', new_block_id).attr('class', 'control-label col-xs-2');
+		$(new_block).find('input').attr('id', new_block_id).removeAttr('disabled').attr('name', new_block_id).attr('class', 'form-control input-sm').val('');
+		hide_show_remove();
+	};
+
+	var remove_stock_location = function() {
+		$(this).parent().remove();
+		hide_show_remove();
+	};
+
+	var init_add_remove_locations = function() {
+		$('.add_stock_location').click(add_stock_location);
+		$('.remove_stock_location').click(remove_stock_location);
+		hide_show_remove();
+	};
+	init_add_remove_locations();
+
+	var duplicate_found = false;
+	// run validator once for all fields
+	$.validator.addMethod('stock_location' , function(value, element) {
+		var value_count = 0;
+		$("input[name*='stock_location']").each(function() {
+			value_count = $(this).val() == value ? value_count + 1 : value_count; 
+		});
+		return value_count < 2;
+    }, "El nombre de inventario debe ser único.");
+
+    $.validator.addMethod('valid_chars', function(value, element) {
+		return value.indexOf('_') === -1;
+    }, "Nombre de la Ubicación de Inventario no debe contener '_'.");
+	
+	$('#location_config_form').validate($.extend(form_support.handler, {
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				success: function(response)	{
+					$.notify({ message: response.message }, { type: response.success ? 'success' : 'danger'});
+					$("#stock_locations").load('https://liquiofertas.cl/demo/public/config/ajax_stock_locations', init_add_remove_locations);
+				},
+				dataType: 'json'
+			});
+		},
+
+		errorLabelContainer: "#stock_error_message_box",
+
+		rules:
+		{
+							stock_location_1:
+				{
+					required: true,
+					stock_location: true,
+					valid_chars: true
+				},
+							stock_location_2:
+				{
+					required: true,
+					stock_location: true,
+					valid_chars: true
+				},
+			   		},
+
+		messages: 
+		{
+							stock_location_1: "Número de Ubicación de Inventario es requerido.",
+							stock_location_2: "Número de Ubicación de Inventario es requerido.",
+					}
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="receipt_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_receipt/" id="receipt_config_form" class="form-horizontal" method="post" accept-charset="utf-8">
+<input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />                         
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<ul id="receipt_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">
+				<label for="receipt_template" class="control-label col-xs-2">Formato de recibo</label>				<div class='col-xs-2'>
+					<select name="receipt_template" class="form-control input-sm">
+<option value="receipt_default" selected="selected">Normal</option>
+<option value="receipt_short">Resumido</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="receipt_font_size" class="control-label col-xs-2 required">Tamaño letra</label>				<div class='col-xs-2'>
+					<div class="input-group">
+						<input type="number" name="receipt_font_size" value="12" min="0" max="20" id="receipt_font_size" class="form-control input-sm required"  />
+						<span class="input-group-addon input-sm">px</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="print_delay_autoreturn" class="control-label col-xs-2 required">Regresar automaticamente a Vender</label>				<div class='col-xs-2'>
+					<div class="input-group">
+						<input type="number" name="print_delay_autoreturn" value="0" min="0" max="30" id="print_delay_autoreturn" class="form-control input-sm required"  />
+						<span class="input-group-addon input-sm">s</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="email_receipt_check_behaviour" class="control-label col-xs-2">Selector de Recibir por Correo</label>				<div class='col-xs-8'>
+					<label class="radio-inline">
+						<input type="radio" name="email_receipt_check_behaviour" value="always"  />
+						Siempre activado					</label>
+					<label class="radio-inline">
+						<input type="radio" name="email_receipt_check_behaviour" value="never" checked="checked"  />
+						Siempre desactivado					</label>
+					<label class="radio-inline">
+						<input type="radio" name="email_receipt_check_behaviour" value="last"  />
+						Recordar ultima vez					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="print_receipt_check_behaviour" class="control-label col-xs-2">Selección de Imprimir recibo</label>				<div class='col-xs-8'>
+					<label class="radio-inline">
+						<input type="radio" name="print_receipt_check_behaviour" value="always" checked="checked"  />
+						Siempre activado					</label>
+					<label class="radio-inline">
+						<input type="radio" name="print_receipt_check_behaviour" value="never"  />
+						Siempre desactivo					</label>
+					<label class="radio-inline">
+						<input type="radio" name="print_receipt_check_behaviour" value="last"  />
+						Recordar la ultima vez					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="receipt_show_company_name" class="control-label col-xs-2">Mostrar el nombre de la empresa</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="receipt_show_company_name" value="receipt_show_company_name" checked="checked" id="receipt_show_company_name"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="receipt_show_taxes" class="control-label col-xs-2">Mostrar impuestos</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="receipt_show_taxes" value="receipt_show_taxes" checked="checked" id="receipt_show_taxes"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="receipt_show_tax_ind" class="control-label col-xs-2">Mostrar indicador de impuestos</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="receipt_show_tax_ind" value="receipt_show_tax_ind" id="receipt_show_tax_ind"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="receipt_show_total_discount" class="control-label col-xs-2">Mostrar Descuento Total</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="receipt_show_total_discount" value="receipt_show_total_discount" checked="checked" id="receipt_show_total_discount"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="receipt_show_description" class="control-label col-xs-2">Mostrar descripcion</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="receipt_show_description" value="receipt_show_description" checked="checked" id="receipt_show_description"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="receipt_show_serialnumber" class="control-label col-xs-2">Mostrar numero de serie</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="receipt_show_serialnumber" value="receipt_show_serialnumber" checked="checked" id="receipt_show_serialnumber"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="print_silently" class="control-label col-xs-2">Mostrar configuracion pre- impresión</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="print_silently" value="print_silently" id="print_silently"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="print_header" class="control-label col-xs-2">Imprimir el encabezado del navegador</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="print_header" value="print_header" id="print_header"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="print_footer" class="control-label col-xs-2">Imprimir el pie de página del navegador</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="print_footer" value="print_footer" id="print_footer"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="config_receipt_printer" class="control-label col-xs-2">Impresora de Ticket</label>				<div class='col-xs-2'>
+					<select name="receipt_printer" id="receipt_printer" class="form-control">
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="config_invoice_printer" class="control-label col-xs-2">Impresora Facturadora</label>				<div class='col-xs-2'>
+					<select name="invoice_printer" id="invoice_printer" class="form-control">
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="config_takings_printer" class="control-label col-xs-2">Impresión de retenciones</label>				<div class='col-xs-2'>
+					<select name="takings_printer" id="takings_printer" class="form-control">
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="print_top_margin" class="control-label col-xs-2 required">Margen Superior</label>				<div class='col-xs-2'>
+					<div class="input-group">
+						<input type="number" name="print_top_margin" value="" min="0" max="20" id="print_top_margin" class="form-control input-sm required"  />
+						<span class="input-group-addon input-sm">px</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="print_left_margin" class="control-label col-xs-2 required">Margen Izquierdo</label>				<div class='col-xs-2'>
+					<div class="input-group">
+						<input type="number" name="print_left_margin" value="" min="0" max="20" id="print_left_margin" class="form-control input-sm required"  />
+						<span class="input-group-addon input-sm">px</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="print_bottom_margin" class="control-label col-xs-2 required">Margen Inferior</label>				<div class='col-xs-2'>
+					<div class="input-group">
+						<input type="number" name="print_bottom_margin" value="" min="0" max="20" id="print_bottom_margin" class="form-control input-sm required"  />
+						<span class="input-group-addon input-sm">px</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="print_right_margin" class="control-label col-xs-2 required">Margen Derecho</label>				<div class='col-xs-2'>
+					<div class="input-group">
+						<input type="number" name="print_right_margin" value="" min="0" max="20" id="print_right_margin" class="form-control input-sm required"  />
+						<span class="input-group-addon input-sm">px</span>
+					</div>
+				</div>
+			</div>
+
+			<input type="submit" name="submit_receipt" value="Enviar" id="submit_receipt" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	if (window.localStorage && window.jsPrintSetup)
+	{
+		var printers = (jsPrintSetup.getPrintersList() && jsPrintSetup.getPrintersList().split(',')) || [];
+		$('#receipt_printer, #invoice_printer, #takings_printer').each(function()
+		{
+			var $this = $(this)
+			$(printers).each(function(key, value)
+			{
+				 $this.append($('<option>', { value : value }).text(value));
+			});
+			$("option[value='" + localStorage[$(this).attr('id')] + "']", this).prop('selected', true);
+			$(this).change(function()
+			{
+				localStorage[$(this).attr('id')] = $(this).val();
+			});
+		});
+	}
+	else
+	{
+		$("input[id*='margin'], #print_footer, #print_header, #receipt_printer, #invoice_printer, #takings_printer, #print_silently").prop('disabled', true);
+		$("#receipt_printer, #invoice_printer, #takings_printer").each(function()
+		{
+			$(this).append($('<option>', {value : 'na'}).text('N/A'));
+		});
+	}
+
+	var dialog_confirmed = window.jsPrintSetup;
+
+	$('#receipt_config_form').validate($.extend(form_support.handler, {
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				beforeSerialize: function(arr, $form, options) {
+					return ( dialog_confirmed || confirm('Advertencia!Esta funcionalidad desactivada solo funciona con el addon jsPrintSetup de FireFox instalado. Guardar de todas formas?') );
+				},
+				success: function(response) {
+					$.notify( { message: response.message }, { type: response.success ? 'success' : 'danger'} )
+				},
+				dataType:'json'
+			});
+		},
+
+		errorLabelContainer: "#receipt_error_message_box",
+
+		rules:
+		{
+			print_top_margin:
+			{
+				required:true,
+				number:true
+			},
+			print_left_margin:
+			{
+				required:true,
+				number:true
+			},
+			print_bottom_margin:
+			{
+				required:true,
+				number:true
+			},
+			print_right_margin:
+			{
+				required:true,
+				number:true
+			},
+			receipt_font_size:
+			{
+				required:true,
+				number:true
+			},
+			print_delay_autoreturn:
+			{
+				required:true,
+				number:true
+			}
+		},
+
+		messages:
+		{
+			print_top_margin:
+			{
+				required:"Margen Superior es requerido.",
+				number:"Margen Superior debe ser un número."
+			},
+			print_left_margin:
+			{
+				required:"Margen Izquierdo es requerido.",
+				number:"Margen Izquierdo debe ser un número."
+			},
+			print_bottom_margin:
+			{
+				required:"Margen Inferior es requerido.",
+				number:"Margen Inferior debe ser un número."
+			},
+			print_right_margin:
+			{
+				required:"Margen Derecho es requerido.",
+				number:"Margen Derecho debe ser un número."
+			},
+			receipt_font_size:
+			{
+				required:"El tamaño de letra es requerido.",
+				number:"Debe ser un numero el tamaño de letra."
+			},
+			print_delay_autoreturn:
+			{
+				required:"El tiempo espera debe ser numérico.",
+				number:"Tiempo espera requerido para regresar a ventas."
+			}
+		}
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="invoice_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_invoice/" id="invoice_config_form" class="form-horizontal" method="post" accept-charset="utf-8">
+                                                                                                                         <input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<ul id="invoice_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">	
+				<label for="invoice_enable" class="control-label col-xs-2">Activar Facturación</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="invoice_enable" value="invoice_enable" checked="checked" id="invoice_enable"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="invoice_type" class="control-label col-xs-2">Tipo de Factura</label>				<div class='col-xs-3'>
+					<select name="invoice_type" class="form-control input-sm">
+<option value="invoice" selected="selected">Factura</option>
+<option value="tax_invoice">Factura de Impuestos</option>
+<option value="custom_invoice">Factura Personalizada</option>
+<option value="custom_tax_invoice">Factura de Impuesto personalizada</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="recv_invoice_format" class="control-label col-xs-2">Formato de Factura de Recepción</label>				<div class='col-xs-2'>
+					<input type="text" name="recv_invoice_format" value="{CO}" id="recv_invoice_format" class="form-control input-sm"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="invoice_default_comments" class="control-label col-xs-2">Comentarios predeterminados en la factura</label>				<div class='col-xs-5'>
+					<textarea name="invoice_default_comments" cols="40" rows="10" id="invoice_default_comments" class="form-control input-sm" >This is a default comment</textarea>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="invoice_email_message" class="control-label col-xs-2">Plantilla de Factura por Email</label>				<div class='col-xs-5'>
+					<textarea name="invoice_email_message" cols="40" rows="10" id="invoice_email_message" class="form-control input-sm" >Dear {CU}, In attachment the receipt for sale {ISEQ}</textarea>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="line_sequence" class="control-label col-xs-2">Secuencia de linea</label>				<div class='col-xs-2'>
+					<select name="line_sequence" class="form-control input-sm">
+<option value="0" selected="selected">Entrada</option>
+<option value="1">Grupo por Tipo</option>
+<option value="2">Grupo por Categoría</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="sales_invoice_format" class="control-label col-xs-2">Formato de Facturas de Venta</label>				<div class='col-xs-2'>
+					<input type="text" name="sales_invoice_format" value="{CO}" id="sales_invoice_format" class="form-control input-sm"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="last_used_invoice_number" class="control-label col-xs-2">Último numero de factura utilizado</label>				<div class='col-xs-2'>
+					<input type="number" name="last_used_invoice_number" value="0" id="last_used_invoice_number" class="form-control input-sm required"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="sales_quote_format" class="control-label col-xs-2">Formato de presupuesto de las ventas</label>				<div class='col-xs-2'>
+					<input type="text" name="sales_quote_format" value="Q%y{QSEQ:6}" id="sales_quote_format" class="form-control input-sm"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="last_used_quote_number" class="control-label col-xs-2">Último número de presupuesto utilizado</label>				<div class='col-xs-2'>
+					<input type="number" name="last_used_quote_number" value="157" id="last_used_quote_number" class="form-control input-sm required"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="quote_default_comments" class="control-label col-xs-2">Comentario inicial de cotizaciones</label>				<div class='col-xs-5'>
+					<textarea name="quote_default_comments" cols="40" rows="10" id="quote_default_comments" class="form-control input-sm" >Gracias por su compra</textarea>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="work_order_enable" class="control-label col-xs-2">Soporte Ordenes de Trabajo</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="work_order_enable" value="work_order_enable" checked="checked" id="work_order_enable"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="work_order_format" class="control-label col-xs-2">Formato Ordenes de trabajo</label>				<div class='col-xs-2'>
+					<input type="text" name="work_order_format" value="W%y{WSEQ:6}" id="work_order_format" class="form-control input-sm"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="last_used_work_order_number" class="control-label col-xs-2">Ultimo usado sin numero</label>				<div class='col-xs-2'>
+					<input type="number" name="last_used_work_order_number" value="89" id="last_used_work_order_number" class="form-control input-sm required"  />
+				</div>
+			</div>
+
+			<input type="submit" name="submit_invoice" value="Enviar" id="submit_invoice" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	var enable_disable_invoice_enable = (function() {
+		var invoice_enabled = $("#invoice_enable").is(":checked");
+		var work_order_enabled = $("#work_order_enable").is(":checked");
+		$("#sales_invoice_format, #recv_invoice_format, #invoice_default_comments, #invoice_email_message, select[name='invoice_type'], #sales_quote_format, select[name='line_sequence'], #last_used_invoice_number, #last_used_quote_number, #quote_default_comments, #work_order_enable, #work_order_format, #last_used_work_order_number").prop("disabled", !invoice_enabled);
+		if(invoice_enabled) {
+			$("#work_order_format, #last_used_work_order_number").prop("disabled", !work_order_enabled);
+		} else {
+			$("#work_order_enable").attr('checked', false);
+		}
+		return arguments.callee;
+	})();
+
+	var enable_disable_work_order_enable = (function() {
+		var work_order_enabled = $("#work_order_enable").is(":checked");
+		var invoice_enabled = $("#invoice_enable").is(":checked");
+		if(invoice_enabled) {
+			$("#work_order_format, #last_used_work_order_number").prop("disabled", !work_order_enabled);
+		}
+		return arguments.callee;
+	})();
+
+	$("#invoice_enable").change(enable_disable_invoice_enable);
+
+	$("#work_order_enable").change(enable_disable_work_order_enable);
+
+	$("#invoice_config_form").validate($.extend(form_support.handler, {
+
+		errorLabelContainer: "#invoice_error_message_box",
+
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				beforeSerialize: function(arr, $form, options) {
+					$("#sales_invoice_format, #sales_quote_format, #recv_invoice_format, #invoice_default_comments, #invoice_email_message, #last_used_invoice_number, #last_used_quote_number, #quote_default_comments, #work_order_enable, #work_order_format, #last_used_work_order_number").prop("disabled", false);
+					return true;
+				},
+				success: function(response) {
+					$.notify( { message: response.message }, { type: response.success ? 'success' : 'danger'} )
+					// set back disabled state
+					enable_disable_invoice_enable();
+					enable_disable_work_order_enable();
+				},
+				dataType: 'json'
+			});
+		}
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="reward_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_rewards/" id="reward_config_form" class="form-horizontal" method="post" accept-charset="utf-8">
+<input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />                                                       
+    <div id="config_wrapper">
+        <fieldset id="config_info">
+            <div id="required_fields_message">Los campos en rojo son requeridos</div>
+            <ul id="reward_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">	
+				<label for="customer_reward_enable" class="control-label col-xs-2">Activar recompenza para clientes</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="customer_reward_enable" value="customer_reward_enable" id="customer_reward_enable"  />
+				</div>
+			</div>
+
+            <div id="customer_rewards">
+					<div class="form-group form-group-sm" style="display:block;">
+		<label for="customer_reward_1" class="required control-label col-xs-2">Cat. de Cliente 1</label>		<div class='col-xs-2'>
+			<input type="text" name="customer_reward_1" value="Default" id="customer_reward_1" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<div class='col-xs-2'>
+			<input type="text" name="reward_points_1" value="0" id="reward_points_1" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<span class="add_customer_reward glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+		<span>&nbsp;&nbsp;</span>
+		<span class="remove_customer_reward glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+	</div>
+	<div class="form-group form-group-sm" style="display:block;">
+		<label for="customer_reward_2" class="required control-label col-xs-2">Cat. de Cliente 2</label>		<div class='col-xs-2'>
+			<input type="text" name="customer_reward_2" value="Bronze" id="customer_reward_2" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<div class='col-xs-2'>
+			<input type="text" name="reward_points_2" value="10" id="reward_points_2" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<span class="add_customer_reward glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+		<span>&nbsp;&nbsp;</span>
+		<span class="remove_customer_reward glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+	</div>
+	<div class="form-group form-group-sm" style="display:block;">
+		<label for="customer_reward_3" class="required control-label col-xs-2">Cat. de Cliente 3</label>		<div class='col-xs-2'>
+			<input type="text" name="customer_reward_3" value="Silver" id="customer_reward_3" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<div class='col-xs-2'>
+			<input type="text" name="reward_points_3" value="20" id="reward_points_3" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<span class="add_customer_reward glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+		<span>&nbsp;&nbsp;</span>
+		<span class="remove_customer_reward glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+	</div>
+	<div class="form-group form-group-sm" style="display:block;">
+		<label for="customer_reward_4" class="required control-label col-xs-2">Cat. de Cliente 4</label>		<div class='col-xs-2'>
+			<input type="text" name="customer_reward_4" value="Gold" id="customer_reward_4" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<div class='col-xs-2'>
+			<input type="text" name="reward_points_4" value="30" id="reward_points_4" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<span class="add_customer_reward glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+		<span>&nbsp;&nbsp;</span>
+		<span class="remove_customer_reward glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+	</div>
+	<div class="form-group form-group-sm" style="display:block;">
+		<label for="customer_reward_5" class="required control-label col-xs-2">Cat. de Cliente 5</label>		<div class='col-xs-2'>
+			<input type="text" name="customer_reward_5" value="Premium" id="customer_reward_5" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<div class='col-xs-2'>
+			<input type="text" name="reward_points_5" value="50" id="reward_points_5" class="customer_reward valid_chars form-control input-sm required"  />
+		</div>
+		<span class="add_customer_reward glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+		<span>&nbsp;&nbsp;</span>
+		<span class="remove_customer_reward glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+	</div>
+			</div>
+            
+            <input type="submit" name="submit_reward" value="Enviar" id="submit_reward" class="btn btn-primary btn-sm pull-right"  />
+        </fieldset>
+    </div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+
+	var enable_disable_customer_reward_enable = (function() {
+		var customer_reward_enable = $("#customer_reward_enable").is(":checked");
+		$("input[name*='customer_reward']:not(input[name=customer_reward_enable])").prop("disabled", !customer_reward_enable);
+		$("input[name*='reward_points_']:not(input[name=customer_reward_enable])").prop("disabled", !customer_reward_enable);
+		if(customer_reward_enable)
+		{
+			$(".add_customer_reward, .remove_customer_reward").show();
+		}
+		else
+		{
+			$(".add_customer_reward, .remove_customer_reward").hide();	
+		}
+		return arguments.callee;
+	})();
+
+	$("#customer_reward_enable").change(enable_disable_customer_reward_enable);
+
+	var table_count = 5;
+
+	var hide_show_remove = function() {
+		if ($("input[name*='customer_rewards']:enabled").length > 1)
+		{
+			$(".remove_customer_rewards").show();
+		} 
+		else
+		{
+			$(".remove_customer_rewards").hide();
+		}
+	};
+
+	var add_customer_reward = function() {
+		var id = $(this).parent().find('input').attr('id');
+		id = id.replace(/.*?_(\d+)$/g, "$1");
+		var previous_id = 'customer_reward_' + id;
+		var previous_id_next = 'reward_points_' + id;
+		var block = $(this).parent().clone(true);
+		var new_block = block.insertAfter($(this).parent());
+		var new_block_id = 'customer_reward_' + ++id;
+		var new_block_id_next = 'reward_points_' + id;
+		$(new_block).find('label').html("Cat. de Cliente " + ++table_count).attr('for', new_block_id).attr('class', 'control-label col-xs-2');
+		$(new_block).find("input[id='"+previous_id+"']").attr('id', new_block_id).removeAttr('disabled').attr('name', new_block_id).attr('class', 'form-control input-sm').val('');
+		$(new_block).find("input[id='"+previous_id_next+"']").attr('id', new_block_id_next).removeAttr('disabled').attr('name', new_block_id_next).attr('class', 'form-control input-sm').val('');
+		hide_show_remove();
+	};
+
+	var remove_customer_reward = function() {
+		$(this).parent().remove();
+		hide_show_remove();
+	};
+
+	var init_add_remove_tables = function() {
+		$('.add_customer_reward').click(add_customer_reward);
+		$('.remove_customer_reward').click(remove_customer_reward);
+		hide_show_remove();
+		// set back disabled state
+		enable_disable_customer_reward_enable();
+	};
+	init_add_remove_tables();
+
+	var duplicate_found = false;
+	// run validator once for all fields
+	$.validator.addMethod('customer_reward' , function(value, element) {
+		var value_count = 0;
+		$("input[name*='customer_reward']:not(input[name=customer_reward_enable])").each(function() {
+			value_count = $(this).val() == value ? value_count + 1 : value_count; 
+		});
+		return value_count < 2;
+    }, "La recompensa debe ser única.");
+
+    $.validator.addMethod('valid_chars', function(value, element) {
+		return value.indexOf('_') === -1;
+    }, "El nombre de la recompenza no puede contener el carácter '_'");
+	
+	$('#reward_config_form').validate($.extend(form_support.handler, {
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				beforeSerialize: function(arr, $form, options) {
+					$("input[name*='customer_reward']:not(input[name=customer_reward_enable])").prop("disabled", false); 
+					return true;
+				},
+				success: function(response)	{
+					$.notify({ message: response.message }, { type: response.success ? 'success' : 'danger'});
+					$("#customer_rewards").load('https://liquiofertas.cl/demo/public/config/ajax_customer_rewards', init_add_remove_tables);
+				},
+				dataType: 'json'
+			});
+		},
+
+		errorLabelContainer: "#reward_error_message_box",
+
+		rules:
+		{
+							customer_reward_1:
+				{
+					required: true,
+					customer_reward: true,
+					valid_chars: true
+				},
+							customer_reward_2:
+				{
+					required: true,
+					customer_reward: true,
+					valid_chars: true
+				},
+							customer_reward_3:
+				{
+					required: true,
+					customer_reward: true,
+					valid_chars: true
+				},
+							customer_reward_4:
+				{
+					required: true,
+					customer_reward: true,
+					valid_chars: true
+				},
+							customer_reward_5:
+				{
+					required: true,
+					customer_reward: true,
+					valid_chars: true
+				},
+			   		},
+
+		messages: 
+		{
+							customer_reward_1: "El nombre es un campo obligatorio",
+							customer_reward_2: "El nombre es un campo obligatorio",
+							customer_reward_3: "El nombre es un campo obligatorio",
+							customer_reward_4: "El nombre es un campo obligatorio",
+							customer_reward_5: "El nombre es un campo obligatorio",
+					}
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="table_tab">
+		<form action="https://liquiofertas.cl/demo/public/config/save_tables/" id="table_config_form" class="form-horizontal" method="post" accept-charset="utf-8">
+                                                                <input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />
+    <div id="config_wrapper">
+        <fieldset id="config_info">
+            <div id="required_fields_message">Los campos en rojo son requeridos</div>
+            <ul id="table_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">	
+				<label for="dinner_table_enable" class="control-label col-xs-2">Activar Mesa de Restaurante</label>				<div class='col-xs-1'>
+					<input type="checkbox" name="dinner_table_enable" value="dinner_table_enable" id="dinner_table_enable"  />
+				</div>
+			</div>
+
+            <div id="dinner_tables">
+					<div class="form-group form-group-sm" style="display:block;">
+		<label for="dinner_table_1" class="required control-label col-xs-2">Mesa 1</label>		<div class='col-xs-2'>
+			<input type="text" name="dinner_table_1" value="Delivery" id="dinner_table_1" class="dinner_table valid_chars form-control input-sm required"  />
+		</div>
+		<span class="add_dinner_table glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+		<span>&nbsp;&nbsp;</span>
+		<span class="remove_dinner_table glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+	</div>
+	<div class="form-group form-group-sm" style="display:block;">
+		<label for="dinner_table_2" class="required control-label col-xs-2">Mesa 2</label>		<div class='col-xs-2'>
+			<input type="text" name="dinner_table_2" value="Take Away" id="dinner_table_2" class="dinner_table valid_chars form-control input-sm required"  />
+		</div>
+		<span class="add_dinner_table glyphicon glyphicon-plus" style="padding-top: 0.5em;"></span>
+		<span>&nbsp;&nbsp;</span>
+		<span class="remove_dinner_table glyphicon glyphicon-minus" style="padding-top: 0.5em;"></span>
+	</div>
+			</div>
+            
+            <input type="submit" name="submit_table" value="Enviar" id="submit_table" class="btn btn-primary btn-sm pull-right"  />
+        </fieldset>
+    </div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+
+	var enable_disable_dinner_table_enable = (function() {
+		var dinner_table_enable = $("#dinner_table_enable").is(":checked");
+		$("input[name*='dinner_table']:not(input[name=dinner_table_enable])").prop("disabled", !dinner_table_enable);
+		if(dinner_table_enable)
+		{
+			$(".add_dinner_table, .remove_dinner_table").show();
+		}
+		else
+		{
+			$(".add_dinner_table, .remove_dinner_table").hide();	
+		}
+		return arguments.callee;
+	})();
+
+	$("#dinner_table_enable").change(enable_disable_dinner_table_enable);
+
+	var table_count = 2;
+
+	var hide_show_remove = function() {
+		if ($("input[name*='dinner_tables']:enabled").length > 1)
+		{
+			$(".remove_dinner_tables").show();
+		} 
+		else
+		{
+			$(".remove_dinner_tables").hide();
+		}
+	};
+
+	var add_dinner_table = function() {
+		var id = $(this).parent().find('input').attr('id');
+		id = id.replace(/.*?_(\d+)$/g, "$1");
+		var block = $(this).parent().clone(true);
+		var new_block = block.insertAfter($(this).parent());
+		var new_block_id = 'dinner_table_' + ++id;
+		$(new_block).find('label').html("Mesa " + ++table_count).attr('for', new_block_id).attr('class', 'control-label col-xs-2');
+		$(new_block).find('input').attr('id', new_block_id).removeAttr('disabled').attr('name', new_block_id).attr('class', 'form-control input-sm').val('');
+		hide_show_remove();
+	};
+
+	var remove_dinner_table = function() {
+		$(this).parent().remove();
+		hide_show_remove();
+	};
+
+	var init_add_remove_tables = function() {
+		$('.add_dinner_table').click(add_dinner_table);
+		$('.remove_dinner_table').click(remove_dinner_table);
+		hide_show_remove();
+		// set back disabled state
+		enable_disable_dinner_table_enable();
+	};
+	init_add_remove_tables();
+
+	var duplicate_found = false;
+	// run validator once for all fields
+	$.validator.addMethod('dinner_table' , function(value, element) {
+		var value_count = 0;
+		$("input[name*='dinner_table']:not(input[name=dinner_table_enable])").each(function() {
+			value_count = $(this).val() == value ? value_count + 1 : value_count; 
+		});
+		return value_count < 2;
+    }, "Utilice un nombre de mesa único.");
+
+    $.validator.addMethod('valid_chars', function(value, element) {
+		return value.indexOf('_') === -1;
+    }, "El nombre de la mesa no puede contener '_'.");
+	
+	$('#table_config_form').validate($.extend(form_support.handler, {
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				beforeSerialize: function(arr, $form, options) {
+					$("input[name*='dinner_table']:not(input[name=dinner_table_enable])").prop("disabled", false); 
+					return true;
+				},
+				success: function(response)	{
+					$.notify({ message: response.message }, { type: response.success ? 'success' : 'danger'});
+					$("#dinner_tables").load('https://liquiofertas.cl/demo/public/config/ajax_dinner_tables', init_add_remove_tables);
+				},
+				dataType: 'json'
+			});
+		},
+
+		errorLabelContainer: "#table_error_message_box",
+
+		rules:
+		{
+							dinner_table_1:
+				{
+					required: true,
+					dinner_table: true,
+					valid_chars: true
+				},
+							dinner_table_2:
+				{
+					required: true,
+					dinner_table: true,
+					valid_chars: true
+				},
+			   		},
+
+		messages: 
+		{
+							dinner_table_1: "La mesa es un campo obligatorio.",
+							dinner_table_2: "La mesa es un campo obligatorio.",
+					}
+	}));
+});
+</script>
+	</div>
+	<div class="tab-pane" id="system_tab">
+		<br>
+<div class="container-fluid">
+	<ul class="nav nav-tabs" id="myTabs" data-toggle="tab">
+		<li class="active"><a href="#system_tabs" data-toggle="tab" title="Sistema OSPOS">Sistema OSPOS</a></li>
+		<li><a href="#email_tabs" data-toggle="tab" title="Configuracion de correo">E-mail</a></li>
+		<li><a href="#message_tabs" data-toggle="tab" title="Configuracion del mensaje">Mensajes SMS</a></li>
+		<li><a href="#integrations_tabs" data-toggle="tab" title="Componentes de Terceros Integrados">Componentes Integrados</a></li>
+		<li><a href="#license_tabs" data-toggle="tab" title="Anuncio de Licencia">Licencia</a></li>
+	</ul>  
+		<div class="tab-content">
+		<div class="tab-pane active" id="system_tabs"><style type="text/css">
+	 a:hover {
+	  cursor:pointer;
+}
+	 hidden {
+  visibility: hidden;
+}
+</style>
+</style>
+<script type="text/javascript" src="js/clipboard.min.js"></script>
+<div id="config_wrapper" class="col-sm-12">
+	Por Favor Use la Siguiente Información para Reportar Problemas.	<div class="container">
+		<div class="row">
+			<div class="col-sm-2" align="left"><br>
+			<p style="min-height:14.7em;"><strong>General Info </p> 
+			<p style="min-height:9.9em;">User Setup</p> 
+			<p>Permissions</p></strong>
+			</div> 
+			<div class="col-sm-8" id="issuetemplate" align="left"><br>
+				Información de la Instalación OSPOS:				3.3.8 - ffe492<br>
+				Language Code: es<br><br>
+				<div id="TimeError"></div>
+				Extensions & Modules:<br>
+					&#187; GD: <font color="green">Enabled &#x2713</font><br>&#187; BC Math: <font color="green">Enabled &#x2713</font><br>&#187; INTL: <font color="green">Enabled &#x2713</font><br>&#187; OpenSSL: <font color="green">Enabled &#x2713</font><br>&#187; MBString: <font color="green">Enabled &#x2713</font><br>&#187; Curl: <font color="green">Enabled &#x2713</font><br> <br>				User Configuration:<br>
+				.Browser:
+					Firefox<br>
+				.Server Software: Apache<br>
+				.PHP Version: 7.4.33<br>
+				.DB Version: 5.5.5-10.3.38-MariaDB-cll-lve<br>
+				.Server Port: 443<br>
+				.OS: Linux 3.10.0-962.3.2.lve1.5.78.el7.x86_64<br><br>
+				File Permissions:<br>
+						&#187; [application/logs:]
+						 -  0755 |  <font color="green">  Writable &#x2713 </font> | <font color="red">Vulnerable or Incorrect Permissions &#x2717</font>						<br>
+						&#187; [public/uploads:]
+						 -  0755 |  <font color="green">	 Writable &#x2713 </font> | <font color="red">Vulnerable or Incorrect Permissions &#x2717</font>						<br>
+						&#187; [public/uploads/item_pics:]	
+						 -  0755 |	 <font color="green"> Writable &#x2713 </font> | <font color="red">Vulnerable or Incorrect Permissions &#x2717</font>						<br>
+						&#187; [import_customers.csv:]
+						 -  0644 |  <font color="green">	 Readable &#x2713 </font> | <font color="red">Vulnerable or Incorrect Permissions &#x2717</font>						<br>
+						<br><font color="red"><strong>Advertencia de vulnerabilidad de seguridad</strong> <br>Los permisos incorrectos dejan a este software en riesgo.</font><br><br><font color="red"> &#187; [application/logs:] es escribible, pero los permisos de escritura son incorrectos. Pongalos en 750 y recargue la página de nuevo.</font><br><font color="red"> &#187; [public/uploads:] es escribible, pero los permisos de escritura son incorrectos. Pongalos en 750 y recargue la página de nuevo.</font><br><font color="red"> &#187; [public/uploads/item_pics:] es escribible, pero los permisos de escritura son incorrectos. Pongalos en 750 y recargue la página de nuevo.</font><br><font color="red"> &#187; [import_customers.csv:] es legible, pero los permisos de lectura son incorrectos. Pongalos en 640 o 660 cargue nuevamente.</font>						<br>
+				<div id="timezone" style="font-weight:600;"></div><br><br>
+				<div id="ostimezone" style="display:none;" >America/Santiago</div><br>
+				<br>	
+			</div>
+		</div>
+	</div>
+</div>
+<div align="center">
+		<a class="copy" data-clipboard-action="copy" data-clipboard-target="#issuetemplate">Copy Info</a> | <a href="https://github.com/opensourcepos/opensourcepos/issues/new" target="_blank"> Informe de algún problema</a>
+		<script>
+			var clipboard = new ClipboardJS('.copy');
+
+			clipboard.on('success', function(e) {
+				document.getSelection().removeAllRanges();
+			});
+			
+			document.getElementById("timezone").innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;	
+					
+			$(function() {
+				$('#timezone').clone().appendTo('#timezoneE');
+			});
+							
+			if($('#timezone').html() !== $('#ostimezone').html())
+			document.getElementById("TimeError").innerHTML = '<font color="red">La zona horaria de OSPOS es diferente de tu zona horaria local.</font><br><br>Zona Horaria OSPOS:<div id="timezoneE" style="font-weight:600;"></div><br>Zona Horaria Local:<div id="ostimezoneE" style="font-weight:600;">America/Santiago</div><br>';
+		</script>
+</div>
+</div>
+		<div class="tab-pane" id="email_tabs"><form action="https://liquiofertas.cl/demo/public/config/save_email/" id="email_config_form" enctype="multipart/form-data" class="form-horizontal" method="post" accept-charset="utf-8">
+                                                               <input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<ul id="email_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">
+				<label for="protocol" class="control-label col-xs-2">Protocolo</label>				<div class='col-xs-2'>
+					<select name="protocol" class="form-control input-sm" id="protocol">
+<option value="mail" selected="selected">mail</option>
+<option value="sendmail">sendmail</option>
+<option value="smtp">smtp</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="mailpath" class="control-label col-xs-2">Ruta a Sendmail</label>				<div class="col-xs-4">
+					<input type="text" name="mailpath" value="/usr/sbin/sendmail" id="mailpath" class="form-control input-sm"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="smtp_host" class="control-label col-xs-2">Servidor SMTP</label>				<div class="col-xs-2">
+					<input type="text" name="smtp_host" value="" id="smtp_host" class="form-control input-sm"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="smtp_port" class="control-label col-xs-2">Puerto SMTP</label>				<div class="col-xs-2">
+					<input type="text" name="smtp_port" value="465" id="smtp_port" class="form-control input-sm"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="smtp_crypto" class="control-label col-xs-2">Encriptado SMTP</label>				<div class='col-xs-2'>
+					<select name="smtp_crypto" class="form-control input-sm" id="smtp_crypto">
+<option value="">None</option>
+<option value="tls">TLS</option>
+<option value="ssl" selected="selected">SSL</option>
+</select>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="smtp_timeout" class="control-label col-xs-2">Tiempo falla SMTP</label>				<div class="col-xs-2">
+					<input type="text" name="smtp_timeout" value="5" id="smtp_timeout" class="form-control input-sm"  />
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="smtp_user" class="control-label col-xs-2">Usuario SMTP</label>				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-user"></span></span>
+						<input type="text" name="smtp_user" value="" id="smtp_user" class="form-control input-sm"  />
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="smtp_pass" class="control-label col-xs-2">Pasword SMTP</label>				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-asterisk"></span></span>
+						<input type="password" name="smtp_pass" value="" id="smtp_pass" class="form-control input-sm"  />
+					</div>
+				</div>
+			</div>
+
+			<input type="submit" name="submit_email" value="Enviar" id="submit_email" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	var check_protocol = function() {
+		if($('#protocol').val() == 'sendmail')
+		{
+			$('#mailpath').prop('disabled', false);
+			$('#smtp_host, #smtp_user, #smtp_pass, #smtp_port, #smtp_timeout, #smtp_crypto').prop('disabled', true);
+		}
+		else if($('#protocol').val() == 'smtp')
+		{
+			$('#smtp_host, #smtp_user, #smtp_pass, #smtp_port, #smtp_timeout, #smtp_crypto').prop('disabled', false);
+			$('#mailpath').prop('disabled', true);
+		}
+		else
+		{
+			$('#mailpath, #smtp_host, #smtp_user, #smtp_pass, #smtp_port, #smtp_timeout, #smtp_crypto').prop('disabled', true);
+		}
+	};
+
+	$('#protocol').change(check_protocol).ready(check_protocol);
+
+	$('#email_config_form').validate($.extend(form_support.handler, {
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				beforeSerialize: function(arr, $form, options) {
+					$('#mailpath, #smtp_host, #smtp_user, #smtp_pass, #smtp_port, #smtp_timeout, #smtp_crypto').prop('disabled', false);
+					return true;
+				},
+				success: function(response) {
+					$.notify( { message: response.message }, { type: response.success ? 'success' : 'danger'} )
+					// set back disabled state
+					check_protocol();
+				},
+				dataType: 'json'
+			});
+		},
+
+		errorLabelContainer: '#email_error_message_box'
+	}));
+});
+</script>
+</div>
+		<div class="tab-pane" id="message_tabs"><form action="https://liquiofertas.cl/demo/public/config/save_message/" id="message_config_form" enctype="multipart/form-data" class="form-horizontal" method="post" accept-charset="utf-8">
+                  <input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<ul id="message_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">	
+				<label for="msg_uid" class="control-label col-xs-2 required">SMS-API Usuario</label>				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-user"></span></span>
+						<input type="text" name="msg_uid" value="" id="msg_uid" class="form-control input-sm required"  />
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">	
+				<label for="msg_pwd" class="control-label col-xs-2 required">SMS-API Password</label>				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-lock"></span></span>
+						<input type="password" name="msg_pwd" value="" id="msg_pwd" class="form-control input-sm required"  />
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group form-group-sm">	
+				<label for="msg_src" class="control-label col-xs-2 required">SMS-API ID remitente</label>				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-bullhorn"></span></span>
+						<input type="text" name="msg_src" value="BITPOS" id="msg_src" class="form-control input-sm required"  />
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group form-group-sm">	
+				<label for="msg_msg" class="control-label col-xs-2">Texto del mensaje guardado</label>				<div class='col-xs-4'>
+					<textarea name="msg_msg" cols="40" rows="10" id="msg_msg" class="form-control input-sm" placeholder="Si desea usar un formato de SMS guarde su mensaje aquí, en caso contrario deje en blanco." ></textarea>
+				</div>
+			</div>
+
+			<input type="submit" name="submit_message" value="Enviar" id="submit_message" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	$('#message_config_form').validate($.extend(form_support.handler, {
+
+		errorLabelContainer: "#message_error_message_box",
+
+		rules: 
+		{
+			msg_uid: "required",
+			msg_pwd: "required",
+			msg_src: "required"
+   		},
+
+		messages: 
+		{
+			msg_uid: "SMS-API Usuario es un campo requerido",
+			msg_pwd: "SMS-API Password es un campo requerido",
+			msg_src: "SMS-API ID remitente es un campo requerido"
+		}
+	}));
+});
+</script>
+</div>
+		<div class="tab-pane" id="integrations_tabs"><form action="https://liquiofertas.cl/demo/public/config/save_mailchimp/" id="mailchimp_config_form" enctype="multipart/form-data" class="form-horizontal" method="post" accept-charset="utf-8">
+<input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />                                                   
+	<div id="config_wrapper">
+		<fieldset id="config_info">
+			<div id="required_fields_message">Los campos en rojo son requeridos</div>
+			<div id="integrations_header">Configuración de Mailchimp</div>
+			<ul id="mailchimp_error_message_box" class="error_message_box"></ul>
+
+			<div class="form-group form-group-sm">
+				<label for="mailchimp_api_key" class="control-label col-xs-2">Clave API de Mailchimp</label>				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-cloud"></span></span>
+						<input type="text" name="mailchimp_api_key" value="" id="mailchimp_api_key" class="form-control input-sm"  />
+					</div>
+				</div>
+				<div class="col-xs-1">
+					<label class="control-label">
+						<a href="http://eepurl.com/b9a05b" target="_blank"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Haga clic en el icono de una clave de API."></span></a>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group form-group-sm">
+				<label for="mailchimp_list_id" class="control-label col-xs-2">Lista(s) de Mailchimp</label>				<div class='col-xs-4'>
+					<div class="input-group">
+						<span class="input-group-addon input-sm"><span class="glyphicon glyphicon-user"></span></span>
+						<select name="mailchimp_list_id" id="mailchimp_list_id" class="form-control input-sm">
+</select>
+					</div>
+				</div>
+			</div>
+
+			<input type="submit" name="submit_mailchimp" value="Enviar" id="submit_mailchimp" class="btn btn-primary btn-sm pull-right"  />
+		</fieldset>
+	</div>
+</form>
+<script type="text/javascript">
+//validation and submit handling
+$(document).ready(function()
+{
+	$('#mailchimp_api_key').change(function() {
+		$.post("https://liquiofertas.cl/demo/public/config/ajax_check_mailchimp_api_key", {
+				'mailchimp_api_key': $('#mailchimp_api_key').val()
+			},
+			function(response) {
+				$.notify({message: response.message}, {type: response.success ? 'success' : 'danger'} );
+				$('#mailchimp_list_id').empty();
+				$.each(response.mailchimp_lists, function(val, text) {
+					$('#mailchimp_list_id').append(new Option(text, val));
+				});
+				$('#mailchimp_list_id').prop('selectedIndex', 0);
+			},
+			'json'
+		);
+	});
+
+	$('#mailchimp_config_form').validate($.extend(form_support.handler, {
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				success: function(response) {
+					$.notify( { message: response.message }, { type: response.success ? 'success' : 'danger'} )
+				},
+				dataType: 'json'
+			});
+		},
+
+		errorLabelContainer: '#mailchimp_error_message_box'
+	}));
+});
+</script>
+</div>
+		<div class="tab-pane" id="license_tabs"><br><form action="https://liquiofertas.cl/demo/public/config" id="license_config_form" enctype="multipart/form-data" class="form-horizontal" method="post" accept-charset="utf-8">
+                            <input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />
+	<div id="config_wrapper">
+		<fieldset>
+							<div class="form-group form-group-sm">
+					<label for="license" class="control-label col-xs-3">Open Source Point Of Sale 3.3.8</label>					<div class='col-xs-6'>
+						<textarea name="license" cols="40" rows="10" id="license_0" class="form-control" readonly="" >MIT License
+
+Copyright (c) 2013-2021 jekkos
+Copyright (c) 2015-2021 FrancescoUK (aka daN4cat)
+Copyright (c) 2017-2021 Steve Ireland
+Copyright (c) 2017-2021 objecttothis
+Copyright (c) 2017-2021 odiea
+Copyright (c) 2017-2021 WebShells
+Copyright (c) 2020-2021 Andriux1990
+Copyright (c) 2021 BudsieBuds
+Copyright (c) 2019 Loyd Jayme (aka loydjayme25)
+Copyright (c) 2018 Erasto Marroquin (aka Erastus)
+Copyright (c) 2018 Nathan Sas (aka nathanzky)
+Copyright (c) 2018 Emilio Silva (aka emi-silva)
+Copyright (c) 2017 Jesus Guerrero Botella (aka i92guboj)
+Copyright (c) 2017 Deep Shah (aka deepshah)
+Copyright (c) 2017 Joshua Fernandez (aka joshua1234511)
+Copyright (c) 2017 asadjaved63
+Copyright (c) 2016-2017 Ramkrishna Mondal (aka RamkrishnaMondal)
+Copyright (c) 2016-2017 Jorge Colmenarez (aka jlctmaster), frontuari.com
+Copyright (c) 2016 Rinaldy@dbarber (aka rnld26)
+Copyright (c) 2015 Aamir Shahzad (aka asakpke), RoshanTech.com
+Copyright (c) 2015 Toni Haryanto (aka yllumi)
+Copyright (c) 2013 Rob Garrison
+Copyright (c) 2013 Parq
+Copyright (c) 2013 Ramel
+Copyright (c) 2012-2014 pappastech
+Copyright (c) 2012 Alain
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN AC</textarea>
+					</div>
+				</div>
+							<div class="form-group form-group-sm">
+					<label for="license" class="control-label col-xs-3">Bootstrap 5.0.1
+</label>					<div class='col-xs-6'>
+						<textarea name="license" cols="40" rows="10" id="license_1" class="form-control" readonly="" >The MIT License (MIT)
+
+Copyright (c) 2011-2021 Twitter, Inc.
+Copyright (c) 2011-2021 The Bootstrap Authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</textarea>
+					</div>
+				</div>
+							<div class="form-group form-group-sm">
+					<label for="license" class="control-label col-xs-3">Bootswatch 3.4.1+1
+</label>					<div class='col-xs-6'>
+						<textarea name="license" cols="40" rows="10" id="license_2" class="form-control" readonly="" >The MIT License (MIT)
+
+Copyright (c) 2013 Thomas Park
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</textarea>
+					</div>
+				</div>
+							<div class="form-group form-group-sm">
+					<label for="license" class="control-label col-xs-3">Bootstrap 3.4.1
+</label>					<div class='col-xs-6'>
+						<textarea name="license" cols="40" rows="10" id="license_3" class="form-control" readonly="" >The MIT License (MIT)
+
+Copyright (c) 2011-2019 Twitter, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</textarea>
+					</div>
+				</div>
+							<div class="form-group form-group-sm">
+					<label for="license" class="control-label col-xs-3">Bootstrap Icons 1.5.0
+</label>					<div class='col-xs-6'>
+						<textarea name="license" cols="40" rows="10" id="license_4" class="form-control" readonly="" >The MIT License (MIT)
+
+Copyright (c) 2019-2020 The Bootstrap Authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</textarea>
+					</div>
+				</div>
+							<div class="form-group form-group-sm">
+					<label for="license" class="control-label col-xs-3">Beautiful Flat Icons</label>					<div class='col-xs-6'>
+						<textarea name="license" cols="40" rows="10" id="license_5" class="form-control" readonly="" >Elegant Themes Blog: http://www.elegantthemes.com/blog/freebie-of-the-week/beautiful-flat-icons-for-free
+
+These icons are completely free and Open Source under the GPL-2.0, 
+so feel free to use them in your personal and commercial projects alike.
+
+-----------------------------------------------------------------------------
+
+GNU General Public License, version 2 (GPL-2.0)
+
+GNU GENERAL PUBLIC LICENSE
+Version 2, June 1991
+
+Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
+
+For full license statement please visit https://www.gnu.org/licenses/gpl-2.0.html
+</textarea>
+					</div>
+				</div>
+							<div class="form-group form-group-sm">
+					<label for="license" class="control-label col-xs-3">Bootswatch 5.0.1
+</label>					<div class='col-xs-6'>
+						<textarea name="license" cols="40" rows="10" id="license_6" class="form-control" readonly="" >The MIT License (MIT)
+
+Copyright (c) 2013 Thomas Park
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</textarea>
+					</div>
+				</div>
+							<div class="form-group form-group-sm">
+					<label for="license" class="control-label col-xs-3">Composer Libraries</label>					<div class='col-xs-6'>
+						<textarea name="license" cols="40" rows="10" id="license_7" class="form-control" readonly="" >component: codeigniter/framework
+version: 3.1.11
+license: MIT 
+
+component: dompdf/dompdf
+version: v0.8.6
+license: LGPL-2.1 
+
+component: mikey179/vfsStream
+version: v1.1.0
+license: BSD 
+
+component: paragonie/random_compat
+version: 2.0.19
+license: MIT 
+
+component: phenx/php-font-lib
+version: 0.5.2
+license: LGPL-3.0 
+
+component: phenx/php-svg-lib
+version: 0.3.3
+license: LGPL-3.0 
+
+component: tamtamchik/namecase
+version: 1.0.6
+license: MIT 
+
+component: vlucas/phpdotenv
+version: 2.6.6
+license: BSD-3-Clause-Attribution 
+
+component: symfony/polyfill-ctype
+version: v1.20.0
+license: MIT 
+
+</textarea>
+					</div>
+				</div>
+							<div class="form-group form-group-sm">
+					<label for="license" class="control-label col-xs-3">JS Plugins</label>					<div class='col-xs-6'>
+						<textarea name="license" cols="40" rows="10" id="license_8" class="form-control" readonly="" >component: bootstrap3-dialog@undefined
+licenses: MIT 
+homepage: http://nakupanda.github.io/bootstrap3-dialog/
+
+component: bootswatch@3.4.1+1
+licenses: MIT 
+repository: git git://github.com/thomaspark/bootswatch.git 
+homepage: http://bootswatch.com
+
+component: chartist@0.9.8
+licenses: UNKNOWN
+homepage: https://github.com/gionkunz/chartist-js
+
+component: chartist-plugin-barlabels@0.0.5
+licenses: WTF* 
+homepage: https://github.com/mtgibbs/chartist-plugin-barlabels
+
+component: chartist-plugin-pointlabels@0.0.4
+licenses: WTF* 
+homepage: https://github.com/gionkunz/chartist-plugin-pointlabels
+
+component: chartist-plugin-tooltip@0.0.18
+licenses: MIT* 
+homepage: https://github.com/tmmdata/chartist-plugin-tooltip
+
+component: es6-promise@4.2.4
+licenses: MIT 
+repository: git git://github.com/stefanpenner/es6-promise.git 
+homepage: https://github.com/components/es6-promise
+
+component: file-saver@2.0.4
+licenses: MIT 
+homepage: https://github.com/eligrey/FileSaver.js
+
+component: jquery@2.1.4
+licenses: MIT 
+homepage: https://github.com/jquery/jquery-dist
+
+component: jquery-form@4.3.0
+licenses: (LGPL-2.1+ OR MIT) MIT* 
+repository: git https://github.com/jquery-form/form.git 
+homepage: https://github.com/jquery-form/form
+
+component: js-cookie@2.2.1
+licenses: MIT 
+homepage: https://github.com/js-cookie/js-cookie
+
+component: moment@2.29.4
+licenses: MIT 
+homepage: https://github.com/moment/moment
+
+component: tableexport.jquery.plugin@1.10.22
+licenses: MIT 
+homepage: https://github.com/hhurz/tableExport.jquery.plugin
+
+component: bootstrap-daterangepicker@2.1.27
+licenses: MIT 
+homepage: https://github.com/dangrossman/bootstrap-daterangepicker
+repository: git+https://github.com/dangrossman/bootstrap-daterangepicker
+
+component: bootstrap-select@1.13.18
+licenses: MIT 
+repository: https://github.com/snapappointments/bootstrap-select
+homepage: https://developer.snapappointments.com/bootstrap-select
+
+component: bootstrap-tagsinput@0.8.0
+licenses: MIT 
+homepage: https://github.com/TimSchlechter/bootstrap-tagsinput
+repository: https://github.com/timschlechter/bootstrap-tagsinput
+
+component: bootstrap-toggle@2.2.2
+licenses: MIT 
+repository: git+https://github.com/minhur/bootstrap-toggle
+homepage: http://www.bootstraptoggle.com
+
+component: chartist-plugin-axistitle@0.0.7
+licenses: MIT 
+homepage: https://github.com/alexstanbury/chartist-plugin-axistitle
+repository: git+https://github.com/alexstanbury/chartist-plugin-axistitle
+
+component: html2canvas@0.4.1
+licenses: MIT 
+homepage: https://github.com/niklasvh/html2canvas
+repository: git+ssh://git@github.com/niklasvh/html2canvas
+
+component: jasny-bootstrap@3.1.3
+licenses: Apache-2.0 Apache* 
+homepage: https://github.com/jasny/bootstrap
+repository: git+https://github.com/jasny/bootstrap
+
+component: jquery-validation@1.19.5
+licenses: MIT 
+repository: https://github.com/jquery-validation/jquery-validation
+homepage: https://jqueryvalidation.org/
+
+component: jspdf@1.3.5
+licenses: MIT 
+homepage: https://github.com/mrrio/jspdf
+repository: git+https://github.com/MrRio/jsPDF
+
+component: remarkable-bootstrap-notify@3.1.3
+licenses: MIT 
+homepage: http://bootstrap-notify.remabledesigns.com/
+repository: https://github.com/mouse0270/bootstrap-notify
+
+component: jspdf-autotable@2.0.17
+licenses: MIT 
+homepage: https://github.com/simonbengtsson/jspdf-autotable
+repository: git+https://github.com/simonbengtsson/jsPDF-AutoTable
+
+component: bootstrap@3.4.1
+licenses: MIT 
+homepage: https://getbootstrap.com/
+repository: git+https://github.com/twbs/bootstrap
+
+component: bootstrap-table@1.18.3
+licenses: MIT 
+homepage: https://github.com/wenzhixin/bootstrap-table
+repository: git+https://github.com/wenzhixin/bootstrap-table
+
+component: fflate@0.4.8
+licenses: MIT 
+homepage: https://github.com/101arrowz/fflate
+repository: git+https://github.com/101arrowz/fflate
+
+component: smalot-bootstrap-datetimepicker@2.4.4
+licenses: Apache 2.0 Apache* 
+homepage: https://github.com/smalot/bootstrap-datetimepicker
+repository: https://github.com/smalot/bootstrap-datetimepicker
+
+component: jquery-ui@1.12.1
+licenses: MIT 
+homepage: https://github.com/components/jqueryui
+repository: https://github.com/components/jqueryui
+
+</textarea>
+					</div>
+				</div>
+					</fieldset>
+	</div>
+</form></div>
+	</div>
+</div>
+	</div>
+</div>
+
+		</div>
+	</div>
+
+
+</body>
+</html>

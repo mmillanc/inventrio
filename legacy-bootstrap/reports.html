@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<base href="https://liquiofertas.cl/demo/public/" />
+	<title>BITPOS | Potenciado por BITPOS 3.3.8</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="dist/bootswatch/cyborg/bootstrap.min.css"/>
+
+			<!--[if lte IE 8]>
+		<link rel="stylesheet" media="print" href="dist/print.css" type="text/css" />
+		<![endif]-->
+		<!-- start mincss template tags -->
+		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=88e63d8098"/>
+		<!-- end mincss template tags -->
+
+		<!-- Tweaks to the UI for a particular theme should drop here  -->
+	
+		<!-- start minjs template tags -->
+		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=09f395beea"></script>
+		<!-- end minjs template tags -->
+	
+	<script type="text/javascript">
+	// live clock
+	var clock_tick = function clock_tick() {
+		setInterval('update_clock();', 1000);
+	}
+
+	// start the clock immediatly
+	clock_tick();
+
+	var update_clock = function update_clock() {
+		document.getElementById('liveclock').innerHTML = moment().format("DD/MM/YYYY HH:mm:ss");
+	}
+
+	$.notifyDefaults({ placement: {
+		align: "center",
+		from: "bottom"
+	}});
+
+	var cookie_name = "csrf_cookie_ospos_v3";
+
+	var csrf_token = function() {
+		return Cookies.get(cookie_name);
+	};
+
+	var csrf_form_base = function() {
+		return { csrf_ospos_v3 : function () { return csrf_token();  } };
+	};
+
+	var setup_csrf_token = function() {
+		$('input[name="csrf_ospos_v3"]').val(csrf_token());
+	};
+
+	var ajax = $.ajax;
+
+	$.ajax = function() {
+		var args = arguments[0];
+		if (args['type'] && args['type'].toLowerCase() == 'post' && csrf_token()) {
+			if (typeof args['data'] === 'string')
+			{
+				args['data'] += '&' + $.param(csrf_form_base());
+			}
+			else
+			{
+				args['data'] = $.extend(args['data'], csrf_form_base());
+			}
+		}
+
+		return ajax.apply(this, arguments);
+	};
+
+	$(document).ajaxComplete(setup_csrf_token);
+
+	var submit = $.fn.submit;
+
+	$.fn.submit = function() {
+		setup_csrf_token();
+		submit.apply(this, arguments);
+	};
+</script>
+	<script type="text/javascript">
+(function(lang, $) {
+
+    var lines = {
+        'common_submit' : "Enviar",
+        'common_close' : "Cerrar"
+    };
+
+    $.extend(lang, {
+        line: function(key) {
+            return lines[key];
+        }
+    });
+
+
+})(window.lang = window.lang || {}, jQuery);
+</script>
+	<style type="text/css">
+		html {
+			overflow: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="topbar">
+			<div class="container">
+				<div class="navbar-left">
+					<div id="liveclock">26/12/2023 21:21:58</div>
+				</div>
+
+				<div class="navbar-right" style="margin:0">
+					<a href="https://liquiofertas.cl/demo/public/home/change_password/1" class="modal-dlg" data-btn-submit="Enviar" title="Cambiar Contraseña">Francisco  Quinteros</a>					  |  					<a href="#" onclick="$.post('https://liquiofertas.cl/demo/public/home/logout');">Cerrar sesión</a>
+				</div>
+
+				<div class="navbar-center" style="text-align:center">
+					<strong>BITPOS</strong>
+				</div>
+			</div>
+		</div>
+
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+
+					<a class="navbar-brand hidden-sm" href="https://liquiofertas.cl/demo/public/">BITPOS</a>
+				</div>
+
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/customers" title="Clientes" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/customers.png" border="0" alt="Module Icon"/><br/>
+									Clientes								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/items" title="Productos" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/items.png" border="0" alt="Module Icon"/><br/>
+									Productos								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/item_kits" title="Packs" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/item_kits.png" border="0" alt="Module Icon"/><br/>
+									Packs								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/suppliers" title="Proveedores" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/suppliers.png" border="0" alt="Module Icon"/><br/>
+									Proveedores								</a>
+							</li>
+													<li class="active">
+								<a href="https://liquiofertas.cl/demo/public/reports" title="Reportes" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/reports.png" border="0" alt="Module Icon"/><br/>
+									Reportes								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/receivings" title="Recepción" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/receivings.png" border="0" alt="Module Icon"/><br/>
+									Recepción								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/sales" title="Ventas" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/sales.png" border="0" alt="Module Icon"/><br/>
+									Ventas								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/office" title="Configuraciones" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/office.png" border="0" alt="Module Icon"/><br/>
+									Configuraciones								</a>
+							</li>
+											</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+
+<script type="text/javascript">
+	dialog_support.init("a.modal-dlg");
+</script>
+
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><span class="glyphicon glyphicon-stats">&nbsp</span>Reportes Gráficos</h3>
+			</div>
+			<div class="list-group">
+							<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_categories">Categorías</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_customers">Clientes</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_discounts">Descuentos</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_employees">Empleados</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_expenses_categories">Gastos</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_items">Artículos</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_payments">Pagos</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_sales">Ventas</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_sales_taxes">Impuestos de Ventas</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_suppliers">Proveedores</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/graphical_summary_taxes">Impuestos</a>
+					 </div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><span class="glyphicon glyphicon-list">&nbsp</span>Reportes Resumidos</h3>
+			</div>
+			<div class="list-group">
+							<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_categories">Categorías</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_customers">Clientes</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_discounts">Descuentos</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_employees">Empleados</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_expenses_categories">Gastos</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_items">Artículos</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_payments">Pagos</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_sales">Ventas</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_sales_taxes">Impuestos de Ventas</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_suppliers">Proveedores</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/summary_taxes">Impuestos</a>
+					 </div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><span class="glyphicon glyphicon-list-alt">&nbsp</span>Reportes Detallados</h3>
+			</div>
+			<div class="list-group">
+							<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/detailed_sales">Ventas</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/detailed_receivings">Entradas</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/specific_customer">Clientes</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/specific_discount">Descuentos</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/specific_employee">Empleados</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/specific_supplier">Proveedores</a>
+					 </div>
+		</div>
+
+					<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title"><span class="glyphicon glyphicon-book">&nbsp</span>Reportes de Inventario</h3>
+				</div>
+				<div class="list-group">
+							<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/inventory_low">Inventario Bajo</a>
+					<a class="list-group-item" href="https://liquiofertas.cl/demo/public/reports/inventory_summary">Resumen de Inventario</a>
+						</div>
+			</div>
+			</div>
+</div>
+
+		</div>
+	</div>
+
+
+</body>
+</html>

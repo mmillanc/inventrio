@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<base href="https://liquiofertas.cl/demo/public/" />
+	<title>BITPOS | Potenciado por BITPOS 3.3.8</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="dist/bootswatch/cyborg/bootstrap.min.css"/>
+
+			<!--[if lte IE 8]>
+		<link rel="stylesheet" media="print" href="dist/print.css" type="text/css" />
+		<![endif]-->
+		<!-- start mincss template tags -->
+		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=88e63d8098"/>
+		<!-- end mincss template tags -->
+
+		<!-- Tweaks to the UI for a particular theme should drop here  -->
+	
+		<!-- start minjs template tags -->
+		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=09f395beea"></script>
+		<!-- end minjs template tags -->
+	
+	<script type="text/javascript">
+	// live clock
+	var clock_tick = function clock_tick() {
+		setInterval('update_clock();', 1000);
+	}
+
+	// start the clock immediatly
+	clock_tick();
+
+	var update_clock = function update_clock() {
+		document.getElementById('liveclock').innerHTML = moment().format("DD/MM/YYYY HH:mm:ss");
+	}
+
+	$.notifyDefaults({ placement: {
+		align: "center",
+		from: "bottom"
+	}});
+
+	var cookie_name = "csrf_cookie_ospos_v3";
+
+	var csrf_token = function() {
+		return Cookies.get(cookie_name);
+	};
+
+	var csrf_form_base = function() {
+		return { csrf_ospos_v3 : function () { return csrf_token();  } };
+	};
+
+	var setup_csrf_token = function() {
+		$('input[name="csrf_ospos_v3"]').val(csrf_token());
+	};
+
+	var ajax = $.ajax;
+
+	$.ajax = function() {
+		var args = arguments[0];
+		if (args['type'] && args['type'].toLowerCase() == 'post' && csrf_token()) {
+			if (typeof args['data'] === 'string')
+			{
+				args['data'] += '&' + $.param(csrf_form_base());
+			}
+			else
+			{
+				args['data'] = $.extend(args['data'], csrf_form_base());
+			}
+		}
+
+		return ajax.apply(this, arguments);
+	};
+
+	$(document).ajaxComplete(setup_csrf_token);
+
+	var submit = $.fn.submit;
+
+	$.fn.submit = function() {
+		setup_csrf_token();
+		submit.apply(this, arguments);
+	};
+</script>
+	<script type="text/javascript">
+(function(lang, $) {
+
+    var lines = {
+        'common_submit' : "Enviar",
+        'common_close' : "Cerrar"
+    };
+
+    $.extend(lang, {
+        line: function(key) {
+            return lines[key];
+        }
+    });
+
+
+})(window.lang = window.lang || {}, jQuery);
+</script>
+	<style type="text/css">
+		html {
+			overflow: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="topbar">
+			<div class="container">
+				<div class="navbar-left">
+					<div id="liveclock">26/12/2023 21:24:29</div>
+				</div>
+
+				<div class="navbar-right" style="margin:0">
+					<a href="https://liquiofertas.cl/demo/public/home/change_password/1" class="modal-dlg" data-btn-submit="Enviar" title="Cambiar Contraseña">Francisco  Quinteros</a>					  |  					<a href="#" onclick="$.post('https://liquiofertas.cl/demo/public/home/logout');">Cerrar sesión</a>
+				</div>
+
+				<div class="navbar-center" style="text-align:center">
+					<strong>BITPOS</strong>
+				</div>
+			</div>
+		</div>
+
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+
+					<a class="navbar-brand hidden-sm" href="https://liquiofertas.cl/demo/public/">BITPOS</a>
+				</div>
+
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/home" title="Inicio" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/home.png" border="0" alt="Module Icon"/><br/>
+									Inicio								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/employees" title="Empleados" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/employees.png" border="0" alt="Module Icon"/><br/>
+									Empleados								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/giftcards" title="Tarjetas de Regalo" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/giftcards.png" border="0" alt="Module Icon"/><br/>
+									Tarjetas de Regalo								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/expenses" title="Gastos" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/expenses.png" border="0" alt="Module Icon"/><br/>
+									Gastos								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/config" title="Configuración de la Tienda" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/config.png" border="0" alt="Module Icon"/><br/>
+									Configuración de la Tienda								</a>
+							</li>
+											</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+
+<script type="text/javascript">
+	dialog_support.init("a.modal-dlg");
+</script>
+
+<h3 class="text-center">Aqui podras encontrar las configuraciones de tu sistema</h3>
+
+<div id="office_module_list">
+			<div class="module_item" title="Listar modulos de Menu inicio.">
+			<a href="https://liquiofertas.cl/demo/public/home"><img src="https://liquiofertas.cl/demo/public/images/menubar/home.png" border="0" alt="Menubar Image" /></a>
+			<a href="https://liquiofertas.cl/demo/public/home">Inicio</a>
+		</div>
+			<div class="module_item" title="Agregar, Actualizar, Borrar y Buscar Empleados.">
+			<a href="https://liquiofertas.cl/demo/public/employees"><img src="https://liquiofertas.cl/demo/public/images/menubar/employees.png" border="0" alt="Menubar Image" /></a>
+			<a href="https://liquiofertas.cl/demo/public/employees">Empleados</a>
+		</div>
+			<div class="module_item" title="Agregar, Actualizar, Borrar y Buscar Tarjetas de Regalo.">
+			<a href="https://liquiofertas.cl/demo/public/giftcards"><img src="https://liquiofertas.cl/demo/public/images/menubar/giftcards.png" border="0" alt="Menubar Image" /></a>
+			<a href="https://liquiofertas.cl/demo/public/giftcards">Tarjetas de Regalo</a>
+		</div>
+			<div class="module_item" title="Agregar, Actualizar, Buscar y Borrar Gastos.">
+			<a href="https://liquiofertas.cl/demo/public/expenses"><img src="https://liquiofertas.cl/demo/public/images/menubar/expenses.png" border="0" alt="Menubar Image" /></a>
+			<a href="https://liquiofertas.cl/demo/public/expenses">Gastos</a>
+		</div>
+			<div class="module_item" title="Cambiar la configuración de OSPOS.">
+			<a href="https://liquiofertas.cl/demo/public/config"><img src="https://liquiofertas.cl/demo/public/images/menubar/config.png" border="0" alt="Menubar Image" /></a>
+			<a href="https://liquiofertas.cl/demo/public/config">Configuración de la Tienda</a>
+		</div>
+	</div>
+
+		</div>
+	</div>
+
+
+</body>
+</html>

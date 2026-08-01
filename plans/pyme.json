@@ -1,12 +1,17 @@
 {
   "id": "pyme",
   "name": "Pyme",
-  "description": "Inventario, ventas y clientes para pequeños comercios.",
+  "description": "Inventario, ventas, recepción y contabilidad para pequeños comercios.",
   "modules": [
     "inventory",
     "suppliers",
+    "stock_locations",
+    "receivings",
     "sales",
     "customers",
+    "item_kits",
+    "giftcards",
+    "expenses",
     "reports",
     "config"
   ]

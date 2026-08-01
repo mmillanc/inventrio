@@ -9,6 +9,13 @@ export const TABLES = [
   "customers",
   "sales",
   "settings",
+  "stock_locations",
+  "receivings",
+  "receiving_items",
+  "item_kits",
+  "item_kit_items",
+  "giftcards",
+  "expenses",
 ] as const;
 
 export type TableName = (typeof TABLES)[number];

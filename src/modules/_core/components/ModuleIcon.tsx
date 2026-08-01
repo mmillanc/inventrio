@@ -2,6 +2,7 @@ import {
   BarChart3,
   Clock,
   LayoutDashboard,
+  MapPin,
   Package,
   Settings,
   ShoppingCart,
@@ -9,6 +10,8 @@ import {
   Truck,
   Users,
   BadgeCheck,
+  Gift,
+  Receipt,
   type LucideIcon,
 } from "lucide-react";
 
@@ -23,6 +26,9 @@ const ICONS: Record<string, LucideIcon> = {
   "shopping-cart": ShoppingCart,
   dashboard: LayoutDashboard,
   "badge-check": BadgeCheck,
+  "map-pin": MapPin,
+  gift: Gift,
+  receipt: Receipt,
 };
 
 export function ModuleIcon({ name, className }: { name: string; className?: string }) {

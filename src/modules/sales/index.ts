@@ -1,14 +1,14 @@
 import type { ModuleDefinition } from "@/modules/_core/types";
 import salesConfig from "./config";
-import SaleList from "./components/SaleList";
+import SalesView from "./components/SalesView";
 
 export const salesModule: ModuleDefinition = {
   config: salesConfig,
-  View: SaleList,
+  View: SalesView,
 };
 
 export { salesConfig };
-export { default as SaleList } from "./components/SaleList";
+export { default as SalesView } from "./components/SalesView";
 export { useSales } from "./hooks/useSales";
 export type { Sale } from "./types";
 

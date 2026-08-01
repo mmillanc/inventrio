@@ -8,4 +8,12 @@ export interface Sale extends BaseRecord {
   unit_price: number;
   payment_method: string;
   notes: string;
+  sale_mode: string;
+  status: string;
+  subtotal: number;
+  discount: number;
+  tax_amount: number;
+  total: number;
+  stock_location_id: string | null;
+  reference: string;
 }

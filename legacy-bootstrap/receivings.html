@@ -1,0 +1,444 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<base href="https://liquiofertas.cl/demo/public/" />
+	<title>BITPOS | Potenciado por BITPOS 3.3.8</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="dist/bootswatch/cyborg/bootstrap.min.css"/>
+
+			<!--[if lte IE 8]>
+		<link rel="stylesheet" media="print" href="dist/print.css" type="text/css" />
+		<![endif]-->
+		<!-- start mincss template tags -->
+		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=88e63d8098"/>
+		<!-- end mincss template tags -->
+
+		<!-- Tweaks to the UI for a particular theme should drop here  -->
+	
+		<!-- start minjs template tags -->
+		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=09f395beea"></script>
+		<!-- end minjs template tags -->
+	
+	<script type="text/javascript">
+	// live clock
+	var clock_tick = function clock_tick() {
+		setInterval('update_clock();', 1000);
+	}
+
+	// start the clock immediatly
+	clock_tick();
+
+	var update_clock = function update_clock() {
+		document.getElementById('liveclock').innerHTML = moment().format("DD/MM/YYYY HH:mm:ss");
+	}
+
+	$.notifyDefaults({ placement: {
+		align: "center",
+		from: "bottom"
+	}});
+
+	var cookie_name = "csrf_cookie_ospos_v3";
+
+	var csrf_token = function() {
+		return Cookies.get(cookie_name);
+	};
+
+	var csrf_form_base = function() {
+		return { csrf_ospos_v3 : function () { return csrf_token();  } };
+	};
+
+	var setup_csrf_token = function() {
+		$('input[name="csrf_ospos_v3"]').val(csrf_token());
+	};
+
+	var ajax = $.ajax;
+
+	$.ajax = function() {
+		var args = arguments[0];
+		if (args['type'] && args['type'].toLowerCase() == 'post' && csrf_token()) {
+			if (typeof args['data'] === 'string')
+			{
+				args['data'] += '&' + $.param(csrf_form_base());
+			}
+			else
+			{
+				args['data'] = $.extend(args['data'], csrf_form_base());
+			}
+		}
+
+		return ajax.apply(this, arguments);
+	};
+
+	$(document).ajaxComplete(setup_csrf_token);
+
+	var submit = $.fn.submit;
+
+	$.fn.submit = function() {
+		setup_csrf_token();
+		submit.apply(this, arguments);
+	};
+</script>
+	<script type="text/javascript">
+(function(lang, $) {
+
+    var lines = {
+        'common_submit' : "Enviar",
+        'common_close' : "Cerrar"
+    };
+
+    $.extend(lang, {
+        line: function(key) {
+            return lines[key];
+        }
+    });
+
+
+})(window.lang = window.lang || {}, jQuery);
+</script>
+	<style type="text/css">
+		html {
+			overflow: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="topbar">
+			<div class="container">
+				<div class="navbar-left">
+					<div id="liveclock">26/12/2023 21:23:47</div>
+				</div>
+
+				<div class="navbar-right" style="margin:0">
+					<a href="https://liquiofertas.cl/demo/public/home/change_password/1" class="modal-dlg" data-btn-submit="Enviar" title="Cambiar Contraseña">Francisco  Quinteros</a>					  |  					<a href="#" onclick="$.post('https://liquiofertas.cl/demo/public/home/logout');">Cerrar sesión</a>
+				</div>
+
+				<div class="navbar-center" style="text-align:center">
+					<strong>BITPOS</strong>
+				</div>
+			</div>
+		</div>
+
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+
+					<a class="navbar-brand hidden-sm" href="https://liquiofertas.cl/demo/public/">BITPOS</a>
+				</div>
+
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/customers" title="Clientes" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/customers.png" border="0" alt="Module Icon"/><br/>
+									Clientes								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/items" title="Productos" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/items.png" border="0" alt="Module Icon"/><br/>
+									Productos								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/item_kits" title="Packs" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/item_kits.png" border="0" alt="Module Icon"/><br/>
+									Packs								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/suppliers" title="Proveedores" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/suppliers.png" border="0" alt="Module Icon"/><br/>
+									Proveedores								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/reports" title="Reportes" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/reports.png" border="0" alt="Module Icon"/><br/>
+									Reportes								</a>
+							</li>
+													<li class="active">
+								<a href="https://liquiofertas.cl/demo/public/receivings" title="Recepción" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/receivings.png" border="0" alt="Module Icon"/><br/>
+									Recepción								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/sales" title="Ventas" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/sales.png" border="0" alt="Module Icon"/><br/>
+									Ventas								</a>
+							</li>
+													<li class="">
+								<a href="https://liquiofertas.cl/demo/public/office" title="Configuraciones" class="menu-icon">
+									<img src="https://liquiofertas.cl/demo/public/images/menubar/office.png" border="0" alt="Module Icon"/><br/>
+									Configuraciones								</a>
+							</li>
+											</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+
+
+<div id="register_wrapper">
+
+<!-- Top register controls -->
+
+	<form action="https://liquiofertas.cl/demo/public/receivings/change_mode" id="mode_form" class="form-horizontal panel panel-default" method="post" accept-charset="utf-8">
+<input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />                                                            
+		<div class="panel-body form-group">
+			<ul>
+				<li class="pull-left first_li">
+					<label class="control-label">Modo de Entradas</label>
+				</li>
+				<li class="pull-left">
+					<select name="mode" onchange="$('#mode_form').submit();" class="selectpicker show-menu-arrow" data-style="btn-default btn-sm" data-width="fit">
+<option value="receive" selected="selected">Recibir</option>
+<option value="return">Devolver</option>
+<option value="requisition">Requisición</option>
+</select>
+				</li>
+
+									<li class="pull-left">
+						<label class="control-label">Inventario de Origen</label>
+					</li>
+					<li class="pull-left">
+						<select name="stock_source" onchange="$('#mode_form').submit();" class="selectpicker show-menu-arrow" data-style="btn-default btn-sm" data-width="fit">
+<option value="1" selected="selected">Bodega General</option>
+<option value="2">Olivar</option>
+</select>
+					</li>
+					
+								</ul>
+		</div>
+	</form>
+	<form action="https://liquiofertas.cl/demo/public/receivings/add" id="add_item_form" class="form-horizontal panel panel-default" method="post" accept-charset="utf-8">
+         <input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />
+		<div class="panel-body form-group">
+			<ul>
+				<li class="pull-left first_li">
+					<label for="item", class='control-label'>
+													Encontrar/Escanear Artículo									
+					</label>
+				</li>
+				<li class="pull-left">
+					<input type="text" name="item" value="" id="item" class="form-control input-sm" size="50" tabindex="1"  />
+				</li>
+				<li class="pull-right">
+					<button id='new_item_button' class='btn btn-info btn-sm pull-right modal-dlg'
+						data-btn-submit='Enviar'
+						data-btn-new='Nuevo'
+						data-href='https://liquiofertas.cl/demo/public/items/view'
+						title='Artículo Nuevo'>
+						<span class="glyphicon glyphicon-tag">&nbsp</span>Artículo Nuevo					</button>
+				</li>
+			</ul>
+		</div>
+	</form>	
+<!-- Receiving Items List -->
+
+	<table class="sales_table_100" id="register">
+		<thead>
+			<tr>
+				<th style="width:5%;">Borrar</th>
+				<th style="width:15%;">UPC/EAN/ISBN</th>
+				<th style="width:23%;">Nombre del Artículo</th>
+				<th style="width:10%;">Costo</th>
+				<th style="width:8%;">Cant.</th>
+				<th style="width:10%;">Paquete de Envío</th>
+				<th style="width:14%;">Descuento</th>
+				<th style="width:10%;">Total</th>
+				<th style="width:5%;">Editar</th>
+			</tr>
+		</thead>
+
+		<tbody id="cart_contents">
+							<tr>
+					<td colspan='9'>
+						<div class='alert alert-dismissible alert-info'>No hay artículos en el carrito.</div>
+					</td>
+				</tr>
+					</tbody>
+	</table>
+</div>
+
+<!-- Overall Receiving -->
+
+<div id="overall_sale" class="panel panel-default">
+	<div class="panel-body">
+					<form action="https://liquiofertas.cl/demo/public/receivings/select_supplier" id="select_supplier_form" class="form-horizontal" method="post" accept-charset="utf-8">
+<input type="hidden" name="csrf_ospos_v3" value="733f7960e4bb12e991f27db5e782472e" />                           
+				<div class="form-group" id="select_customer">
+					<label id="supplier_label" for="supplier" class="control-label" style="margin-bottom: 1em; margin-top: -1em;">Seleccionar Proveedor (Opcional)</label>
+					<input type="text" name="supplier" value="Empieza a escribir el nombre del proveedor..." id="supplier" class="form-control input-sm"  />
+
+					<button id='new_supplier_button' class='btn btn-info btn-sm modal-dlg' data-btn-submit='Enviar' data-href='https://liquiofertas.cl/demo/public/suppliers/view'
+							title='Nuevo Proveedor'>
+						<span class="glyphicon glyphicon-user">&nbsp</span>Nuevo Proveedor					</button>
+
+				</div>
+			</form>		
+		<table class="sales_table_100" id="sale_totals">
+			<tr>
+									<th style="width: 55%;">Total</th>
+					<th style="width: 45%; text-align: right;">$0</th>
+							</tr>
+		</table>
+
+			</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	const redirect = function() {
+		window.location.href = "https://liquiofertas.cl/demo/public/receivings";
+	};
+
+	$("#remove_supplier_button").click(function()
+	{
+		$.post("https://liquiofertas.cl/demo/public/receivings/remove_supplier", redirect);
+	});
+
+	$(".delete_item_button").click(function() {
+		const item_id = $(this).data('item-id');
+		$.post("https://liquiofertas.cl/demo/public/receivings/delete_item/" + item_id, redirect);
+	});
+
+	$("#item").autocomplete(
+	{
+		source: 'https://liquiofertas.cl/demo/public/receivings/stock_item_search',
+		minChars:0,
+		delay:10,
+		autoFocus: false,
+		select:	function (a, ui) {
+			$(this).val(ui.item.value);
+			$("#add_item_form").submit();
+			return false;
+		}
+	});
+
+	$('#item').focus();
+
+	$('#item').keypress(function (e) {
+		if (e.which == 13) {
+			$('#add_item_form').submit();
+			return false;
+		}
+	});
+
+	$('#item').blur(function()
+	{
+		$(this).attr('value',"Empieza a escribir o escanea el código de barras...");
+	});
+
+	$('#comment').keyup(function() 
+	{
+		$.post('https://liquiofertas.cl/demo/public/receivings/set_comment', {comment: $('#comment').val()});
+	});
+
+	$('#recv_reference').keyup(function() 
+	{
+		$.post('https://liquiofertas.cl/demo/public/receivings/set_reference', {recv_reference: $('#recv_reference').val()});
+	});
+
+	$("#recv_print_after_sale").change(function()
+	{
+		$.post('https://liquiofertas.cl/demo/public/receivings/set_print_after_sale', {recv_print_after_sale: $(this).is(":checked")});
+	});
+
+	$('#item,#supplier').click(function()
+	{
+		$(this).attr('value','');
+	});
+
+	$("#supplier").autocomplete(
+	{
+		source: 'https://liquiofertas.cl/demo/public/suppliers/suggest',
+		minChars:0,
+		delay:10,
+		select: function (a, ui) {
+			$(this).val(ui.item.value);
+			$("#select_supplier_form").submit();
+		}
+	});
+
+	dialog_support.init("a.modal-dlg, button.modal-dlg");
+
+	$('#supplier').blur(function()
+	{
+		$(this).attr('value',"Empieza a escribir el nombre del proveedor...");
+	});
+
+	$("#finish_receiving_button").click(function()
+	{
+		$('#finish_receiving_form').submit();
+	});
+
+	$("#cancel_receiving_button").click(function()
+	{
+		if (confirm('¿Estás seguro(a) de querer limpiar esta entrada? Todos los artículos serán limpiados.'))
+		{
+			$('#finish_receiving_form').attr('action', 'https://liquiofertas.cl/demo/public/receivings/cancel_receiving');
+			$('#finish_receiving_form').submit();
+		}
+	});
+
+	$("#cart_contents input").keypress(function(event)
+	{
+		if (event.which == 13)
+		{
+			$(this).parents("tr").prevAll("form:first").submit();
+		}
+	});
+
+	table_support.handle_submit = function(resource, response, stay_open)
+	{
+		if(response.success)
+		{
+			if (resource.match(/suppliers$/))
+			{
+				$("#supplier").val(response.id);
+				$("#select_supplier_form").submit();
+			}
+			else
+			{
+				$("#item").val(response.id);
+				if (stay_open)
+				{
+					$("#add_item_form").ajaxSubmit();
+				}
+				else
+				{
+					$("#add_item_form").submit();
+				}
+			}
+		}
+	}
+
+	$('[name="price"],[name="quantity"],[name="receiving_quantity"],[name="discount"],[name="description"],[name="serialnumber"]').change(function() {
+		$(this).parents("tr").prevAll("form:first").submit()
+	});
+
+	$('[name="discount_toggle"]').change(function() {
+		var input = $("<input>").attr("type", "hidden").attr("name", "discount_type").val(($(this).prop('checked'))?1:0);
+		$('#cart_'+ $(this).attr('data-line')).append($(input));
+		$('#cart_'+ $(this).attr('data-line')).submit();
+	});
+
+});
+
+</script>
+
+		</div>
+	</div>
+
+
+</body>
+</html>

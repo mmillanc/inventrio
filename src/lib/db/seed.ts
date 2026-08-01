@@ -326,5 +326,29 @@ export function seedDatabase(): Database {
     ],
     customers: [],
     sales: [],
+    stock_locations: [
+      {
+        id: "loc-1",
+        name: "Bodega General",
+        code: "BG-01",
+        address: "Av. Central 123",
+        is_active: true,
+        created_at: iso(-120),
+      },
+      {
+        id: "loc-2",
+        name: "Olivar",
+        code: "OL-01",
+        address: "Av. Olivar 456",
+        is_active: true,
+        created_at: iso(-120),
+      },
+    ],
+    receivings: [],
+    receiving_items: [],
+    item_kits: [],
+    item_kit_items: [],
+    giftcards: [],
+    expenses: [],
   };
 }
