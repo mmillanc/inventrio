@@ -69,6 +69,14 @@ export default function LoginPage() {
           Crear cuenta
         </Link>
       </p>
+
+      <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
+        <p className="mb-2 text-xs font-semibold text-slate-600 dark:text-slate-400">Cuentas demo:</p>
+        <div className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
+          <p><span className="font-medium text-slate-700 dark:text-slate-300">InventaLab:</span> admin / inventrio</p>
+          <p><span className="font-medium text-slate-700 dark:text-slate-300">InventaShop:</span> admin / inventashop</p>
+        </div>
+      </div>
     </div>
   );
 }

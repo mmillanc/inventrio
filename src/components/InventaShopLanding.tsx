@@ -69,7 +69,7 @@ export function InventaShopLanding() {
                 <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
               </Link>
               <Link href="/login" className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:shadow-sm">
-                Iniciar sesi&oacute;n
+                Iniciar sesión
               </Link>
             </div>
           </div>
@@ -169,6 +169,9 @@ export function InventaShopLanding() {
               Crear cuenta gratis
               <ArrowRight className="size-4" />
             </Link>
+            <p className="mt-4 text-sm text-slate-400">
+              ¿Quieres probar? Usa la cuenta demo: <span className="font-mono font-semibold text-slate-200">admin / inventashop</span>
+            </p>
           </div>
         </div>
       </section>

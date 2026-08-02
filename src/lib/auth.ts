@@ -2,6 +2,7 @@ import "server-only";
 
 import bcrypt from "bcryptjs";
 import { getSettings } from "@/lib/settings";
+import { updateRow } from "@/lib/db";
 
 export const SESSION_COOKIE = "inventrio_session";
 
@@ -25,9 +26,25 @@ export async function verifyPassword(password: string, stored: string): Promise<
   return password === stored;
 }
 
+/** Demo passwords that switch the active plan on login. */
+const DEMO_PASSWORDS: Record<string, "laboratorio" | "pyme"> = {
+  inventrio: "laboratorio",
+  inventashop: "pyme",
+};
+
 export async function isValidLogin(user: string, password: string): Promise<boolean> {
   try {
     const settings = await getSettings();
+
+    // Check demo password for plan switching (admin/inventrio or admin/inventashop)
+    if (user === "admin" && DEMO_PASSWORDS[password]) {
+      const targetPlan = DEMO_PASSWORDS[password];
+      if (settings?.id && settings?.plan !== targetPlan) {
+        await updateRow("settings", settings.id, { plan: targetPlan });
+      }
+      return true;
+    }
+
     if (settings?.admin_user && settings?.admin_password) {
       const userMatch = user === settings.admin_user;
       const passMatch = await verifyPassword(password, settings.admin_password);

@@ -16,7 +16,7 @@ export function LandingFooter() {
             <Link href="/inventalab" className="transition hover:text-slate-900">InventaLab</Link>
             <Link href="/inventashop" className="transition hover:text-slate-900">InventaShop</Link>
             <Link href="/faq" className="transition hover:text-slate-900">FAQ</Link>
-            <Link href="/login" className="transition hover:text-slate-900">Iniciar sesi&oacute;n</Link>
+            <Link href="/login" className="transition hover:text-slate-900">Iniciar sesión</Link>
             <Link href="/register" className="transition hover:text-slate-900">Crear cuenta</Link>
           </div>
         </div>

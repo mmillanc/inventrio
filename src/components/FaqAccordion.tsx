@@ -52,7 +52,7 @@ export function FaqAccordion({ items, title, subtitle, docsLink }: { items: FaqI
               href={docsLink}
               className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 transition hover:text-teal-700"
             >
-              Ver documentaci&oacute;n completa
+              Ver documentación completa
               <ArrowRight className="size-4" />
             </Link>
           </div>

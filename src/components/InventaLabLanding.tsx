@@ -69,7 +69,7 @@ export function InventaLabLanding() {
                 <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
               </Link>
               <Link href="/login" className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:shadow-sm">
-                Iniciar sesi&oacute;n
+                Iniciar sesión
               </Link>
             </div>
           </div>
@@ -124,7 +124,7 @@ export function InventaLabLanding() {
               M\u00f3dulos de InventaLab
             </h2>
             <p className="mt-3 text-slate-600">
-              8 m\u00f3dulos especializados para la gesti\u00f3n integral del laboratorio.
+              8 módulos especializados para la gestión integral del laboratorio.
             </p>
           </div>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -166,6 +166,9 @@ export function InventaLabLanding() {
               Crear cuenta gratis
               <ArrowRight className="size-4" />
             </Link>
+            <p className="mt-4 text-sm text-teal-100">
+              ¿Quieres probar? Usa la cuenta demo: <span className="font-mono font-semibold">admin / inventrio</span>
+            </p>
           </div>
         </div>
       </section>
