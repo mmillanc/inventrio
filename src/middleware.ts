@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 const SESSION_COOKIE = "inventrio_session";
-const PUBLIC_PATHS = ["/", "/login", "/register"];
+const PUBLIC_PATHS = ["/", "/login", "/register", "/faq", "/inventalab", "/inventashop"];
 
 export function middleware(request: NextRequest) {
   const authenticated = Boolean(request.cookies.get(SESSION_COOKIE)?.value);
