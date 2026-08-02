@@ -60,8 +60,8 @@ export function InventaLabLanding() {
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600">
-              Control completo de reactivos, lotes, vencimientos, operadores y est\u00e1ndares de calidad.
-              Dise\u00f1ado para laboratorios que necesitan cumplimiento normativo y trazabilidad total.
+              Control completo de reactivos, lotes, vencimientos, operadores y estándares de calidad.
+              Diseñado para laboratorios que necesitan cumplimiento normativo y trazabilidad total.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/register" className="group inline-flex items-center justify-center gap-2 rounded-lg bg-teal-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 hover:shadow-lg">
@@ -100,7 +100,7 @@ export function InventaLabLanding() {
             Todo para tu laboratorio
           </h2>
           <p className="mt-3 text-slate-600">
-            Funciones dise\u00f1adas espec\u00edficamente para la gesti\u00f3n de reactivos y calidad en laboratorios.
+            Funciones diseñadas específicamente para la gestión de reactivos y calidad en laboratorios.
           </p>
         </div>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

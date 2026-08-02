@@ -60,7 +60,7 @@ export function InventaShopLanding() {
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600">
-              Punto de venta, recepci\u00f3n de mercanc\u00eda, bodegas m\u00faltiples, kits, tarjetas de regalo,
+              Punto de venta, recepción de mercancía, bodegas múltiples, kits, tarjetas de regalo,
               gastos y contabilidad. Todo lo que tu comercio necesita para operar.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
@@ -81,7 +81,7 @@ export function InventaShopLanding() {
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px px-4 sm:grid-cols-4">
           {[
             { label: "Productos ilimitados", value: "\u221E" },
-            { label: "M\u00f3dulos", value: "11" },
+            { label: "Módulos", value: "11" },
             { label: "Modos de venta", value: "5" },
             { label: "Setup", value: "< 5 min" },
           ].map((stat) => (
@@ -100,7 +100,7 @@ export function InventaShopLanding() {
             Todo para tu comercio
           </h2>
           <p className="mt-3 text-slate-600">
-            Funciones dise\u00f1adas espec\u00edficamente para la gesti\u00f3n de ventas, stock y contabilidad de pymes.
+            Funciones diseñadas específicamente para la gestión de ventas, stock y contabilidad de pymes.
           </p>
         </div>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -121,25 +121,25 @@ export function InventaShopLanding() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-              M\u00f3dulos de InventaShop
+              Módulos de InventaShop
             </h2>
             <p className="mt-3 text-slate-600">
-              11 m\u00f3dulos para la gesti\u00f3n integral de tu comercio.
+              11 módulos para la gestión integral de tu comercio.
             </p>
           </div>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: Package, name: "Inventario", desc: "Productos y categor\u00edas" },
+              { icon: Package, name: "Inventario", desc: "Productos y categorías" },
               { icon: ShoppingCart, name: "Ventas (POS)", desc: "Punto de venta con carrito" },
-              { icon: Truck, name: "Recepci\u00f3n", desc: "Entrada de mercanc\u00eda" },
+              { icon: Truck, name: "Recepción", desc: "Entrada de mercancía" },
               { icon: MapPin, name: "Bodegas", desc: "Ubicaciones de stock" },
               { icon: Users, name: "Clientes", desc: "Registro de clientes" },
               { icon: Package, name: "Kits/Packs", desc: "Productos compuestos" },
               { icon: Gift, name: "Tarjetas", desc: "Tarjetas de regalo" },
               { icon: Receipt, name: "Gastos", desc: "Contabilidad de egresos" },
-              { icon: BarChart3, name: "Reportes", desc: "Gr\u00e1ficos y exportaci\u00f3n" },
+              { icon: BarChart3, name: "Reportes", desc: "Gráficos y exportación" },
               { icon: Truck, name: "Proveedores", desc: "Contactos y datos fiscales" },
-              { icon: Lock, name: "Configuraci\u00f3n", desc: "Tienda y credenciales" },
+              { icon: Lock, name: "Configuración", desc: "Tienda y credenciales" },
             ].map((mod) => (
               <div key={mod.name} className="rounded-xl border border-slate-200 bg-white p-5 text-center">
                 <div className="mx-auto mb-3 flex size-12 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
